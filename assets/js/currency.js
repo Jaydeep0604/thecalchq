@@ -79,6 +79,10 @@ class CurrencyManager {
     });
   }
 
+  updateDOM() {
+    this.updateDomSymbols();
+  }
+
   mountDropdown() {
     const containers = document.querySelectorAll('.currency-selector-mount');
     if (!containers.length) return;

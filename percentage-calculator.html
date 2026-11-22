@@ -89,7 +89,7 @@
         <!-- Original Price -->
         <div>
           <label class="text-xs font-bold text-slate-600 dark:text-slate-300 block mb-1">Original Price (<span class="currency-symbol">$</span>)</label>
-          <input type="number" id="discOriginal" value="80.00" min="0.01" step="0.5" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          <input type="number" id="discOriginal" value="80.00" min="0" step="any" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
         </div>
 
         <!-- Standard Mode Inputs -->
@@ -102,7 +102,7 @@
             </div>
           </div>
           <div class="relative rounded-xl shadow-sm">
-            <input type="number" id="discValue" value="25" min="0" step="1" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <input type="number" id="discValue" value="25" min="0" step="any" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
             <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-black text-slate-400" id="discUnitLabel">%</span>
           </div>
         </div>
@@ -110,7 +110,7 @@
         <!-- Reverse Mode Inputs (Hidden by default) -->
         <div id="reverseDiscountBox" class="hidden space-y-3">
           <label class="text-xs font-bold text-slate-600 dark:text-slate-300 block mb-1">Final Sale Price Paid (<span class="currency-symbol">$</span>)</label>
-          <input type="number" id="discFinalPaid" value="60.00" min="0" step="0.5" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          <input type="number" id="discFinalPaid" value="60.00" min="0" step="any" class="w-full px-3 py-2 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-cyan-500">
         </div>
 
         <!-- Results Line -->
@@ -417,23 +417,23 @@
         const itemFinal = Math.max(0, p - itemSavings);
 
         const row = document.createElement('div');
-        row.className = 'cart-item-row flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/60 text-xs';
+        row.className = 'cart-item-row flex flex-wrap items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/60 text-xs';
         row.innerHTML = `
-          <div class="flex-1 min-w-[140px]">
+          <div class="flex-1 min-w-[130px]">
             <input type="text" class="w-full font-bold bg-transparent border-0 focus:ring-0 p-1 text-slate-800 dark:text-white placeholder:text-slate-400" value="${item.name || ''}" placeholder="Enter Product Name" data-idx="${index}" data-field="name">
           </div>
           <div class="flex items-center gap-1.5">
-            <span class="text-slate-400">Orig:</span>
-            <input type="number" step="any" min="0" class="w-20 sm:w-28 px-2 py-1 text-right font-black rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" value="${item.price !== undefined && item.price !== null && item.price !== 0 ? item.price : ''}" placeholder="0" data-idx="${index}" data-field="price">
+            <span class="text-slate-400 font-semibold">Orig:</span>
+            <input type="number" step="any" min="0" class="w-24 sm:w-28 px-2.5 py-1.5 text-right font-black rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500" value="${item.price !== undefined && item.price !== null && item.price !== 0 ? item.price : ''}" placeholder="0" data-idx="${index}" data-field="price">
           </div>
           <div class="flex items-center gap-1">
-            <input type="number" step="any" min="0" max="100" class="w-16 sm:w-20 px-2 py-1 text-center font-bold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" value="${item.discPct !== undefined && item.discPct !== null && item.discPct !== 0 ? item.discPct : ''}" placeholder="0" data-idx="${index}" data-field="discPct">
+            <input type="number" step="any" min="0" max="100" class="w-18 sm:w-20 px-2 py-1.5 text-center font-bold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500" value="${item.discPct !== undefined && item.discPct !== null && item.discPct !== 0 ? item.discPct : ''}" placeholder="0" data-idx="${index}" data-field="discPct">
             <span class="text-slate-400 font-bold">% off</span>
           </div>
           <div class="text-right min-w-[70px]">
-            <span class="font-black text-cyan-600 dark:text-cyan-400 block item-final-val">${CalcCurrency.format(itemFinal)}</span>
+            <span class="font-black text-cyan-600 dark:text-cyan-400 text-sm block item-final-val">${CalcCurrency.format(itemFinal)}</span>
           </div>
-          <button type="button" class="del-cart-item text-slate-400 hover:text-rose-500 transition px-1.5 py-1" data-idx="${index}" title="Remove item">✕</button>
+          <button type="button" class="del-cart-item text-slate-400 hover:text-rose-500 transition px-2 py-1 text-sm font-bold cursor-pointer" data-idx="${index}" title="Remove item">✕</button>
         `;
         shoppingCartList.appendChild(row);
       });

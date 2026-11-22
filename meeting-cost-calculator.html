@@ -283,7 +283,7 @@
     let wageMode = 'hourly'; // 'hourly' or 'annual'
     let isIndividualMode = false;
     let members = [
-      { name: '', rate: 50 }
+      { name: '', rate: '' }
     ];
 
     const wageModeToggle = document.getElementById('wageModeToggle');
@@ -329,6 +329,107 @@
     const pauseTickerBtn = document.getElementById('pauseTickerBtn');
     const resetTickerBtn = document.getElementById('resetTickerBtn');
 
+    function getHourlyWage() {
+      const val = parseFloat(wageInput.value) || 0;
+      return wageMode === 'hourly' ? val : (val / 2080);
+    }
+
+    function getMemberRate(m) {
+      if (m && m.rate !== '' && m.rate !== undefined && m.rate !== null) {
+        const val = parseFloat(m.rate);
+        if (!isNaN(val) && val >= 0) {
+          return wageMode === 'hourly' ? val : (val / 2080);
+        }
+      }
+      return Math.max(0, getHourlyWage());
+    }
+
+    function syncMembersFromDOM() {
+      const rows = membersList.querySelectorAll('.member-row');
+      rows.forEach((row, idx) => {
+        const nameInp = row.querySelector('.member-name');
+        const rateInp = row.querySelector('.member-rate');
+        if (members[idx]) {
+          if (nameInp) members[idx].name = nameInp.value;
+          if (rateInp) {
+            const val = rateInp.value.trim();
+            members[idx].rate = val === '' ? '' : (parseFloat(val) || 0);
+          }
+        }
+      });
+    }
+
+    function renderMembersList(shouldFocusLast = false) {
+      membersList.innerHTML = '';
+      const baseWage = getHourlyWage();
+      const currSym = (window.CalcCurrency && CalcCurrency.getSymbol) ? CalcCurrency.getSymbol() : '$';
+      const unitSuffix = wageMode === 'hourly' ? '/hr' : '/yr';
+      const placeholderVal = wageMode === 'hourly'
+        ? (Math.round(baseWage) || 45)
+        : (Math.round(baseWage * 2080) || 93600);
+
+      members.forEach((m, idx) => {
+        const row = document.createElement('div');
+        row.className = 'member-row flex items-center gap-2 p-2 sm:p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
+        const displayVal = (m.rate !== '' && m.rate !== undefined && m.rate !== null) ? m.rate : '';
+
+        row.innerHTML = `
+          <div class="flex-1 min-w-[100px]">
+            <input type="text" value="${m.name || ''}" data-idx="${idx}" class="member-name w-full px-2.5 py-1.5 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500 placeholder:text-slate-400" placeholder="Enter Name">
+          </div>
+          <div class="flex items-center w-36 sm:w-44 flex-shrink-0 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus-within:ring-1 focus-within:ring-cyan-500 shadow-sm">
+            <span class="text-slate-400 text-xs font-bold currency-symbol mr-1">${currSym}</span>
+            <input type="number" step="any" min="0" value="${displayVal}" placeholder="${placeholderVal}" data-idx="${idx}" class="member-rate w-full text-right text-xs font-black bg-transparent border-0 p-0 text-slate-900 dark:text-white focus:outline-none focus:ring-0 placeholder:text-slate-400">
+            <span class="text-slate-400 text-[11px] font-semibold ml-1.5 flex-shrink-0">${unitSuffix}</span>
+          </div>
+          <button type="button" data-idx="${idx}" class="remove-member-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-800 text-xs font-bold transition flex items-center justify-center flex-shrink-0" title="Remove or clear participant">
+            ✕
+          </button>
+        `;
+
+        // Direct event listener on delete button for this row
+        const delBtn = row.querySelector('.remove-member-btn');
+        delBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          syncMembersFromDOM();
+          if (members.length > 1) {
+            members.splice(idx, 1);
+          } else {
+            members[0] = { name: '', rate: '' };
+          }
+          renderMembersList();
+          calculateMeeting();
+        });
+
+        // Direct input listeners without wiping DOM
+        const nameInp = row.querySelector('.member-name');
+        const rateInp = row.querySelector('.member-rate');
+
+        nameInp.addEventListener('input', (e) => {
+          members[idx].name = e.target.value;
+          calculateMeeting();
+        });
+
+        rateInp.addEventListener('input', (e) => {
+          const val = e.target.value.trim();
+          members[idx].rate = val === '' ? '' : (parseFloat(val) || 0);
+          calculateMeeting();
+        });
+
+        membersList.appendChild(row);
+      });
+
+      if (window.CalcCurrency && CalcCurrency.updateDomSymbols) CalcCurrency.updateDomSymbols();
+
+      if (shouldFocusLast) {
+        const allNameInputs = membersList.querySelectorAll('.member-name');
+        if (allNameInputs.length > 0) {
+          allNameInputs[allNameInputs.length - 1].focus();
+        }
+      }
+    }
+
     // Attendee mode switching
     attendeeModeAverage.addEventListener('click', () => {
       isIndividualMode = false;
@@ -338,7 +439,6 @@
       attendeeModeIndividual.classList.add('text-slate-500', 'dark:text-slate-400');
       averageAttendeeSection.classList.remove('hidden');
       individualAttendeeSection.classList.add('hidden');
-      if (wageModeToggle) wageModeToggle.classList.remove('hidden');
       calculateMeeting();
     });
 
@@ -350,62 +450,15 @@
       attendeeModeAverage.classList.add('text-slate-500', 'dark:text-slate-400');
       individualAttendeeSection.classList.remove('hidden');
       averageAttendeeSection.classList.add('hidden');
-      if (wageModeToggle) wageModeToggle.classList.add('hidden');
       renderMembersList();
       calculateMeeting();
     });
 
-    function renderMembersList() {
-      membersList.innerHTML = '';
-      members.forEach((m, idx) => {
-        const row = document.createElement('div');
-        row.className = 'flex items-center gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
-        row.innerHTML = `
-          <input type="text" value="${m.name}" data-idx="${idx}" class="member-name flex-1 px-2.5 py-1 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none" placeholder="Enter Name">
-          <div class="relative w-28 rounded-lg shadow-sm">
-            <span class="absolute inset-y-0 left-0 pl-2 flex items-center text-slate-400 text-xs font-bold currency-symbol">$</span>
-            <input type="number" value="${m.rate}" data-idx="${idx}" min="1" step="5" class="member-rate w-full pl-6 pr-8 py-1 text-right text-xs font-black rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
-            <span class="absolute inset-y-0 right-0 pr-1.5 flex items-center text-slate-400 text-[10px] font-medium">/hr</span>
-          </div>
-          ${members.length > 1 ? `<button type="button" data-idx="${idx}" class="remove-member-btn w-6 h-6 rounded-md border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-cyan-500 text-xs font-bold transition flex items-center justify-center">✕</button>` : ''}
-        `;
-        membersList.appendChild(row);
-      });
-
-      if (window.CalcCurrency) CalcCurrency.updateDOM();
-
-      document.querySelectorAll('.member-name').forEach(inp => {
-        inp.addEventListener('input', (e) => {
-          members[e.target.dataset.idx].name = e.target.value;
-          calculateMeeting();
-        });
-      });
-
-      document.querySelectorAll('.member-rate').forEach(inp => {
-        inp.addEventListener('input', (e) => {
-          members[e.target.dataset.idx].rate = parseFloat(e.target.value) || 0;
-          calculateMeeting();
-        });
-      });
-
-      document.querySelectorAll('.remove-member-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const idx = parseInt(e.currentTarget.dataset.idx);
-          members.splice(idx, 1);
-          renderMembersList();
-          calculateMeeting();
-        });
-      });
-    }
-
     addMemberBtn.addEventListener('click', () => {
-      members.push({ name: '', rate: 50 });
-      renderMembersList();
+      syncMembersFromDOM();
+      members.push({ name: '', rate: '' });
+      renderMembersList(true);
       calculateMeeting();
-      const nameInputs = membersList.querySelectorAll('.member-name');
-      if (nameInputs.length > 0) {
-        nameInputs[nameInputs.length - 1].focus();
-      }
     });
 
     function getTotalDuration() {
@@ -435,18 +488,13 @@
       setDuration(parseInt(durationSlider.value) || 45);
     });
 
-    function getHourlyWage() {
-      const val = parseFloat(wageInput.value) || 0;
-      return wageMode === 'hourly' ? val : (val / 2080);
-    }
-
     function calculateMeeting() {
       let attendees = 0;
       let totalRoomHourlyRate = 0;
 
       if (isIndividualMode) {
         attendees = Math.max(1, members.length);
-        totalRoomHourlyRate = members.reduce((sum, m) => sum + (parseFloat(m.rate) || 0), 0);
+        totalRoomHourlyRate = members.reduce((sum, m) => sum + getMemberRate(m), 0);
       } else {
         attendees = Math.max(1, parseInt(attendeeCountInput.value) || 1);
         const hourlyWage = Math.max(0, getHourlyWage());
@@ -491,15 +539,19 @@
         participantBreakdownList.innerHTML = '';
         if (isIndividualMode) {
           breakdownBadge.textContent = `${members.length} participants`;
-          members.forEach(m => {
-            const rate = parseFloat(m.rate) || 0;
-            const memberCost = (rate / 60) * durationTotalMins;
+          members.forEach((m, idx) => {
+            const rateHourly = getMemberRate(m);
+            const memberCost = (rateHourly / 60) * durationTotalMins;
+            const memberName = m.name.trim() || `Participant ${idx + 1}`;
+            const rateSub = wageMode === 'annual' && m.rate
+              ? `${CalcCurrency.format(parseFloat(m.rate) || 0)}/yr (≈ ${CalcCurrency.format(rateHourly)}/hr)`
+              : `${CalcCurrency.format(rateHourly)}/hr`;
             const row = document.createElement('div');
             row.className = 'flex justify-between items-center p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
             row.innerHTML = `
               <div>
-                <span class="font-bold text-slate-900 dark:text-white text-xs block">${m.name || 'Member'}</span>
-                <span class="text-[10px] text-slate-400 font-medium">${durationFormatted} @ ${CalcCurrency.format(rate)}/hr</span>
+                <span class="font-bold text-slate-900 dark:text-white text-xs block">${memberName}</span>
+                <span class="text-[10px] text-slate-400 font-medium">${durationFormatted} @ ${rateSub}</span>
               </div>
               <div class="text-right">
                 <span class="font-black text-cyan-600 dark:text-cyan-400 text-sm block">${CalcCurrency.format(memberCost)}</span>
@@ -547,7 +599,7 @@
     // Wage Mode Switching
     function setWageMode(mode) {
       if (mode === wageMode) return;
-      wageMode = mode;
+      syncMembersFromDOM();
 
       if (mode === 'annual') {
         btnAnnual.classList.add('active');
@@ -560,6 +612,12 @@
         wageSlider.max = "300000";
         wageSlider.step = "5000";
         wageSlider.value = annual;
+
+        members.forEach(m => {
+          if (m.rate !== '' && m.rate !== undefined && m.rate !== null) {
+            m.rate = Math.round(parseFloat(m.rate) * 2080);
+          }
+        });
       } else {
         btnHourly.classList.add('active');
         btnAnnual.classList.remove('active');
@@ -571,7 +629,16 @@
         wageSlider.max = "200";
         wageSlider.step = "1";
         wageSlider.value = hourly;
+
+        members.forEach(m => {
+          if (m.rate !== '' && m.rate !== undefined && m.rate !== null) {
+            m.rate = Math.round(parseFloat(m.rate) / 2080);
+          }
+        });
       }
+
+      wageMode = mode;
+      renderMembersList();
       calculateMeeting();
     }
 
@@ -582,7 +649,7 @@
     function getCostPerSecond() {
       let totalRoomHourlyRate = 0;
       if (isIndividualMode) {
-        totalRoomHourlyRate = members.reduce((sum, m) => sum + (parseFloat(m.rate) || 0), 0);
+        totalRoomHourlyRate = members.reduce((sum, m) => sum + getMemberRate(m), 0);
       } else {
         const attendees = Math.max(1, parseInt(attendeeCountInput.value) || 1);
         const hourlyWage = Math.max(0, getHourlyWage());
@@ -609,12 +676,12 @@
         liveTickerMembersList.innerHTML = '';
         if (isIndividualMode) {
           members.forEach((m, idx) => {
-            const memberRate = parseFloat(m.rate) || 0;
+            const memberRate = getMemberRate(m);
             const memberSpent = (memberRate / 3600) * tickerElapsedSeconds;
             const item = document.createElement('div');
-            item.className = 'flex justify-between items-center text-slate-300 py-0.5';
+            item.className = 'flex justify-between items-center text-slate-300 py-1 text-xs';
             item.innerHTML = `
-              <span>${m.name.trim() || `Participant ${idx + 1}`} <span class="text-slate-500 text-[10px]">(${CalcCurrency.format(memberRate)}/hr)</span></span>
+              <span class="font-medium">${m.name.trim() || `Participant ${idx + 1}`} <span class="text-slate-400 text-[10px]">(${CalcCurrency.format(memberRate)}/hr)</span></span>
               <span class="font-bold text-emerald-400 font-mono">${CalcCurrency.format(memberSpent)}</span>
             `;
             liveTickerMembersList.appendChild(item);
@@ -623,9 +690,9 @@
           const attendees = Math.max(1, parseInt(attendeeCountInput.value) || 1);
           const perPersonSpent = attendees > 0 ? (currentSpent / attendees) : 0;
           const item = document.createElement('div');
-          item.className = 'flex justify-between items-center text-slate-300 py-0.5';
+          item.className = 'flex justify-between items-center text-slate-300 py-1 text-xs';
           item.innerHTML = `
-            <span>Per Person (${attendees} attendees)</span>
+            <span class="font-medium">Per Person (${attendees} attendees)</span>
             <span class="font-bold text-emerald-400 font-mono">${CalcCurrency.format(perPersonSpent)} each</span>
           `;
           liveTickerMembersList.appendChild(item);
@@ -673,7 +740,7 @@
       durationMins.value = '45';
       durationSlider.value = '45';
       members = [
-        { name: '', rate: 50 }
+        { name: '', rate: '' }
       ];
       attendeeModeAverage.click();
       if (wageMode === 'hourly') {
@@ -683,16 +750,18 @@
         wageInput.value = '93600';
         wageSlider.value = '93600';
       }
+      renderMembersList();
       calculateMeeting();
     });
 
     copyBtn.addEventListener('click', () => {
       let breakdownText = '';
       if (isIndividualMode) {
-        breakdownText = `\n• Per-Person Breakdown:\n` + members.map(m => {
-          const rate = parseFloat(m.rate) || 0;
-          const memberCost = (rate / 60) * getTotalDuration();
-          return `  - ${m.name || 'Member'}: ${CalcCurrency.format(memberCost)} (${CalcCurrency.format(rate)}/hr)`;
+        breakdownText = `\n• Per-Person Breakdown:\n` + members.map((m, idx) => {
+          const rateHourly = getMemberRate(m);
+          const memberCost = (rateHourly / 60) * getTotalDuration();
+          const name = m.name.trim() || `Participant ${idx + 1}`;
+          return `  - ${name}: ${CalcCurrency.format(memberCost)} (${CalcCurrency.format(rateHourly)}/hr)`;
         }).join('\n');
       } else {
         breakdownText = `\n• Cost Per Person: ${costPerPersonEl.textContent}`;
@@ -711,7 +780,10 @@
       });
     });
 
-    window.addEventListener('currencyChanged', calculateMeeting);
+    window.addEventListener('currencyChanged', () => {
+      renderMembersList();
+      calculateMeeting();
+    });
     calculateMeeting();
   </script>
 </body>

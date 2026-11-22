@@ -88,7 +88,7 @@
               <label for="billAmount" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="tip_bill_amount">Total Check / Bill Amount</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="billAmount" value="85.50" min="1" step="0.5"
+                <input type="number" id="billAmount" value="85.50" min="0" step="any"
                   class="w-36 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
               </div>
             </div>
@@ -116,7 +116,7 @@
               <div class="flex justify-between items-center">
                 <span class="text-xs text-slate-400">Custom tip percentage:</span>
                 <div class="relative rounded-xl shadow-sm">
-                  <input type="number" id="customTip" value="15" min="0" max="100" step="1"
+                  <input type="number" id="customTip" value="15" min="0" max="100" step="any"
                     class="w-20 pl-2 pr-6 py-1 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs focus:outline-none">
                   <span class="absolute inset-y-0 right-0 pr-2 flex items-center text-slate-400 text-xs font-bold">%</span>
                 </div>
@@ -129,7 +129,7 @@
                 <span class="text-xs text-slate-400">Enter exact tip amount:</span>
                 <div class="relative rounded-xl shadow-sm">
                   <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center text-slate-400 text-xs font-bold currency-symbol">$</span>
-                  <input type="number" id="flatTipAmount" value="10" min="0" step="1"
+                  <input type="number" id="flatTipAmount" value="10" min="0" step="any"
                     class="w-28 pl-7 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs focus:outline-none">
                 </div>
               </div>
@@ -394,6 +394,15 @@
       calculateTip();
     });
 
+    function syncNamesFromDOM() {
+      const inputs = namesList.querySelectorAll('.person-name-input');
+      inputs.forEach((inp, idx) => {
+        if (idx < namedPeople.length) {
+          namedPeople[idx] = inp.value;
+        }
+      });
+    }
+
     function renderNamesList() {
       namesList.innerHTML = '';
       namedPeople.forEach((name, idx) => {
@@ -401,7 +410,7 @@
         row.className = 'flex items-center gap-2';
         row.innerHTML = `
           <input type="text" value="${name}" data-idx="${idx}" class="person-name-input flex-1 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Enter Name">
-          ${namedPeople.length > 1 ? `<button type="button" data-idx="${idx}" class="remove-person-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-cyan-500 text-xs font-bold transition flex items-center justify-center">✕</button>` : ''}
+          <button type="button" data-idx="${idx}" class="remove-person-btn w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-rose-500 hover:border-rose-300 dark:hover:border-rose-800 text-xs font-bold transition flex items-center justify-center flex-shrink-0 cursor-pointer" title="Remove or clear">✕</button>
         `;
         namesList.appendChild(row);
       });
@@ -415,8 +424,14 @@
 
       document.querySelectorAll('.remove-person-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          syncNamesFromDOM();
           const idx = parseInt(e.currentTarget.dataset.idx);
-          namedPeople.splice(idx, 1);
+          if (namedPeople.length > 1) {
+            namedPeople.splice(idx, 1);
+          } else {
+            namedPeople[0] = '';
+          }
           renderNamesList();
           calculateTip();
         });
@@ -424,13 +439,13 @@
     }
 
     addPersonBtn.addEventListener('click', () => {
+      syncNamesFromDOM();
       namedPeople.push('');
       renderNamesList();
       calculateTip();
       const inputs = namesList.querySelectorAll('.person-name-input');
       if (inputs.length > 0) {
-        const lastInput = inputs[inputs.length - 1];
-        lastInput.focus();
+        inputs[inputs.length - 1].focus();
       }
     });
 

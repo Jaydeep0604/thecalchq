@@ -27,8 +27,13 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://calchub.example.com/recipe-scaler-calculator.html</loc>
-    <priority>0.8</priority>
+    <loc>https://calchub.example.com/beam-steel-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://calchub.example.com/beam-stirrups-calculator.html</loc>
+    <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
