@@ -189,20 +189,31 @@
           </div>
 
           <div class="text-4xl sm:text-5xl font-black text-cyan-600 dark:text-cyan-400 tracking-tight" id="totalCost">$202.50</div>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">For a <span id="summaryDuration" class="font-bold text-slate-900 dark:text-white">45</span> min meeting with <span id="summaryPeople" class="font-bold text-slate-900 dark:text-white">6</span> people</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 font-medium">For a <span id="summaryDuration" class="font-bold text-slate-900 dark:text-white">45 min</span> meeting with <span id="summaryPeople" class="font-bold text-slate-900 dark:text-white">6</span> people • <span id="summaryCostPerPerson" class="font-black text-cyan-600 dark:text-cyan-400">$33.75</span> / person</p>
 
           <div class="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800 space-y-3.5 text-sm">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-600 dark:text-slate-400 font-semibold" data-i18n="meeting_cost_person">Cost Per Person</span>
+              <span class="font-black text-cyan-600 dark:text-cyan-400 text-lg" id="costPerPerson">$33.75</span>
+            </div>
             <div class="flex justify-between items-center">
               <span class="text-slate-600 dark:text-slate-400" data-i18n="meeting_cost_min">Cost Per Minute</span>
               <span class="font-bold text-slate-900 dark:text-white" id="costPerMin">$4.50 / min</span>
             </div>
-            <div class="flex justify-between items-center">
-              <span class="text-slate-600 dark:text-slate-400" data-i18n="meeting_cost_person">Cost Per Person</span>
-              <span class="font-bold text-slate-900 dark:text-white" id="costPerPerson">$33.75</span>
-            </div>
             <div class="flex justify-between items-center pt-2.5 border-t border-slate-100 dark:border-slate-800">
               <span class="font-bold text-slate-900 dark:text-white" data-i18n="meeting_annual">Annual Cost (If held weekly)</span>
               <span class="font-black text-indigo-600 dark:text-indigo-400 text-base" id="annualCost">$10,530.00</span>
+            </div>
+          </div>
+
+          <!-- Per-Person Cost Breakdown -->
+          <div id="participantBreakdownCard" class="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800 space-y-2.5">
+            <div class="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <span>👥 Per-Person Cost Breakdown</span>
+              <span class="text-[11px] text-cyan-600 dark:text-cyan-400 font-semibold" id="breakdownBadge">Individual Shares</span>
+            </div>
+            <div id="participantBreakdownList" class="space-y-2 text-xs">
+              <!-- Dynamically Populated -->
             </div>
           </div>
         </div>
@@ -354,6 +365,8 @@
         membersList.appendChild(row);
       });
 
+      if (window.CalcCurrency) CalcCurrency.updateDOM();
+
       document.querySelectorAll('.member-name').forEach(inp => {
         inp.addEventListener('input', (e) => {
           members[e.target.dataset.idx].name = e.target.value;
@@ -432,7 +445,15 @@
       const durationTotalMins = getTotalDuration();
       const hrs = Math.floor(durationTotalMins / 60);
       const mins = durationTotalMins % 60;
-      const durationFormatted = hrs > 0 ? (mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`) : `${mins}m`;
+
+      let durationFormatted = '';
+      if (hrs > 0 && mins > 0) {
+        durationFormatted = `${hrs} hr ${mins} min`;
+      } else if (hrs > 0) {
+        durationFormatted = `${hrs} hr${hrs > 1 ? 's' : ''}`;
+      } else {
+        durationFormatted = `${mins} min`;
+      }
 
       summaryPeopleEl.textContent = attendees;
       summaryDurationEl.textContent = durationFormatted;
@@ -446,6 +467,53 @@
       costPerMinEl.textContent = CalcCurrency.format(costPerMin) + ' / min';
       costPerPersonEl.textContent = CalcCurrency.format(costPerPerson);
       annualCostEl.textContent = CalcCurrency.format(annualCost);
+
+      const summaryCostPerPersonEl = document.getElementById('summaryCostPerPerson');
+      if (summaryCostPerPersonEl) {
+        summaryCostPerPersonEl.textContent = (isIndividualMode ? 'avg ' : '') + CalcCurrency.format(costPerPerson);
+      }
+
+      // Populate Per-Person Cost Breakdown
+      const participantBreakdownList = document.getElementById('participantBreakdownList');
+      const breakdownBadge = document.getElementById('breakdownBadge');
+      if (participantBreakdownList && breakdownBadge) {
+        participantBreakdownList.innerHTML = '';
+        if (isIndividualMode) {
+          breakdownBadge.textContent = `${members.length} participants`;
+          members.forEach(m => {
+            const rate = parseFloat(m.rate) || 0;
+            const memberCost = (rate / 60) * durationTotalMins;
+            const row = document.createElement('div');
+            row.className = 'flex justify-between items-center p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
+            row.innerHTML = `
+              <div>
+                <span class="font-bold text-slate-900 dark:text-white text-xs block">${m.name || 'Member'}</span>
+                <span class="text-[10px] text-slate-400 font-medium">${durationFormatted} @ ${CalcCurrency.format(rate)}/hr</span>
+              </div>
+              <div class="text-right">
+                <span class="font-black text-cyan-600 dark:text-cyan-400 text-sm block">${CalcCurrency.format(memberCost)}</span>
+                <span class="text-[10px] text-slate-400">${totalCost > 0 ? ((memberCost / totalCost) * 100).toFixed(0) : 0}% of room</span>
+              </div>
+            `;
+            participantBreakdownList.appendChild(row);
+          });
+        } else {
+          breakdownBadge.textContent = `${attendees} people`;
+          const row = document.createElement('div');
+          row.className = 'flex justify-between items-center p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
+          row.innerHTML = `
+            <div>
+              <span class="font-bold text-slate-900 dark:text-white text-xs block">Equal Cost Per Person (${attendees} attendees)</span>
+              <span class="text-[10px] text-slate-400 font-medium">${durationFormatted} @ ${CalcCurrency.format(getHourlyWage())}/hr per person</span>
+            </div>
+            <div class="text-right">
+              <span class="font-black text-cyan-600 dark:text-cyan-400 text-sm block">${CalcCurrency.format(costPerPerson)} each</span>
+              <span class="text-[10px] text-slate-400">${attendees} × ${CalcCurrency.format(costPerPerson)} = ${CalcCurrency.format(totalCost)}</span>
+            </div>
+          `;
+          participantBreakdownList.appendChild(row);
+        }
+      }
 
       if (!isIndividualMode) {
         const hourlyWage = getHourlyWage();
@@ -581,11 +649,23 @@
     });
 
     copyBtn.addEventListener('click', () => {
+      let breakdownText = '';
+      if (isIndividualMode) {
+        breakdownText = `\n• Per-Person Breakdown:\n` + members.map(m => {
+          const rate = parseFloat(m.rate) || 0;
+          const memberCost = (rate / 60) * getTotalDuration();
+          return `  - ${m.name || 'Member'}: ${CalcCurrency.format(memberCost)} (${CalcCurrency.format(rate)}/hr)`;
+        }).join('\n');
+      } else {
+        breakdownText = `\n• Cost Per Person: ${costPerPersonEl.textContent}`;
+      }
+
       const text = `📊 Meeting Cost Summary:\n` +
         `• Attendees: ${summaryPeopleEl.textContent} people\n` +
         `• Duration: ${summaryDurationEl.textContent}\n` +
-        `• Cost Per Minute: ${costPerMinEl.textContent}\n` +
         `• Total Cost: ${totalCostEl.textContent}\n` +
+        `• Cost Per Minute: ${costPerMinEl.textContent}` +
+        breakdownText + `\n` +
         `• Annual Recurring (52x): ${annualCostEl.textContent}\n` +
         `Calculated via CalcHub Meeting Cost Tool.`;
       navigator.clipboard.writeText(text).then(() => {
