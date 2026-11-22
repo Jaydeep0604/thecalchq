@@ -371,10 +371,7 @@
     // ----------------------------------------------------
     // MULTI-ITEM SHOPPING CART
     // ----------------------------------------------------
-    let shoppingItems = [
-      { name: 'Branded Hoodie', price: 60, discPct: 20 },
-      { name: 'Denim Jeans', price: 90, discPct: 35 }
-    ];
+    let shoppingItems = [];
 
     const shoppingCartList = document.getElementById('shoppingCartList');
     const addCartRowBtn = document.getElementById('addCartRowBtn');
@@ -382,73 +379,113 @@
     const cartSavingsTotal = document.getElementById('cartSavingsTotal');
     const cartFinalTotal = document.getElementById('cartFinalTotal');
 
-    function renderShoppingCart() {
-      shoppingCartList.innerHTML = '';
+    function updateCartTotals() {
       let origTotal = 0;
       let savingsTotal = 0;
 
-      shoppingItems.forEach((item, index) => {
-        const itemSavings = item.price * (item.discPct / 100);
-        const itemFinal = Math.max(0, item.price - itemSavings);
-        origTotal += item.price;
+      shoppingItems.forEach(item => {
+        const p = Math.max(0, parseFloat(item.price) || 0);
+        const d = Math.max(0, Math.min(100, parseFloat(item.discPct) || 0));
+        const itemSavings = p * (d / 100);
+        origTotal += p;
         savingsTotal += itemSavings;
-
-        const row = document.createElement('div');
-        row.className = 'flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/60 text-xs';
-        row.innerHTML = `
-          <div class="flex-1 min-w-[120px]">
-            <input type="text" class="w-full font-bold bg-transparent border-0 focus:ring-0 p-0 text-slate-800 dark:text-white" value="${item.name}" data-idx="${index}" data-field="name">
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-slate-400">Orig:</span>
-            <input type="number" class="w-20 px-2 py-1 text-right font-black rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700" value="${item.price}" min="0" data-idx="${index}" data-field="price">
-          </div>
-          <div class="flex items-center gap-1.5">
-            <input type="number" class="w-14 px-2 py-1 text-center font-bold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700" value="${item.discPct}" min="0" max="100" data-idx="${index}" data-field="discPct">
-            <span class="text-slate-400 font-bold">% off</span>
-          </div>
-          <div class="text-right min-w-[70px]">
-            <span class="font-black text-cyan-600 dark:text-cyan-400 block">${CalcCurrency.format(itemFinal)}</span>
-          </div>
-          <button type="button" class="del-cart-item text-slate-400 hover:text-cyan-500 transition px-1" data-idx="${index}">✕</button>
-        `;
-        shoppingCartList.appendChild(row);
       });
 
       const grandFinal = origTotal - savingsTotal;
       cartOriginalTotal.textContent = CalcCurrency.format(origTotal);
       cartSavingsTotal.textContent = CalcCurrency.format(savingsTotal);
       cartFinalTotal.textContent = CalcCurrency.format(grandFinal);
+    }
 
-      // Event listeners for inputs inside row
-      shoppingCartList.querySelectorAll('input').forEach(inp => {
-        inp.addEventListener('input', (e) => {
-          const idx = parseInt(e.target.dataset.idx);
-          const field = e.target.dataset.field;
-          if (field === 'name') {
-            shoppingItems[idx].name = e.target.value;
-          } else if (field === 'price') {
-            shoppingItems[idx].price = Math.max(0, parseFloat(e.target.value) || 0);
-            renderShoppingCart();
-          } else if (field === 'discPct') {
-            shoppingItems[idx].discPct = Math.max(0, Math.min(100, parseFloat(e.target.value) || 0));
-            renderShoppingCart();
-          }
-        });
+    function renderShoppingCart(focusLast = false) {
+      shoppingCartList.innerHTML = '';
+
+      if (shoppingItems.length === 0) {
+        shoppingCartList.innerHTML = `
+          <div class="text-center py-6 text-slate-400 dark:text-slate-500 text-xs font-medium border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+            Cart is currently empty. Tap <strong>"+ Add Item"</strong> above to calculate discounts on multiple products.
+          </div>
+        `;
+        updateCartTotals();
+        return;
+      }
+
+      shoppingItems.forEach((item, index) => {
+        const p = Math.max(0, parseFloat(item.price) || 0);
+        const d = Math.max(0, Math.min(100, parseFloat(item.discPct) || 0));
+        const itemSavings = p * (d / 100);
+        const itemFinal = Math.max(0, p - itemSavings);
+
+        const row = document.createElement('div');
+        row.className = 'cart-item-row flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/60 text-xs';
+        row.innerHTML = `
+          <div class="flex-1 min-w-[140px]">
+            <input type="text" class="w-full font-bold bg-transparent border-0 focus:ring-0 p-1 text-slate-800 dark:text-white placeholder:text-slate-400" value="${item.name || ''}" placeholder="Enter Product Name" data-idx="${index}" data-field="name">
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400">Orig:</span>
+            <input type="number" step="any" min="0" class="w-20 sm:w-28 px-2 py-1 text-right font-black rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" value="${item.price !== undefined && item.price !== null && item.price !== 0 ? item.price : ''}" placeholder="0" data-idx="${index}" data-field="price">
+          </div>
+          <div class="flex items-center gap-1">
+            <input type="number" step="any" min="0" max="100" class="w-16 sm:w-20 px-2 py-1 text-center font-bold rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white" value="${item.discPct !== undefined && item.discPct !== null && item.discPct !== 0 ? item.discPct : ''}" placeholder="0" data-idx="${index}" data-field="discPct">
+            <span class="text-slate-400 font-bold">% off</span>
+          </div>
+          <div class="text-right min-w-[70px]">
+            <span class="font-black text-cyan-600 dark:text-cyan-400 block item-final-val">${CalcCurrency.format(itemFinal)}</span>
+          </div>
+          <button type="button" class="del-cart-item text-slate-400 hover:text-rose-500 transition px-1.5 py-1" data-idx="${index}" title="Remove item">✕</button>
+        `;
+        shoppingCartList.appendChild(row);
       });
 
-      shoppingCartList.querySelectorAll('.del-cart-item').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const idx = parseInt(e.target.dataset.idx);
+      updateCartTotals();
+
+      // Event listeners for inputs without re-rendering entire list (preserves typing and virtual mobile keypad!)
+      shoppingCartList.querySelectorAll('.cart-item-row').forEach(row => {
+        const nameInp = row.querySelector('[data-field="name"]');
+        const priceInp = row.querySelector('[data-field="price"]');
+        const discInp = row.querySelector('[data-field="discPct"]');
+        const finalValEl = row.querySelector('.item-final-val');
+        const delBtn = row.querySelector('.del-cart-item');
+
+        const updateThisRow = () => {
+          const idx = parseInt(nameInp.dataset.idx);
+          const p = Math.max(0, parseFloat(priceInp.value) || 0);
+          const d = Math.max(0, Math.min(100, parseFloat(discInp.value) || 0));
+          shoppingItems[idx].name = nameInp.value;
+          shoppingItems[idx].price = priceInp.value === '' ? '' : p;
+          shoppingItems[idx].discPct = discInp.value === '' ? '' : d;
+          const itemSavings = p * (d / 100);
+          const itemFinal = Math.max(0, p - itemSavings);
+          finalValEl.textContent = CalcCurrency.format(itemFinal);
+          updateCartTotals();
+        };
+
+        nameInp.addEventListener('input', () => {
+          const idx = parseInt(nameInp.dataset.idx);
+          shoppingItems[idx].name = nameInp.value;
+        });
+        priceInp.addEventListener('input', updateThisRow);
+        discInp.addEventListener('input', updateThisRow);
+
+        delBtn.addEventListener('click', () => {
+          const idx = parseInt(delBtn.dataset.idx);
           shoppingItems.splice(idx, 1);
           renderShoppingCart();
         });
       });
+
+      if (focusLast) {
+        const allNameInputs = shoppingCartList.querySelectorAll('[data-field="name"]');
+        if (allNameInputs.length > 0) {
+          allNameInputs[allNameInputs.length - 1].focus();
+        }
+      }
     }
 
     addCartRowBtn.addEventListener('click', () => {
-      shoppingItems.push({ name: `Item ${shoppingItems.length + 1}`, price: 50, discPct: 15 });
-      renderShoppingCart();
+      shoppingItems.push({ name: '', price: '', discPct: '' });
+      renderShoppingCart(true);
     });
 
     window.addEventListener('currencyChanged', () => {

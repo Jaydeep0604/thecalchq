@@ -45,7 +45,7 @@
 
       <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
         <a href="index.html" data-i18n="back_to_calc" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Back to Calculators</a>
-        <a href="recipe-scaler-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Recipe Scaler</a>
+        <a href="meeting-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Meeting Cost</a>
         <a href="percentage-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Discount Calculator</a>
       </nav>
 
@@ -344,7 +344,7 @@
 
     let isFlatTip = false;
     let isNamedMode = false;
-    let namedPeople = ['Hardik', 'Jaydeep'];
+    let namedPeople = [''];
 
     // Tip mode switching
     tipModePctBtn.addEventListener('click', () => {
@@ -400,7 +400,7 @@
         const row = document.createElement('div');
         row.className = 'flex items-center gap-2';
         row.innerHTML = `
-          <input type="text" value="${name}" data-idx="${idx}" class="person-name-input flex-1 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Person name">
+          <input type="text" value="${name}" data-idx="${idx}" class="person-name-input flex-1 px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Enter Name">
           ${namedPeople.length > 1 ? `<button type="button" data-idx="${idx}" class="remove-person-btn w-7 h-7 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-cyan-500 text-xs font-bold transition flex items-center justify-center">✕</button>` : ''}
         `;
         namesList.appendChild(row);
@@ -424,9 +424,14 @@
     }
 
     addPersonBtn.addEventListener('click', () => {
-      namedPeople.push(`Friend ${namedPeople.length + 1}`);
+      namedPeople.push('');
       renderNamesList();
       calculateTip();
+      const inputs = namesList.querySelectorAll('.person-name-input');
+      if (inputs.length > 0) {
+        const lastInput = inputs[inputs.length - 1];
+        lastInput.focus();
+      }
     });
 
     function calculateTip() {
@@ -547,7 +552,7 @@
       peopleCountInput.value = '3';
       peopleSlider.value = '3';
       roundUpToggle.checked = false;
-      namedPeople = ['Hardik', 'Jaydeep'];
+      namedPeople = [''];
       splitModeSimpleBtn.click();
       tipModePctBtn.click();
       document.querySelector('.tip-btn[data-tip="15"]').click();
@@ -561,8 +566,6 @@
     });
 
     window.addEventListener('currencyChanged', calculateTip);
-    calculateTip();
-  </script>
     calculateTip();
   </script>
 </body>

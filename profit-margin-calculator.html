@@ -108,7 +108,7 @@
           <!-- Product Name -->
           <div class="lg:col-span-2">
             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Product Name</label>
-            <input type="text" id="newProdName" placeholder="e.g. Wireless Mouse" required
+            <input type="text" id="newProdName" placeholder="Enter Product Name" required
               class="w-full px-3 py-2 text-sm font-semibold rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
           </div>
 
@@ -117,7 +117,7 @@
             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Cost Price (CP)</label>
             <div class="relative rounded-xl shadow-sm">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs font-bold currency-symbol">$</span>
-              <input type="number" id="newProdCost" placeholder="400" min="0.01" step="0.5" required
+              <input type="number" id="newProdCost" placeholder="0.00" min="0" step="any" required
                 class="w-full pl-7 pr-3 py-2 text-right text-sm font-black rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none">
             </div>
           </div>
@@ -127,7 +127,7 @@
             <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Sell Price (SP)</label>
             <div class="relative rounded-xl shadow-sm">
               <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 text-xs font-bold currency-symbol">$</span>
-              <input type="number" id="newProdSell" placeholder="750" min="0.01" step="0.5" required
+              <input type="number" id="newProdSell" placeholder="0.00" min="0" step="any" required
                 class="w-full pl-7 pr-3 py-2 text-right text-sm font-black rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none">
             </div>
           </div>
@@ -143,7 +143,7 @@
           <div class="grid grid-cols-2 gap-2">
             <div>
               <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Disc %</label>
-              <input type="number" id="newProdDisc" value="0" min="0" max="100" step="1"
+              <input type="number" id="newProdDisc" value="0" min="0" max="100" step="any"
                 class="w-full px-2 py-2 text-center text-sm font-bold rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none">
             </div>
             <div>
@@ -249,7 +249,7 @@
               <label for="itemCost" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="item_cost">Cost to Produce or Buy (COGS)</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="itemCost" value="45.00" min="0.01" step="0.5"
+                <input type="number" id="itemCost" value="45.00" min="0" step="any"
                   class="w-32 sm:w-36 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
               </div>
             </div>
@@ -262,7 +262,7 @@
               <label for="sellingPrice" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="selling_price">Retail Selling Price (Revenue)</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="sellingPrice" value="90.00" min="0.01" step="0.5"
+                <input type="number" id="sellingPrice" value="90.00" min="0" step="any"
                   class="w-32 sm:w-36 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
               </div>
             </div>
@@ -275,7 +275,7 @@
               <label for="extraFees" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="extra_fees">Additional Unit Fees</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="extraFees" value="5.00" min="0" step="0.5"
+                <input type="number" id="extraFees" value="5.00" min="0" step="any"
                   class="w-32 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
               </div>
             </div>
@@ -396,10 +396,7 @@
     // -------------------------------------------------------------------------
     // MULTI-PRODUCT CART LOGIC
     // -------------------------------------------------------------------------
-    let cartProducts = [
-      { id: 1, name: 'Ergonomic Desk Chair', cost: 3500, sell: 6500, qty: 2, disc: 10, gst: 18 },
-      { id: 2, name: 'Mechanical Keyboard', cost: 1800, sell: 3200, qty: 3, disc: 5, gst: 18 }
-    ];
+    let cartProducts = [];
 
     const addProductForm = document.getElementById('addProductForm');
     const newProdName = document.getElementById('newProdName');
@@ -526,6 +523,7 @@
       newProdGst.value = '18';
 
       renderCart();
+      newProdName.focus();
       window.showToast('Product added to cart!');
     });
 

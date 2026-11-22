@@ -152,18 +152,30 @@
           <!-- Frequency -->
           <div class="flex flex-wrap justify-between items-center gap-2 pt-2">
             <label for="compoundFreq" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="compound_freq">Compounding Frequency</label>
-            <select id="compoundFreq" class="text-xs font-bold py-1.5 px-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none">
+            <select id="compoundFreq" class="text-xs font-bold py-1.5 px-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-cyan-500">
               <option value="12" selected>Monthly (Standard)</option>
               <option value="1">Annually</option>
               <option value="4">Quarterly</option>
               <option value="365">Daily</option>
             </select>
           </div>
+
+          <!-- Deposit Timing -->
+          <div class="flex flex-wrap justify-between items-center gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div>
+              <span class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200 block">Contribution Timing</span>
+              <span class="text-[11px] text-slate-400 block">When monthly deposits occur</span>
+            </div>
+            <div class="inline-flex rounded-xl bg-slate-100 dark:bg-slate-800 p-1 border border-slate-200 dark:border-slate-700 text-xs font-bold" id="depositTimingGroup">
+              <button type="button" id="timingEnd" class="px-3 py-1.5 rounded-lg bg-white dark:bg-cyan-500 text-slate-900 dark:text-slate-950 font-black shadow-sm transition">End of Month</button>
+              <button type="button" id="timingStart" class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Beginning</button>
+            </div>
+          </div>
         </div>
 
         <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
           <span>💡 Small monthly deposits create the largest exponential compound effect.</span>
-          <button id="resetBtn" class="text-brand-600 dark:text-emerald-400 font-bold hover:underline" data-i18n="reset_default">Reset</button>
+          <button id="resetBtn" class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline" data-i18n="reset_default">Reset</button>
         </div>
       </div>
 
@@ -398,6 +410,24 @@
       }
     }
 
+    let depositTiming = 'end'; // 'end' or 'start'
+    const timingEndBtn = document.getElementById('timingEnd');
+    const timingStartBtn = document.getElementById('timingStart');
+
+    timingEndBtn.addEventListener('click', () => {
+      depositTiming = 'end';
+      timingEndBtn.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-cyan-500 text-slate-900 dark:text-slate-950 font-black shadow-sm transition';
+      timingStartBtn.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+      calculateCompound();
+    });
+
+    timingStartBtn.addEventListener('click', () => {
+      depositTiming = 'start';
+      timingStartBtn.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-cyan-500 text-slate-900 dark:text-slate-950 font-black shadow-sm transition';
+      timingEndBtn.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+      calculateCompound();
+    });
+
     function calculateCompound() {
       const P = parseFloat(initialDepositInput.value) || 0;
       const PMT = parseFloat(monthlyContributionInput.value) || 0;
@@ -406,6 +436,12 @@
       const freq = parseInt(compoundFreqSelect.value) || 12;
 
       summaryYearsEl.textContent = years;
+
+      // Mathematically sound effective monthly interest rate
+      // Matches standard US SEC Investor.gov & Calculator.net formulas
+      const monthlyRate = freq === 12
+        ? annualRate / 12
+        : Math.pow(1 + annualRate / freq, freq / 12) - 1;
 
       let balance = P;
       let totalDeposited = P;
@@ -420,24 +456,14 @@
         let yearDeposits = PMT * 12;
 
         for (let m = 1; m <= 12; m++) {
-          balance += PMT;
-          if (freq === 12) {
-            // Monthly compounding
-            balance += balance * (annualRate / 12);
-          } else if (freq === 4) {
-            // Quarterly compounding (months 3, 6, 9, 12)
-            if (m % 3 === 0) {
-              balance += balance * (annualRate / 4);
-            }
-          } else if (freq === 1) {
-            // Annual compounding (applied at end of year)
-            if (m === 12) {
-              balance += balance * annualRate;
-            }
-          } else if (freq === 365) {
-            // Daily compounding
-            const daysInMonth = (m === 2) ? 28 : (m === 4 || m === 6 || m === 9 || m === 11 ? 30 : 31);
-            balance = balance * Math.pow(1 + (annualRate / 365), daysInMonth);
+          if (depositTiming === 'start') {
+            // Annuity Due: Contribution occurs at beginning of month, grows with that month's interest
+            balance += PMT;
+            balance += balance * monthlyRate;
+          } else {
+            // Ordinary Annuity (Standard): Interest accrued on existing balance, contribution added at month end
+            balance += balance * monthlyRate;
+            balance += PMT;
           }
         }
 
@@ -495,6 +521,9 @@
       investmentYearsInput.value = 15;
       investmentYearsSlider.value = 15;
       compoundFreqSelect.value = '12';
+      depositTiming = 'end';
+      timingEndBtn.className = 'px-3 py-1.5 rounded-lg bg-white dark:bg-cyan-500 text-slate-900 dark:text-slate-950 font-black shadow-sm transition';
+      timingStartBtn.className = 'px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
       calculateCompound();
     });
 

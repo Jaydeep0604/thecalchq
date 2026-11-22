@@ -231,6 +231,11 @@
           <div class="text-3xl sm:text-4xl font-black text-emerald-400 tracking-tight" id="liveTickerCost">$0.00</div>
           <p class="text-xs text-slate-400 mt-1">Real-time salary expenditure while this meeting is underway.</p>
 
+          <!-- Live Per-Person Member Cost Ticker -->
+          <div id="liveTickerMembersList" class="mt-3 pt-3 border-t border-slate-800 space-y-1.5 text-xs">
+            <!-- Dynamically populated live cost per participant -->
+          </div>
+
           <div class="mt-4 flex gap-2">
             <button type="button" id="startTickerBtn" class="flex-1 py-2 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition" data-i18n="meeting_timer_start">▶ Start Ticker</button>
             <button type="button" id="pauseTickerBtn" class="hidden flex-1 py-2 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-bold text-xs transition" data-i18n="meeting_timer_pause">⏸ Pause</button>
@@ -278,10 +283,10 @@
     let wageMode = 'hourly'; // 'hourly' or 'annual'
     let isIndividualMode = false;
     let members = [
-      { name: 'Hardik', rate: 100 },
-      { name: 'Jaydeep', rate: 200 }
+      { name: '', rate: 50 }
     ];
 
+    const wageModeToggle = document.getElementById('wageModeToggle');
     const btnHourly = document.getElementById('btnHourly');
     const btnAnnual = document.getElementById('btnAnnual');
     const wageLabel = document.getElementById('wageLabel');
@@ -333,6 +338,7 @@
       attendeeModeIndividual.classList.add('text-slate-500', 'dark:text-slate-400');
       averageAttendeeSection.classList.remove('hidden');
       individualAttendeeSection.classList.add('hidden');
+      if (wageModeToggle) wageModeToggle.classList.remove('hidden');
       calculateMeeting();
     });
 
@@ -344,6 +350,7 @@
       attendeeModeAverage.classList.add('text-slate-500', 'dark:text-slate-400');
       individualAttendeeSection.classList.remove('hidden');
       averageAttendeeSection.classList.add('hidden');
+      if (wageModeToggle) wageModeToggle.classList.add('hidden');
       renderMembersList();
       calculateMeeting();
     });
@@ -354,7 +361,7 @@
         const row = document.createElement('div');
         row.className = 'flex items-center gap-2 p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60';
         row.innerHTML = `
-          <input type="text" value="${m.name}" data-idx="${idx}" class="member-name flex-1 px-2.5 py-1 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none" placeholder="Name">
+          <input type="text" value="${m.name}" data-idx="${idx}" class="member-name flex-1 px-2.5 py-1 text-xs font-semibold rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none" placeholder="Enter Name">
           <div class="relative w-28 rounded-lg shadow-sm">
             <span class="absolute inset-y-0 left-0 pl-2 flex items-center text-slate-400 text-xs font-bold currency-symbol">$</span>
             <input type="number" value="${m.rate}" data-idx="${idx}" min="1" step="5" class="member-rate w-full pl-6 pr-8 py-1 text-right text-xs font-black rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none">
@@ -392,9 +399,13 @@
     }
 
     addMemberBtn.addEventListener('click', () => {
-      members.push({ name: `Member ${members.length + 1}`, rate: 50 });
+      members.push({ name: '', rate: 50 });
       renderMembersList();
       calculateMeeting();
+      const nameInputs = membersList.querySelectorAll('.member-name');
+      if (nameInputs.length > 0) {
+        nameInputs[nameInputs.length - 1].focus();
+      }
     });
 
     function getTotalDuration() {
@@ -592,6 +603,34 @@
 
       liveTickerCostEl.textContent = CalcCurrency.format(currentSpent);
       tickerTimerEl.textContent = formatTimer(tickerElapsedSeconds);
+
+      const liveTickerMembersList = document.getElementById('liveTickerMembersList');
+      if (liveTickerMembersList) {
+        liveTickerMembersList.innerHTML = '';
+        if (isIndividualMode) {
+          members.forEach((m, idx) => {
+            const memberRate = parseFloat(m.rate) || 0;
+            const memberSpent = (memberRate / 3600) * tickerElapsedSeconds;
+            const item = document.createElement('div');
+            item.className = 'flex justify-between items-center text-slate-300 py-0.5';
+            item.innerHTML = `
+              <span>${m.name.trim() || `Participant ${idx + 1}`} <span class="text-slate-500 text-[10px]">(${CalcCurrency.format(memberRate)}/hr)</span></span>
+              <span class="font-bold text-emerald-400 font-mono">${CalcCurrency.format(memberSpent)}</span>
+            `;
+            liveTickerMembersList.appendChild(item);
+          });
+        } else {
+          const attendees = Math.max(1, parseInt(attendeeCountInput.value) || 1);
+          const perPersonSpent = attendees > 0 ? (currentSpent / attendees) : 0;
+          const item = document.createElement('div');
+          item.className = 'flex justify-between items-center text-slate-300 py-0.5';
+          item.innerHTML = `
+            <span>Per Person (${attendees} attendees)</span>
+            <span class="font-bold text-emerald-400 font-mono">${CalcCurrency.format(perPersonSpent)} each</span>
+          `;
+          liveTickerMembersList.appendChild(item);
+        }
+      }
     }
 
     startTickerBtn.addEventListener('click', () => {
@@ -634,8 +673,7 @@
       durationMins.value = '45';
       durationSlider.value = '45';
       members = [
-        { name: 'Hardik', rate: 100 },
-        { name: 'Jaydeep', rate: 200 }
+        { name: '', rate: 50 }
       ];
       attendeeModeAverage.click();
       if (wageMode === 'hourly') {

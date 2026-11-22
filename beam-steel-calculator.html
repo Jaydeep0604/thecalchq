@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beam Steel Weight & Rebar Cutting Length Calculator - BBS Civil Engineering</title>
+  <meta name="description" content="Calculate reinforcement steel bar cutting length, unit weight, and total rebar tonnage for RCC beams. Bar Bending Schedule (BBS) civil engineering tool.">
+  <meta name="keywords" content="beam steel calculator, rebar cutting length, beam reinforcement weight, BBS calculator, civil engineering steel calculation">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-emerald-500 dark:to-cyan-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">%</div>
+        <span class="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-emerald-400">Hub</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" data-i18n="back_to_calc" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Back to Calculators</a>
+        <a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Beam Stirrups (Rings)</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title & Breadcrumbs -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Beam Steel Calculator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Beam Steel Weight & Rebar Converter</h1>
+      <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        🏗️ Civil Engineering & BBS
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Calculate cutting length, unit weight (D²/162.28), and total rebar quantity for main, extra, and top/bottom beam steel reinforcement.
+    </p>
+  </div>
+
+  <!-- Main Calculator Workspace -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow space-y-6 sm:space-y-8">
+
+    <!-- Top Key Metrics Dashboard -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Steel Weight</span>
+        <span class="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400" id="totalKgDisplay">0.00 <span class="text-sm font-bold text-slate-400">KG</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Tonnage (MT)</span>
+        <span class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400" id="totalMtDisplay">0.000 <span class="text-sm font-bold text-slate-400">MT</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Rebar Length</span>
+        <span class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" id="totalLengthDisplay">0.00 <span class="text-sm font-bold text-slate-400">M</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Bar Count</span>
+        <span class="text-2xl sm:text-3xl font-black text-indigo-500 dark:text-indigo-400" id="totalBarsDisplay">0 <span class="text-sm font-bold text-slate-400">NOS</span></span>
+      </div>
+    </div>
+
+    <!-- Input Form Section (7 cols + 5 cols preview) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <!-- Input Controls (7 cols) -->
+      <form id="rebarForm" class="lg:col-span-7 premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📐</span> Add Beam Rebar Specification
+          </h2>
+          <span class="text-xs text-slate-500 font-medium">IS 1786 / IS 2502</span>
+        </div>
+
+        <!-- Row 1: Beam Mark & Bar Type -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="beamName" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Beam Identifier / Mark</label>
+            <input type="text" id="beamName" placeholder="e.g. B-101" required
+              class="w-full px-3.5 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="barType" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Bar Position / Type</label>
+            <select id="barType" class="w-full px-3.5 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <option value="BOTTOM MAIN" selected>BOTTOM MAIN (Tension)</option>
+              <option value="TOP MAIN">TOP MAIN (Compression)</option>
+              <option value="TOP EXTRA">TOP EXTRA (Support Neg. Moment)</option>
+              <option value="BOTTOM EXTRA">BOTTOM EXTRA (Midspan)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 2: Length (MTR) & L-Bend (MTR) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label for="spanLength" class="text-xs font-bold text-slate-700 dark:text-slate-300">Beam Clear Length (MTR)</label>
+              <span class="text-[10px] text-slate-400">Span between supports</span>
+            </div>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="spanLength" value="5.0" min="0.1" step="any" required
+                class="w-full pr-12 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">MTR</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label for="bendLength" class="text-xs font-bold text-slate-700 dark:text-slate-300">L-Bend / Dev. Length (MTR)</label>
+              <span class="text-[10px] text-slate-400">Both ends (2x L)</span>
+            </div>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="bendLength" value="0.30" min="0" step="any" required
+                class="w-full pr-12 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">MTR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Diameter, Bars/Beam, Number of Beams -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="barDia" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Bar Diameter (MM)</label>
+            <select id="barDia" class="w-full px-3 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <option value="8">8 mm (0.395 kg/m)</option>
+              <option value="10">10 mm (0.617 kg/m)</option>
+              <option value="12" selected>12 mm (0.888 kg/m)</option>
+              <option value="16">16 mm (1.580 kg/m)</option>
+              <option value="20">20 mm (2.469 kg/m)</option>
+              <option value="25">25 mm (3.858 kg/m)</option>
+              <option value="32">32 mm (6.313 kg/m)</option>
+            </select>
+          </div>
+          <div>
+            <label for="barsPerBeam" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Bars / Beam</label>
+            <input type="number" id="barsPerBeam" value="2" min="1" step="1" required
+              class="w-full px-3 py-2 text-sm font-black text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+          </div>
+          <div>
+            <label for="numBeams" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Number of Beams</label>
+            <input type="number" id="numBeams" value="1" min="1" step="1" required
+              class="w-full px-3 py-2 text-sm font-black text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 px-4 rounded-xl text-sm font-bold bg-cyan-600 hover:bg-cyan-500 text-white shadow-md transition flex items-center justify-center gap-2">
+          <span>➕</span> <span>Add Beam Rebar to List</span>
+        </button>
+      </form>
+
+      <!-- Live Calculation Card for Current Inputs (5 cols) -->
+      <div class="lg:col-span-5 premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-7 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Live Item Preview</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800" id="previewBarTypeBadge">BOTTOM MAIN</span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Single Bar Cutting Length:</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewCuttingL">5.60 M</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Unit Weight (D²/162.28):</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewUnitWt">0.888 KG/M</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Total Quantity (Bars):</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewQty">2 NOS</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Total Cut Length:</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewTotalL">11.20 M</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 font-black text-sm text-cyan-600 dark:text-cyan-400">
+            <span>Item Steel Weight:</span>
+            <span class="text-lg font-black" id="previewTotalWt">9.94 KG</span>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400">
+          💡 Formula: <code>Cutting Length = Span + (2 × L-Bend)</code>. Steel weight = <code>Length × Qty × (D² ÷ 162.28)</code>.
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-Item Bar Bending Schedule (BBS) Table -->
+    <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📋</span> Multi-Beam Schedule Rebar List (<span id="rebarCountBadge">0</span>)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Bar bending schedule table with automatic unit weights, lengths, and tonnage.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="clearAllBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-500 hover:text-rose-500 transition">
+            Clear All
+          </button>
+          <button id="shareWhatsAppBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1 shadow-sm">
+            <span>💬</span> <span>Share BBS</span>
+          </button>
+          <button id="copySummaryBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-slate-950 transition flex items-center gap-1 shadow-sm">
+            <span>📋</span> <span>Copy Summary</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Schedule Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs whitespace-nowrap">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-800 text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+              <th class="py-3 px-3">Beam Mark</th>
+              <th class="py-3 px-3">Position</th>
+              <th class="py-3 px-3 text-center">Dia</th>
+              <th class="py-3 px-3 text-right">Cutting L (M)</th>
+              <th class="py-3 px-3 text-center">Qty (NOS)</th>
+              <th class="py-3 px-3 text-right">Total L (M)</th>
+              <th class="py-3 px-3 text-right">Unit Wt (KG/M)</th>
+              <th class="py-3 px-3 text-right">Total Wt (KG)</th>
+              <th class="py-3 px-3 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="rebarTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+            <!-- Dynamically Populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Diameter-wise Weight Subtotals -->
+      <div id="diaBreakdownSection" class="hidden pt-4 border-t border-slate-100 dark:border-slate-800">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400 block mb-2">Rebar Consumption by Diameter:</span>
+        <div id="diaChipsContainer" class="flex flex-wrap gap-2">
+          <!-- Dynamically Populated Chips -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Educational Civil Engineering Notes -->
+    <article class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-5">
+      <div>
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-1">
+          Bar Bending Schedule (BBS) & Civil Rules
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          In reinforced cement concrete (RCC) construction, accurate rebar estimation prevents site wastage and steel theft while ensuring structural compliance with IS 456 and IS 2502 standards.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">⚖️ Density & Unit Weight Formula</span>
+          <p>Steel density is 7,850 kg/m³. Rebar weight per running meter is derived as: <code>w = (π/4 × D² × 7850) / 1000000 = D² / 162.28 kg/m</code>.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">📏 Development Length (Ld)</span>
+          <p>The standard hook / 90° L-bend anchoring into supporting columns provides safe tension transfer, typically taken between 200mm to 350mm (or 40d to 50d).</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">🏗️ Commercial Standard Length</span>
+          <p>Rebar is commercially supplied in 12-meter (40 ft) standard lengths. Tonnage is measured in Metric Tonnes (1 MT = 1,000 KG).</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white dark:bg-obsidian-900 text-slate-500 dark:text-slate-400 text-xs py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+    © 2026 CalcHub. Civil engineering formulas based on IS 1786 & IS 2502.
+  </footer>
+
+  <script>
+    let rebarItems = [];
+
+    const rebarForm = document.getElementById('rebarForm');
+    const beamNameInput = document.getElementById('beamName');
+    const barTypeSelect = document.getElementById('barType');
+    const spanLengthInput = document.getElementById('spanLength');
+    const bendLengthInput = document.getElementById('bendLength');
+    const barDiaSelect = document.getElementById('barDia');
+    const barsPerBeamInput = document.getElementById('barsPerBeam');
+    const numBeamsInput = document.getElementById('numBeams');
+
+    // Previews
+    const previewBarTypeBadge = document.getElementById('previewBarTypeBadge');
+    const previewCuttingL = document.getElementById('previewCuttingL');
+    const previewUnitWt = document.getElementById('previewUnitWt');
+    const previewQty = document.getElementById('previewQty');
+    const previewTotalL = document.getElementById('previewTotalL');
+    const previewTotalWt = document.getElementById('previewTotalWt');
+
+    // Aggregate Displays
+    const totalKgDisplay = document.getElementById('totalKgDisplay');
+    const totalMtDisplay = document.getElementById('totalMtDisplay');
+    const totalLengthDisplay = document.getElementById('totalLengthDisplay');
+    const totalBarsDisplay = document.getElementById('totalBarsDisplay');
+    const rebarCountBadge = document.getElementById('rebarCountBadge');
+    const rebarTableBody = document.getElementById('rebarTableBody');
+    const diaBreakdownSection = document.getElementById('diaBreakdownSection');
+    const diaChipsContainer = document.getElementById('diaChipsContainer');
+
+    function getUnitWeight(dia) {
+      return (dia * dia) / 162.28;
+    }
+
+    function updateLivePreview() {
+      const barType = barTypeSelect.value;
+      const span = Math.max(0, parseFloat(spanLengthInput.value) || 0);
+      const bend = Math.max(0, parseFloat(bendLengthInput.value) || 0);
+      const dia = parseInt(barDiaSelect.value) || 12;
+      const barsPerBeam = Math.max(1, parseInt(barsPerBeamInput.value) || 1);
+      const numBeams = Math.max(1, parseInt(numBeamsInput.value) || 1);
+
+      previewBarTypeBadge.textContent = barType;
+
+      const cuttingL = span + (2 * bend);
+      const unitWt = getUnitWeight(dia);
+      const totalQty = barsPerBeam * numBeams;
+      const totalL = cuttingL * totalQty;
+      const totalWt = totalL * unitWt;
+
+      previewCuttingL.textContent = `${cuttingL.toFixed(2)} M`;
+      previewUnitWt.textContent = `${unitWt.toFixed(3)} KG/M`;
+      previewQty.textContent = `${totalQty} NOS`;
+      previewTotalL.textContent = `${totalL.toFixed(2)} M`;
+      previewTotalWt.textContent = `${totalWt.toFixed(2)} KG`;
+    }
+
+    function renderRebarTable() {
+      rebarTableBody.innerHTML = '';
+      rebarCountBadge.textContent = rebarItems.length;
+
+      if (rebarItems.length === 0) {
+        rebarTableBody.innerHTML = `
+          <tr>
+            <td colspan="9" class="py-8 text-center text-slate-400 font-medium">
+              No rebar entries added to schedule yet. Fill out the specifications above and click <strong>"+ Add Beam Rebar to List"</strong>.
+            </td>
+          </tr>
+        `;
+        totalKgDisplay.innerHTML = `0.00 <span class="text-sm font-bold text-slate-400">KG</span>`;
+        totalMtDisplay.innerHTML = `0.000 <span class="text-sm font-bold text-slate-400">MT</span>`;
+        totalLengthDisplay.innerHTML = `0.00 <span class="text-sm font-bold text-slate-400">M</span>`;
+        totalBarsDisplay.innerHTML = `0 <span class="text-sm font-bold text-slate-400">NOS</span>`;
+        diaBreakdownSection.classList.add('hidden');
+        return;
+      }
+
+      let grandKg = 0;
+      let grandLength = 0;
+      let grandBars = 0;
+      const diaMap = {};
+
+      rebarItems.forEach((item, index) => {
+        grandKg += item.totalWt;
+        grandLength += item.totalL;
+        grandBars += item.totalQty;
+
+        diaMap[item.dia] = (diaMap[item.dia] || 0) + item.totalWt;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition';
+        tr.innerHTML = `
+          <td class="py-3 px-3 font-bold text-slate-900 dark:text-white">${item.name}</td>
+          <td class="py-3 px-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+              ${item.type}
+            </span>
+          </td>
+          <td class="py-3 px-3 text-center font-bold text-slate-700 dark:text-slate-300">${item.dia} mm</td>
+          <td class="py-3 px-3 text-right font-medium text-slate-600 dark:text-slate-400">${item.cuttingL.toFixed(2)}</td>
+          <td class="py-3 px-3 text-center font-bold text-slate-900 dark:text-white">${item.totalQty}</td>
+          <td class="py-3 px-3 text-right font-medium text-slate-600 dark:text-slate-400">${item.totalL.toFixed(2)}</td>
+          <td class="py-3 px-3 text-right font-medium text-slate-500">${item.unitWt.toFixed(3)}</td>
+          <td class="py-3 px-3 text-right font-black text-cyan-600 dark:text-cyan-400">${item.totalWt.toFixed(2)}</td>
+          <td class="py-3 px-3 text-center">
+            <button type="button" class="del-rebar-btn text-slate-400 hover:text-rose-500 transition px-2 py-1" data-idx="${index}" title="Remove entry">
+              ✕
+            </button>
+          </td>
+        `;
+        rebarTableBody.appendChild(tr);
+      });
+
+      const grandMt = grandKg / 1000;
+      totalKgDisplay.innerHTML = `${grandKg.toFixed(2)} <span class="text-sm font-bold text-slate-400">KG</span>`;
+      totalMtDisplay.innerHTML = `${grandMt.toFixed(3)} <span class="text-sm font-bold text-slate-400">MT</span>`;
+      totalLengthDisplay.innerHTML = `${grandLength.toFixed(2)} <span class="text-sm font-bold text-slate-400">M</span>`;
+      totalBarsDisplay.innerHTML = `${grandBars} <span class="text-sm font-bold text-slate-400">NOS</span>`;
+
+      // Diameter Breakdown Chips
+      diaBreakdownSection.classList.remove('hidden');
+      diaChipsContainer.innerHTML = '';
+      Object.keys(diaMap).sort((a,b) => Number(a) - Number(b)).forEach(dia => {
+        const wt = diaMap[dia];
+        const chip = document.createElement('div');
+        chip.className = 'px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300';
+        chip.innerHTML = `<span class="text-cyan-600 dark:text-cyan-400">${dia} mm:</span> ${wt.toFixed(2)} KG (${(wt / 1000).toFixed(3)} MT)`;
+        diaChipsContainer.appendChild(chip);
+      });
+
+      // Attach delete events
+      document.querySelectorAll('.del-rebar-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.dataset.idx);
+          rebarItems.splice(idx, 1);
+          renderRebarTable();
+        });
+      });
+    }
+
+    rebarForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = beamNameInput.value.trim() || 'B-1';
+      const type = barTypeSelect.value;
+      const span = Math.max(0.1, parseFloat(spanLengthInput.value) || 0);
+      const bend = Math.max(0, parseFloat(bendLengthInput.value) || 0);
+      const dia = parseInt(barDiaSelect.value) || 12;
+      const barsPerBeam = Math.max(1, parseInt(barsPerBeamInput.value) || 1);
+      const numBeams = Math.max(1, parseInt(numBeamsInput.value) || 1);
+
+      const cuttingL = span + (2 * bend);
+      const unitWt = getUnitWeight(dia);
+      const totalQty = barsPerBeam * numBeams;
+      const totalL = cuttingL * totalQty;
+      const totalWt = totalL * unitWt;
+
+      rebarItems.push({
+        id: Date.now(),
+        name,
+        type,
+        span,
+        bend,
+        dia,
+        barsPerBeam,
+        numBeams,
+        cuttingL,
+        unitWt,
+        totalQty,
+        totalL,
+        totalWt
+      });
+
+      beamNameInput.value = '';
+      renderRebarTable();
+      beamNameInput.focus();
+      window.showToast('Rebar added to schedule!');
+    });
+
+    [spanLengthInput, bendLengthInput, barDiaSelect, barsPerBeamInput, numBeamsInput, barTypeSelect].forEach(el => {
+      el.addEventListener('input', updateLivePreview);
+      el.addEventListener('change', updateLivePreview);
+    });
+
+    document.getElementById('clearAllBtn').addEventListener('click', () => {
+      rebarItems = [];
+      renderRebarTable();
+    });
+
+    document.getElementById('shareWhatsAppBtn').addEventListener('click', () => {
+      if (rebarItems.length === 0) {
+        window.showToast('Schedule is empty!');
+        return;
+      }
+      let summary = `🏗️ *Beam Rebar BBS Summary (CalcHub)*\n\n`;
+      rebarItems.forEach((item, i) => {
+        summary += `${i + 1}. *${item.name}* (${item.type}) - ${item.dia}mm | Cut: ${item.cuttingL.toFixed(2)}m | Qty: ${item.totalQty} | Wt: ${item.totalWt.toFixed(2)}kg\n`;
+      });
+      summary += `\n• *Total Steel Weight:* ${totalKgDisplay.textContent}\n` +
+        `• *Total Tonnage:* ${totalMtDisplay.textContent}\n` +
+        `• *Total Rebar Length:* ${totalLengthDisplay.textContent}\n` +
+        `• *Total Bar Count:* ${totalBarsDisplay.textContent}\n\n` +
+        `Calculated via: ${window.location.href}`;
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(summary)}`;
+      window.open(url, '_blank');
+    });
+
+    document.getElementById('copySummaryBtn').addEventListener('click', () => {
+      if (rebarItems.length === 0) {
+        window.showToast('Schedule is empty!');
+        return;
+      }
+      let text = `Beam Rebar BBS Summary:\n`;
+      rebarItems.forEach((item, i) => {
+        text += `${i + 1}. ${item.name} [${item.type}] - ${item.dia}mm, Cut: ${item.cuttingL.toFixed(2)}m, Qty: ${item.totalQty}, Wt: ${item.totalWt.toFixed(2)}kg\n`;
+      });
+      text += `\nTotal Weight: ${totalKgDisplay.textContent}\n` +
+        `Total Metric Tons: ${totalMtDisplay.textContent}\n` +
+        `Total Length: ${totalLengthDisplay.textContent}\n` +
+        `Calculated on CalcHub.`;
+      navigator.clipboard.writeText(text).then(() => {
+        window.showToast('BBS schedule copied to clipboard!');
+      });
+    });
+
+    updateLivePreview();
+    renderRebarTable();
+  </script>
+</body>
+</html>

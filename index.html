@@ -120,10 +120,11 @@
 
       <!-- Cool Category Filter Pills (Zero warm colors) -->
       <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-8 sm:mb-10 px-1" id="filterContainer">
-        <button class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm transition" data-category="all" data-i18n="all_tools_count">All 12 Tools</button>
+        <button class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm transition" data-category="all">All 13 Tools</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="civil" data-i18n="cat_civil">🏗️ Civil & Steel</button>
         <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="corporate" data-i18n="cat_corporate">🏢 Corporate & Work</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="food" data-i18n="cat_food">🍲 Food & Dining</button>
         <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="finance" data-i18n="cat_finance">💰 Money & Loans</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="food" data-i18n="cat_food">🍲 Food & Dining</button>
         <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="health" data-i18n="cat_health">🧘 Self & Health</button>
       </div>
     </div>
@@ -212,21 +213,42 @@
         </a>
       </div>
 
-      <!-- Card 5: Recipe Portion Scaler (Food) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="recipe scaler portion ingredients cook baking meal prep serving kitchen food">
+      <!-- Card 5A: Beam Steel Weight & Rebar Converter (Civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam steel rebar cutting length bbs weight tonnage civil engineering bar bending schedule IS 1786">
         <div>
-          <div class="w-12 h-12 rounded-xl bg-teal-100 dark:bg-teal-950/80 text-teal-600 dark:text-teal-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🥣
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏗️
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950 px-2 py-0.5 rounded-md">Food & Kitchen</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Civil & Steel</span>
+            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">IS 1786</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="recipe_title">Recipe Serving Scaler</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="recipe_sub">
-            Scale ingredient quantities automatically when cooking for a crowd or meal-prepping for one.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Steel Rebar Converter</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate main and extra rebar cutting lengths, unit weight (D²/162.28), and bar bending schedule (BBS) tonnage in KG and MT.
           </p>
         </div>
-        <a href="recipe-scaler-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="beam-steel-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card 5B: Beam Stirrups (Ring) Converter (Civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam stirrups rings cutting length bbs civil engineering shear reinforcement rings per beam weight tonnage IS 2502">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⚙️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Civil & Steel</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">IS 2502</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Stirrups (Ring) Converter</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Compute stirrup cutting length with 135° standard seismic hooks, rings per beam, total ring count, and steel weight.
+          </p>
+        </div>
+        <a href="beam-stirrups-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
           Open Calculator →
         </a>
       </div>
@@ -417,12 +439,12 @@
       </div>
 
       <div>
-        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Corporate & Food</h4>
+        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Corporate & Civil</h4>
         <ul class="space-y-2">
           <li><a href="meeting-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Meeting Cost Calculator</a></li>
-          <li><a href="tip-bill-split-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Dining Tip & Bill Split</a></li>
-          <li><a href="recipe-scaler-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Recipe Portion Scaler</a></li>
           <li><a href="salary-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Salary & In-Hand Calculator</a></li>
+          <li><a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Steel Rebar BBS</a></li>
+          <li><a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Stirrups (Rings)</a></li>
         </ul>
       </div>
 

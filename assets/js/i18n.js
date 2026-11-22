@@ -25,9 +25,12 @@ const TRANSLATIONS = {
     back_to_calc: "← Back to Calculators",
     all_tools_count: "All 12 Tools",
     cat_corporate: "🏢 Corporate & Work",
+    cat_civil: "🏗️ Civil & Steel",
     cat_food: "🍲 Food & Dining",
     cat_finance: "💰 Money & Loans",
     cat_health: "🧘 Self & Health",
+    beam_steel_title: "Beam Steel Rebar Converter",
+    beam_stirrups_title: "Beam Stirrups (Ring) Converter",
     copy: "Copy",
     copied: "Copied to clipboard!",
     reset: "Reset to Default",
@@ -181,6 +184,9 @@ const TRANSLATIONS = {
     mortgage_term: "Remaining Term (Years)",
     mortgage_extra: "Extra Monthly Payment",
     mortgage_saved: "Total Interest Saved",
+    standard_payment: "Standard Monthly Payment",
+    new_payment: "New Payment (with Extra)",
+    new_payoff_term: "New Payoff Term",
 
     // 12. Percentage & Discount
     pct_title: "Percentage & Discount Calculator",
@@ -206,9 +212,12 @@ const TRANSLATIONS = {
     back_to_calc: "← Volver a Calculadoras",
     all_tools_count: "Las 12 Herramientas",
     cat_corporate: "🏢 Trabajo y Oficina",
+    cat_civil: "🏗️ Construcción y Acero",
     cat_food: "🍲 Comida y Restaurantes",
     cat_finance: "💰 Dinero y Préstamos",
     cat_health: "🧘 Salud y Diario",
+    beam_steel_title: "Calculadora de Acero para Vigas",
+    beam_stirrups_title: "Calculadora de Estribos (Anillos)",
     copy: "Copiar",
     copied: "¡Copiado al portapapeles!",
     reset: "Restablecer",
@@ -350,6 +359,9 @@ const TRANSLATIONS = {
     mortgage_term: "Plazo Restante (Años)",
     mortgage_extra: "Pago Mensual Adicional",
     mortgage_saved: "Total de Intereses Ahorrados",
+    standard_payment: "Pago Mensual Estándar",
+    new_payment: "Nuevo Pago (con Extra)",
+    new_payoff_term: "Nuevo Plazo de Amortización",
 
     pct_title: "Calculadora de Porcentajes y Descuentos",
     pct_sub: "Calcula precios rebajados, cupones de descuento y diferencias porcentuales.",
@@ -373,9 +385,12 @@ const TRANSLATIONS = {
     back_to_calc: "← वापस कैलकुलेटर पर",
     all_tools_count: "सभी 12 टूल्स",
     cat_corporate: "🏢 कार्यालय और कॉर्पोरेट",
+    cat_civil: "🏗️ सिविल और सरिया (स्टील)",
     cat_food: "🍲 भोजन और रेस्तरां",
     cat_finance: "💰 धन और ऋण",
     cat_health: "🧘 स्वास्थ्य और दिनचर्या",
+    beam_steel_title: "बीम सरिया (स्टील) कैलकुलेटर",
+    beam_stirrups_title: "बीम रिंग (स्टिरप्स) कैलकुलेटर",
     copy: "कॉपी करें",
     copied: "क्लिपबोर्ड पर कॉपी किया गया!",
     reset: "रीसेट करें",
@@ -517,6 +532,9 @@ const TRANSLATIONS = {
     mortgage_term: "शेष अवधि (वर्ष)",
     mortgage_extra: "अतिरिक्त मासिक भुगतान",
     mortgage_saved: "कुल बचाया गया ब्याज",
+    standard_payment: "मानक मासिक किस्त",
+    new_payment: "नया मासिक भुगतान (अतिरिक्त सहित)",
+    new_payoff_term: "कर्ज मुक्ति की नई अवधि",
 
     pct_title: "प्रतिशत और छूट कैलकुलेटर",
     pct_sub: "छूट के बाद अंतिम कीमत, बिक्री कर और प्रतिशत अंतर की गणना करें।",
@@ -540,9 +558,12 @@ const TRANSLATIONS = {
     back_to_calc: "← Retour aux Calculatrices",
     all_tools_count: "Les 12 Outils",
     cat_corporate: "🏢 Entreprise & Travail",
+    cat_civil: "🏗️ Génie Civil & Acier",
     cat_food: "🍲 Repas & Cuisine",
     cat_finance: "💰 Argent & Prêts",
     cat_health: "🧘 Santé & Quotidien",
+    beam_steel_title: "Convertisseur d'Armatures de Poutres",
+    beam_stirrups_title: "Calculateur de Cadres (Étriers)",
     copy: "Copier",
     copied: "Copié dans le presse-papiers !",
     reset: "Réinitialiser",
@@ -684,6 +705,9 @@ const TRANSLATIONS = {
     mortgage_term: "Durée Restante (Années)",
     mortgage_extra: "Versement Mensuel Supplémentaire",
     mortgage_saved: "Intérêts Totaux Économisés",
+    standard_payment: "Mensualité Standard",
+    new_payment: "Nouvelle Mensualité (avec Extra)",
+    new_payoff_term: "Nouvelle Durée de Remboursement",
 
     pct_title: "Calculateur de Pourcentages et Réductions",
     pct_sub: "Calculez les remises de soldes, taxes et différences en pourcentage en un clin d'œil.",
@@ -707,9 +731,12 @@ const TRANSLATIONS = {
     back_to_calc: "← Zurück zu den Rechnern",
     all_tools_count: "Alle 12 Tools",
     cat_corporate: "🏢 Beruf & Büro",
+    cat_civil: "🏗️ Bauwesen & Bewehrung",
     cat_food: "🍲 Essen & Restaurant",
     cat_finance: "💰 Geld & Kredite",
     cat_health: "🧘 Gesundheit & Alltag",
+    beam_steel_title: "Trägerbewehrungs-Rechner",
+    beam_stirrups_title: "Bügelbewehrungs-Rechner",
     copy: "Kopieren",
     copied: "In die Zwischenablage kopiert!",
     reset: "Zurücksetzen",
@@ -851,6 +878,9 @@ const TRANSLATIONS = {
     mortgage_term: "Restlaufzeit (Jahre)",
     mortgage_extra: "Monatliche Sondertilgung",
     mortgage_saved: "Gesparte Zinsen Gesamt",
+    standard_payment: "Reguläre Monatsrate",
+    new_payment: "Neue Monatsrate (inkl. Sondertilgung)",
+    new_payoff_term: "Neue Gesamtlaufzeit",
 
     pct_title: "Prozent- & Rabattrechner",
     pct_sub: "Berechnen Sie Rabattpreise, Mehrwertsteuer und prozentuale Preisunterschiede blitzschnell.",
@@ -894,7 +924,7 @@ class I18nManager {
 
   t(key) {
     const dict = TRANSLATIONS[this.currentLang] || TRANSLATIONS.en;
-    return dict[key] || TRANSLATIONS.en[key] || key;
+    return dict[key] || TRANSLATIONS.en[key] || null;
   }
 
   translatePage() {

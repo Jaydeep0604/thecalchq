@@ -90,21 +90,21 @@
         <div class="space-y-6">
           <div>
             <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
-              <label for="mortgageBalance" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="remaining_balance">Remaining Balance</label>
+              <label for="mortgageBalance" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="mortgage_balance">Remaining Balance</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="mortgageBalance" value="300000" min="10000" step="5000"
-                  class="w-32 sm:w-36 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 dark:focus:ring-emerald-500 focus:outline-none">
+                <input type="number" id="mortgageBalance" value="300000" min="1000" step="any"
+                  class="w-32 sm:w-36 pl-8 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
               </div>
             </div>
           </div>
 
           <div>
             <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
-              <label for="mortgageRate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="interest_rate">Interest Rate (%)</label>
+              <label for="mortgageRate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="mortgage_rate">Interest Rate (%)</label>
               <div class="relative rounded-xl shadow-sm">
-                <input type="number" id="mortgageRate" value="6.0" min="0.5" max="20" step="0.1"
-                  class="w-24 pl-3 pr-7 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 dark:focus:ring-emerald-500 focus:outline-none">
+                <input type="number" id="mortgageRate" value="6.0" min="0.1" max="30" step="any"
+                  class="w-24 pl-3 pr-7 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
                 <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 dark:text-slate-500 text-sm font-bold">%</span>
               </div>
             </div>
@@ -112,18 +112,18 @@
 
           <div>
             <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
-              <label for="remainingYears" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="remaining_term">Remaining Term (Years)</label>
-              <input type="number" id="remainingYears" value="25" min="1" max="40" step="1"
-                class="w-24 pl-3 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-brand-500 dark:focus:ring-emerald-500 focus:outline-none">
+              <label for="remainingYears" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-200" data-i18n="mortgage_term">Remaining Term (Years)</label>
+              <input type="number" id="remainingYears" value="25" min="1" max="50" step="1"
+                class="w-24 pl-3 pr-3 py-1.5 text-right font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-cyan-500 focus:outline-none">
             </div>
           </div>
 
           <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
             <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
-              <label for="extraPayment" class="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400" data-i18n="extra_monthly_payment">Extra Monthly Payment</label>
+              <label for="extraPayment" class="text-xs sm:text-sm font-bold text-emerald-600 dark:text-emerald-400" data-i18n="mortgage_extra">Extra Monthly Payment</label>
               <div class="relative rounded-xl shadow-sm">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-emerald-600 dark:text-emerald-400 text-sm font-bold currency-symbol">$</span>
-                <input type="number" id="extraPayment" value="200" min="0" step="50"
+                <input type="number" id="extraPayment" value="200" min="0" step="any"
                   class="w-32 pl-8 pr-3 py-1.5 text-right font-black text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
               </div>
             </div>
@@ -135,9 +135,9 @@
       <div class="lg:col-span-5 space-y-6">
         <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8">
           <div class="flex items-center justify-between mb-2">
-            <h2 class="text-xs font-extrabold text-slate-400 dark:text-slate-400 uppercase tracking-wider" data-i18n="interest_saved">Total Interest Saved</h2>
+            <h2 class="text-xs font-extrabold text-slate-400 dark:text-slate-400 uppercase tracking-wider" data-i18n="mortgage_saved">Total Interest Saved</h2>
             <button id="copyBtn" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
-              <span>📋</span> <span data-i18n="copy_summary">Copy</span>
+              <span>📋</span> <span data-i18n="copy">Copy</span>
             </button>
           </div>
 
@@ -155,7 +155,7 @@
             </div>
             <div class="flex justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
               <span class="font-bold text-slate-900 dark:text-white" data-i18n="new_payoff_term">New Payoff Term</span>
-              <span class="font-black text-brand-600 dark:text-emerald-400" id="newTerm">20.3 Years</span>
+              <span class="font-black text-cyan-600 dark:text-cyan-400" id="newTerm">20 Yrs & 4 Mos</span>
             </div>
           </div>
         </div>
@@ -230,8 +230,28 @@
       document.getElementById('standardEmi').textContent = CalcCurrency.format(standardEmi);
       document.getElementById('newEmi').textContent = CalcCurrency.format(paymentWithExtra);
       document.getElementById('interestSaved').textContent = CalcCurrency.format(Math.round(interestSaved), 0);
-      document.getElementById('timeSaved').textContent = `${yearsSaved} years & ${remMonths} months`;
-      document.getElementById('newTerm').textContent = `${(monthsWithExtra / 12).toFixed(1)} Years`;
+
+      // Clean, human-friendly formatting
+      if (monthsSaved === 0) {
+        document.getElementById('timeSaved').textContent = '0 months';
+      } else if (monthsSaved < 12) {
+        document.getElementById('timeSaved').textContent = `${monthsSaved} ${monthsSaved === 1 ? 'month' : 'months'}`;
+      } else {
+        document.getElementById('timeSaved').textContent = remMonths > 0
+          ? `${yearsSaved} ${yearsSaved === 1 ? 'year' : 'years'} & ${remMonths} ${remMonths === 1 ? 'month' : 'months'}`
+          : `${yearsSaved} ${yearsSaved === 1 ? 'year' : 'years'}`;
+      }
+
+      // Convert 0.9 Years -> 11 Months, or X Years & Y Months
+      if (monthsWithExtra < 12) {
+        document.getElementById('newTerm').textContent = `${monthsWithExtra} Months`;
+      } else {
+        const termY = Math.floor(monthsWithExtra / 12);
+        const termM = monthsWithExtra % 12;
+        document.getElementById('newTerm').textContent = termM > 0
+          ? `${termY} Yrs & ${termM} Mos`
+          : `${termY} Years`;
+      }
     }
 
     document.getElementById('mortgageBalance').addEventListener('input', calcMortgage);

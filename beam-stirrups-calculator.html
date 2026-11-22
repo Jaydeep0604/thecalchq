@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beam Stirrups (Ring) Quantity & Weight Calculator - Civil BBS Tool</title>
+  <meta name="description" content="Calculate stirrup ring cutting length, quantity per beam, total weight, and rebar tonnage for RCC beam shear reinforcement. IS 2502 civil engineering BBS tool.">
+  <meta name="keywords" content="beam stirrups calculator, beam ring converter, stirrup cutting length, BBS beam rings, shear reinforcement weight, civil engineering steel">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-emerald-500 dark:to-cyan-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">%</div>
+        <span class="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-emerald-400">Hub</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" data-i18n="back_to_calc" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Back to Calculators</a>
+        <a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Beam Steel (Main Rebar)</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title & Breadcrumbs -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Beam Stirrups (Ring) Calculator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Beam Stirrups (Ring) Converter</h1>
+      <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        🏗️ Civil Engineering & BBS
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Compute stirrup cutting length with 135° standard seismic hooks, total ring count, and steel tonnage across single or multi-beam schedules.
+    </p>
+  </div>
+
+  <!-- Main Calculator Workspace -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow space-y-6 sm:space-y-8">
+
+    <!-- Top Key Metrics Dashboard (matching Screenshot 13) -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Est. Cutting L.</span>
+        <span class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white" id="statCuttingL">1.25 <span class="text-sm font-bold text-slate-400">M</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Ring Qty</span>
+        <span class="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400" id="statTotalRings">0 <span class="text-sm font-bold text-slate-400">NOS</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Total Weight</span>
+        <span class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400" id="statTotalWeight">0.00 <span class="text-sm font-bold text-slate-400">KG</span></span>
+      </div>
+      <div class="premium-card p-4 sm:p-5 rounded-2xl">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Rings Per Beam</span>
+        <span class="text-2xl sm:text-3xl font-black text-indigo-500 dark:text-indigo-400" id="statRingsPerBeam">31 <span class="text-sm font-bold text-slate-400">NOS</span></span>
+      </div>
+    </div>
+
+    <!-- Input Form Section (7 cols input + 5 cols live preview) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+      <!-- Input Controls (7 cols) -->
+      <form id="stirrupForm" class="lg:col-span-7 premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>⚙️</span> Stirrups & Ring Specification
+          </h2>
+          <span class="text-xs text-slate-500 font-medium">Standard 135° Hooks</span>
+        </div>
+
+        <!-- Row 1: Beam Name & Beam Length (MTR) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="beamMark" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Beam Identifier / Spec</label>
+            <input type="text" id="beamMark" placeholder="e.g. RB-1" required
+              class="w-full px-3.5 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label for="beamLength" class="text-xs font-bold text-slate-700 dark:text-slate-300">Beam Length (MTR)</label>
+              <span class="text-[10px] text-slate-400">Span in meters</span>
+            </div>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="beamLength" value="4.5" min="0.1" step="any" required
+                class="w-full pr-12 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">MTR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Width (MM), Height (MM), Clear Cover (MM) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="beamWidth" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Width (MM)</label>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="beamWidth" value="230" min="50" step="5" required
+                class="w-full pr-10 pl-3 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-bold text-slate-400">MM</span>
+            </div>
+          </div>
+          <div>
+            <label for="beamHeight" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Height / Depth (MM)</label>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="beamHeight" value="450" min="50" step="5" required
+                class="w-full pr-10 pl-3 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-bold text-slate-400">MM</span>
+            </div>
+          </div>
+          <div>
+            <label for="clearCover" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Clear Cover (MM)</label>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="clearCover" value="25" min="10" max="60" step="5" required
+                class="w-full pr-10 pl-3 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-bold text-slate-400">MM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Ring Dia, Spacing, Beam Qty -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label for="ringDia" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Ring Bar Dia</label>
+            <select id="ringDia" class="w-full px-3 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <option value="8" selected>8 mm (0.395 kg/m)</option>
+              <option value="10">10 mm (0.617 kg/m)</option>
+              <option value="12">12 mm (0.888 kg/m)</option>
+            </select>
+          </div>
+          <div>
+            <label for="spacing" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Spacing c/c (MM)</label>
+            <div class="relative rounded-xl shadow-sm">
+              <input type="number" id="spacing" value="150" min="50" max="500" step="5" required
+                class="w-full pr-10 pl-3 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+              <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-bold text-slate-400">MM</span>
+            </div>
+          </div>
+          <div>
+            <label for="beamQty" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Beam Qty (NOS)</label>
+            <input type="number" id="beamQty" value="1" min="1" step="1" required
+              class="w-full px-3 py-2 text-sm font-black text-center text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 px-4 rounded-xl text-sm font-bold bg-cyan-600 hover:bg-cyan-500 text-white shadow-md transition flex items-center justify-center gap-2">
+          <span>➕</span> <span>Add Beam to List</span>
+        </button>
+      </form>
+
+      <!-- Live Calculation Card for Current Inputs (5 cols) -->
+      <div class="lg:col-span-5 premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-6 lg:p-7 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Live Item Preview</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800" id="previewCoreDimBadge">Core: 180 × 400 mm</span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Single Ring Cutting Length:</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewRingCutL">1.27 M</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Rings Per Beam:</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewRingsPerBeam">31 NOS</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Total Rings (Batch):</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewBatchRings">31 NOS</span>
+          </div>
+          <div class="flex justify-between items-center py-1 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-slate-500 dark:text-slate-400 font-medium">Weight Per Beam:</span>
+            <span class="font-bold text-slate-900 dark:text-white" id="previewWtPerBeam">15.55 KG</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 font-black text-sm text-cyan-600 dark:text-cyan-400">
+            <span>Total Item Weight:</span>
+            <span class="text-lg font-black" id="previewTotalItemWt">15.55 KG</span>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400">
+          💡 Formula: <code>Rings = floor(Length ÷ Spacing) + 1</code>. Cutting Length = <code>2(a + b) + 24d - 5(2d) = 2(a + b) + 14d</code> with 135° seismic bends.
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-Beam Schedule Rebar List Table -->
+    <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div>
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📋</span> Multi-Beam Schedule Rebar List (<span id="scheduleCountBadge">0</span>)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Comprehensive stirrup schedule with cutting length, ring quantities, and total steel weight.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="clearAllStirrupsBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-500 hover:text-rose-500 transition">
+            Clear All
+          </button>
+          <button id="shareStirrupsWhatsAppBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition flex items-center gap-1 shadow-sm">
+            <span>💬</span> <span>Share Summary</span>
+          </button>
+          <button id="copyStirrupsBtn" type="button" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 dark:bg-cyan-500 dark:hover:bg-cyan-400 text-white dark:text-slate-950 transition flex items-center gap-1 shadow-sm">
+            <span>📋</span> <span>Copy Summary</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Schedule Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs whitespace-nowrap">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-800 text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+              <th class="py-3 px-3">Beam Spec</th>
+              <th class="py-3 px-3 text-right">Cutting L (M)</th>
+              <th class="py-3 px-3 text-center">Rings / Beam</th>
+              <th class="py-3 px-3 text-center">Total Rings (NOS)</th>
+              <th class="py-3 px-3 text-right">Total L (M)</th>
+              <th class="py-3 px-3 text-right">Unit Wt (KG/M)</th>
+              <th class="py-3 px-3 text-right">Wt / Beam (KG)</th>
+              <th class="py-3 px-3 text-right">Total Wt (KG)</th>
+              <th class="py-3 px-3 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="stirrupTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+            <!-- Dynamically Populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Diameter Breakdown Chips -->
+      <div id="diaBreakdownSection" class="hidden pt-4 border-t border-slate-100 dark:border-slate-800">
+        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400 block mb-2">Stirrup Ring Steel Consumption by Diameter:</span>
+        <div id="diaChipsContainer" class="flex flex-wrap gap-2">
+          <!-- Dynamically Populated Chips -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Civil Engineering Code Compliance Article -->
+    <article class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-5">
+      <div>
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-1">
+          RCC Beam Stirrup Design & Bending Standards
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Stirrups provide essential shear resistance against diagonal tension cracking in reinforced concrete beams and prevent lateral buckling of main longitudinal rebar.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-600 dark:text-slate-400">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">📐 Hook Length & Seismic Standards</span>
+          <p>Under IS 13920 (Ductile Detailing), stirrup hooks must be bent at <strong>135°</strong> with an extension of at least <strong>10 × diameter</strong> (or 75 mm) to prevent ring unhooking during earthquake loads.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">🛡️ Concrete Clear Cover</span>
+          <p>IS 456 mandates a minimum clear concrete cover of <strong>25 mm</strong> (or the bar diameter) for beams to protect internal rebar from corrosion, carbonation, and fire damage.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/60">
+          <span class="font-bold text-slate-900 dark:text-white block mb-1">⚖️ Bend Deductions in Bar Bending</span>
+          <p>Bending stretches rebar. For accurate field cutting: deduct 1d for 45°, 2d for 90°, and 3d for 135° bends from gross dimensions to prevent oversized stirrups.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white dark:bg-obsidian-900 text-slate-500 dark:text-slate-400 text-xs py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+    © 2026 CalcHub. Civil engineering formulas based on IS 456, IS 2502 & IS 13920.
+  </footer>
+
+  <script>
+    let stirrupItems = [];
+
+    const stirrupForm = document.getElementById('stirrupForm');
+    const beamMarkInput = document.getElementById('beamMark');
+    const beamLengthInput = document.getElementById('beamLength');
+    const beamWidthInput = document.getElementById('beamWidth');
+    const beamHeightInput = document.getElementById('beamHeight');
+    const clearCoverInput = document.getElementById('clearCover');
+    const ringDiaSelect = document.getElementById('ringDia');
+    const spacingInput = document.getElementById('spacing');
+    const beamQtyInput = document.getElementById('beamQty');
+
+    // Previews
+    const previewCoreDimBadge = document.getElementById('previewCoreDimBadge');
+    const previewRingCutL = document.getElementById('previewRingCutL');
+    const previewRingsPerBeam = document.getElementById('previewRingsPerBeam');
+    const previewBatchRings = document.getElementById('previewBatchRings');
+    const previewWtPerBeam = document.getElementById('previewWtPerBeam');
+    const previewTotalItemWt = document.getElementById('previewTotalItemWt');
+
+    // Top Stats
+    const statCuttingL = document.getElementById('statCuttingL');
+    const statTotalRings = document.getElementById('statTotalRings');
+    const statTotalWeight = document.getElementById('statTotalWeight');
+    const statRingsPerBeam = document.getElementById('statRingsPerBeam');
+
+    const stirrupTableBody = document.getElementById('stirrupTableBody');
+    const scheduleCountBadge = document.getElementById('scheduleCountBadge');
+    const diaBreakdownSection = document.getElementById('diaBreakdownSection');
+    const diaChipsContainer = document.getElementById('diaChipsContainer');
+
+    function getUnitWeight(dia) {
+      return (dia * dia) / 162.28;
+    }
+
+    function calculateSingleItem() {
+      const lengthM = Math.max(0.1, parseFloat(beamLengthInput.value) || 0);
+      const widthMm = Math.max(50, parseFloat(beamWidthInput.value) || 0);
+      const heightMm = Math.max(50, parseFloat(beamHeightInput.value) || 0);
+      const coverMm = Math.max(10, parseFloat(clearCoverInput.value) || 25);
+      const diaMm = parseInt(ringDiaSelect.value) || 8;
+      const spacingMm = Math.max(50, parseFloat(spacingInput.value) || 150);
+      const beamQty = Math.max(1, parseInt(beamQtyInput.value) || 1);
+
+      // Core dimensions
+      const coreA = Math.max(10, widthMm - (2 * coverMm));
+      const coreB = Math.max(10, heightMm - (2 * coverMm));
+
+      // Cutting length formula:
+      // Standard: 2*(a + b) + 24d - 5*(2d) = 2*(a + b) + 14d
+      const cutLengthMm = (2 * (coreA + coreB)) + (14 * diaMm);
+      const cutLengthM = cutLengthMm / 1000;
+
+      // Rings per beam = floor(Length in mm / spacing in mm) + 1
+      const ringsPerBeam = Math.floor((lengthM * 1000) / spacingMm) + 1;
+      const totalRings = ringsPerBeam * beamQty;
+      const unitWt = getUnitWeight(diaMm);
+      const totalLengthM = cutLengthM * totalRings;
+      const wtPerBeam = ringsPerBeam * cutLengthM * unitWt;
+      const totalWt = totalLengthM * unitWt;
+
+      return {
+        lengthM,
+        widthMm,
+        heightMm,
+        coverMm,
+        diaMm,
+        spacingMm,
+        beamQty,
+        coreA,
+        coreB,
+        cutLengthM,
+        ringsPerBeam,
+        totalRings,
+        unitWt,
+        totalLengthM,
+        wtPerBeam,
+        totalWt
+      };
+    }
+
+    function updateLivePreview() {
+      const item = calculateSingleItem();
+
+      previewCoreDimBadge.textContent = `Core: ${item.coreA} × ${item.coreB} mm`;
+      previewRingCutL.textContent = `${item.cutLengthM.toFixed(2)} M`;
+      previewRingsPerBeam.textContent = `${item.ringsPerBeam} NOS`;
+      previewBatchRings.textContent = `${item.totalRings} NOS`;
+      previewWtPerBeam.textContent = `${item.wtPerBeam.toFixed(2)} KG`;
+      previewTotalItemWt.textContent = `${item.totalWt.toFixed(2)} KG`;
+
+      // Keep top tile cutting L & rings per beam reactive to current inputs
+      statCuttingL.innerHTML = `${item.cutLengthM.toFixed(2)} <span class="text-sm font-bold text-slate-400">M</span>`;
+      statRingsPerBeam.innerHTML = `${item.ringsPerBeam} <span class="text-sm font-bold text-slate-400">NOS</span>`;
+    }
+
+    function renderStirrupTable() {
+      stirrupTableBody.innerHTML = '';
+      scheduleCountBadge.textContent = stirrupItems.length;
+
+      if (stirrupItems.length === 0) {
+        stirrupTableBody.innerHTML = `
+          <tr>
+            <td colspan="9" class="py-8 text-center text-slate-400 font-medium">
+              No stirrup entries added yet. Enter specifications above and click <strong>"+ Add Beam to List"</strong>.
+            </td>
+          </tr>
+        `;
+        statTotalRings.innerHTML = `0 <span class="text-sm font-bold text-slate-400">NOS</span>`;
+        statTotalWeight.innerHTML = `0.00 <span class="text-sm font-bold text-slate-400">KG</span>`;
+        diaBreakdownSection.classList.add('hidden');
+        return;
+      }
+
+      let grandRings = 0;
+      let grandWeight = 0;
+      const diaMap = {};
+
+      stirrupItems.forEach((item, index) => {
+        grandRings += item.totalRings;
+        grandWeight += item.totalWt;
+        diaMap[item.diaMm] = (diaMap[item.diaMm] || 0) + item.totalWt;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition';
+        tr.innerHTML = `
+          <td class="py-3 px-3">
+            <div class="font-bold text-slate-900 dark:text-white">${item.name}</div>
+            <div class="text-[11px] text-slate-400">${item.widthMm}×${item.heightMm}mm | L:${item.lengthM}m | Sp:${item.spacingMm}mm (${item.diaMm}mm Ø)</div>
+          </td>
+          <td class="py-3 px-3 text-right font-semibold text-slate-700 dark:text-slate-300">${item.cutLengthM.toFixed(2)}</td>
+          <td class="py-3 px-3 text-center font-bold text-slate-900 dark:text-white">${item.ringsPerBeam}</td>
+          <td class="py-3 px-3 text-center font-black text-cyan-600 dark:text-cyan-400">${item.totalRings}</td>
+          <td class="py-3 px-3 text-right font-medium text-slate-600 dark:text-slate-400">${item.totalLengthM.toFixed(2)}</td>
+          <td class="py-3 px-3 text-right font-medium text-slate-500">${item.unitWt.toFixed(3)}</td>
+          <td class="py-3 px-3 text-right font-semibold text-slate-700 dark:text-slate-300">${item.wtPerBeam.toFixed(2)}</td>
+          <td class="py-3 px-3 text-right font-black text-emerald-600 dark:text-emerald-400">${item.totalWt.toFixed(2)}</td>
+          <td class="py-3 px-3 text-center">
+            <button type="button" class="del-stirrup-btn text-slate-400 hover:text-rose-500 transition px-2 py-1" data-idx="${index}" title="Remove entry">
+              ✕
+            </button>
+          </td>
+        `;
+        stirrupTableBody.appendChild(tr);
+      });
+
+      statTotalRings.innerHTML = `${grandRings} <span class="text-sm font-bold text-slate-400">NOS</span>`;
+      statTotalWeight.innerHTML = `${grandWeight.toFixed(2)} <span class="text-sm font-bold text-slate-400">KG</span>`;
+
+      // Diameter Breakdown Chips
+      diaBreakdownSection.classList.remove('hidden');
+      diaChipsContainer.innerHTML = '';
+      Object.keys(diaMap).sort((a,b) => Number(a) - Number(b)).forEach(dia => {
+        const wt = diaMap[dia];
+        const chip = document.createElement('div');
+        chip.className = 'px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300';
+        chip.innerHTML = `<span class="text-cyan-600 dark:text-cyan-400">${dia} mm:</span> ${wt.toFixed(2)} KG (${(wt / 1000).toFixed(3)} MT)`;
+        diaChipsContainer.appendChild(chip);
+      });
+
+      document.querySelectorAll('.del-stirrup-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const idx = parseInt(e.currentTarget.dataset.idx);
+          stirrupItems.splice(idx, 1);
+          renderStirrupTable();
+        });
+      });
+    }
+
+    stirrupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const item = calculateSingleItem();
+      const name = beamMarkInput.value.trim() || `RB-${stirrupItems.length + 1}`;
+
+      stirrupItems.push({
+        id: Date.now(),
+        name,
+        ...item
+      });
+
+      beamMarkInput.value = '';
+      renderStirrupTable();
+      beamMarkInput.focus();
+      window.showToast('Beam stirrups added to schedule!');
+    });
+
+    [beamLengthInput, beamWidthInput, beamHeightInput, clearCoverInput, ringDiaSelect, spacingInput, beamQtyInput].forEach(el => {
+      el.addEventListener('input', updateLivePreview);
+      el.addEventListener('change', updateLivePreview);
+    });
+
+    document.getElementById('clearAllStirrupsBtn').addEventListener('click', () => {
+      stirrupItems = [];
+      renderStirrupTable();
+    });
+
+    document.getElementById('shareStirrupsWhatsAppBtn').addEventListener('click', () => {
+      if (stirrupItems.length === 0) {
+        window.showToast('Schedule is empty!');
+        return;
+      }
+      let summary = `🏗️ *Beam Stirrups (Rings) BBS Schedule (CalcHub)*\n\n`;
+      stirrupItems.forEach((item, i) => {
+        summary += `${i + 1}. *${item.name}* (${item.widthMm}x${item.heightMm}mm) | Cut: ${item.cutLengthM.toFixed(2)}m | Rings: ${item.totalRings} | Total Wt: ${item.totalWt.toFixed(2)}kg\n`;
+      });
+      summary += `\n• *Total Ring Count:* ${statTotalRings.textContent}\n` +
+        `• *Total Steel Weight:* ${statTotalWeight.textContent}\n\n` +
+        `Calculated via: ${window.location.href}`;
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(summary)}`;
+      window.open(url, '_blank');
+    });
+
+    document.getElementById('copyStirrupsBtn').addEventListener('click', () => {
+      if (stirrupItems.length === 0) {
+        window.showToast('Schedule is empty!');
+        return;
+      }
+      let text = `Beam Stirrups (Rings) BBS Schedule:\n`;
+      stirrupItems.forEach((item, i) => {
+        text += `${i + 1}. ${item.name} (${item.widthMm}x${item.heightMm}mm) - Cut: ${item.cutLengthM.toFixed(2)}m, Rings: ${item.totalRings}, Total Wt: ${item.totalWt.toFixed(2)}kg\n`;
+      });
+      text += `\nTotal Rings: ${statTotalRings.textContent}\n` +
+        `Total Weight: ${statTotalWeight.textContent}\n` +
+        `Calculated on CalcHub.`;
+      navigator.clipboard.writeText(text).then(() => {
+        window.showToast('Stirrup schedule copied to clipboard!');
+      });
+    });
+
+    updateLivePreview();
+    renderStirrupTable();
+  </script>
+</body>
+</html>
