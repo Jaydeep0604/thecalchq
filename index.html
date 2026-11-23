@@ -114,7 +114,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
           <div class="flex items-center gap-2">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black tracking-wider uppercase bg-cyan-50 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+            <span data-i18n="desk_calc_badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black tracking-wider uppercase bg-cyan-50 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
               ⚡ Instant Online Calculator
             </span>
             <span class="hidden sm:inline-block text-xs text-slate-400 dark:text-slate-500 font-medium">
@@ -392,615 +392,587 @@
   <!-- Calculators Grid Section (19 Comprehensive Tools) -->
   <main id="calculators" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-16 w-full flex-grow">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="calcGrid">
-      
-      <!-- Card: Mutual Fund SIP & Wealth Planner (Finance) -->
+
+      <!-- Card: Exact Chronological Age (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="age date of birth dob chronological birthday countdown years months days live seconds zodiac">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🎂
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_trending_1" class="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md">🔥 Trending #1</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Live Seconds</span>
+          </div>
+          <h2 data-i18n="age_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Exact Chronological Age</h2>
+          <p data-i18n="age_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate your exact age in years, months, days, and live ticking seconds. Next birthday countdown & zodiac.
+          </p>
+        </div>
+        <a href="age-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: BMI & Body Fat Calculator (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="bmi body mass index fat percentage weight height bmr ideal weight metric imperial healthy range">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⚖️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_trending_2" class="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded-md">🔥 Trending #2</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Body Fat %</span>
+          </div>
+          <h2 data-i18n="bmi_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">BMI & Body Fat Calculator</h2>
+          <p data-i18n="bmi_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Visual BMI gauge needle, WHO weight categories, target healthy weight, and US Navy body fat percentage.
+          </p>
+        </div>
+        <a href="bmi-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: SIP & Wealth Planner (finance) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="sip mutual fund step up lumpsum investment wealth fire returns stock index growth compound">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             📈
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Money & Wealth</span>
+            <span data-i18n="badge_trending_3" class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">🔥 Trending #3</span>
             <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Step-Up SIP</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">SIP & Wealth Planner</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          <h2 data-i18n="sip_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">SIP & Wealth Planner</h2>
+          <p data-i18n="sip_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Forecast mutual fund returns on Monthly SIP, Lumpsum, and Step-Up investments with inflation-adjusted real purchasing power.
           </p>
         </div>
-        <a href="sip-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="sip-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Auto Loan & Car EMI (Finance) -->
+      <!-- Card: Universal Unit Converter (utility) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="unit converter length weight mass temperature speed area volume pressure energy digital storage metric imperial">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            📐
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_daily" class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">⚡ Daily Essential</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">70+ Units</span>
+          </div>
+          <h2 data-i18n="unit_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Universal Unit Converter</h2>
+          <p data-i18n="unit_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Convert between metric and imperial across Length, Weight, Area, Volume, Temperature, Speed, and Digital Storage instantly.
+          </p>
+        </div>
+        <a href="unit-converter.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Personal Loan & EMI (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="personal loan home loan emi monthly payment amortization schedule bank interest rate principal balance">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            💳
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Amortization</span>
+          </div>
+          <h2 data-i18n="loan_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Personal Loan & EMI</h2>
+          <p data-i18n="loan_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate monthly installment (EMI), total interest payable, loan repayment breakdown, and full amortization.
+          </p>
+        </div>
+        <a href="loan-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Auto Loan & Car EMI (finance) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="auto loan car emi vehicle payment down payment trade in sales tax financing interest">
         <div>
           <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🚗
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Auto & Finance</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Amortization</span>
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Trade-In & Tax</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Auto Loan & Car EMI</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your monthly car payment (EMI), down payment, trade-in value, sales tax, and complete annual amortization schedule.
+          <h2 data-i18n="auto_loan_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Auto Loan & Car EMI</h2>
+          <p data-i18n="auto_loan_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate monthly car payment, down payment, trade-in value, sales tax, and annual amortization schedule.
           </p>
         </div>
-        <a href="auto-loan-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="auto-loan-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Chronological Age Calculator (Health & Daily) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="age date of birth dob chronological birthday countdown years months days live seconds zodiac">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🎂
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Health & Life</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Live Seconds</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Exact Chronological Age</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your exact age in years, months, days, and live ticking seconds. See your next birthday countdown, total days lived, and zodiac stats.
-          </p>
-        </div>
-        <a href="age-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: BMI & Body Fat Calculator (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="bmi body mass index navy body fat percentage ideal weight target health fitness lean mass metric imperial">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            ⚖️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Fitness & Body</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Navy Fat %</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">BMI & Body Fat Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Interactive BMI visual gauge, WHO weight categories, target healthy weight range, and US Navy body fat percentage estimator.
-          </p>
-        </div>
-        <a href="bmi-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Concrete Volume & Cement Bags (Civil) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="concrete volume cement bags sand aggregate rcc m20 m25 m15 slab footing column civil engineering cubic yards cubic meters">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🏗️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Civil & RCC</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">1.54x Dry Vol</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Concrete & Cement Bags</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate concrete volume for slabs, footings, and round columns. Computes required 50kg cement bags, sand, aggregate, and water.
-          </p>
-        </div>
-        <a href="concrete-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Weekly Timesheet & Payroll (Corporate) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="timesheet work hours overtime payroll weekly time card punch in clock out paycheck gross wages 1.5x">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            ⏱️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Corporate & Work</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Overtime (1.5x)</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Weekly Timesheet & Overtime</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Log clock-in/out times, deduct lunch breaks, calculate regular vs overtime (1.5x) hours, and estimate total gross weekly wages.
-          </p>
-        </div>
-        <a href="timesheet-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Universal Unit Converter (Utility) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="unit converter length metric imperial weight area volume speed temperature digital data storage feet meters kg lbs">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            📐
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Daily Utilities</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Multi-Unit</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Universal Unit Converter</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Convert between metric and imperial across Length, Weight, Area, Volume, Temperature, Speed, and Digital Storage instantly.
-          </p>
-        </div>
-        <a href="unit-converter.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Meeting Cost (Corporate) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="meeting cost corporate employee salary time zoom standup work office productivity">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            👥
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Corporate</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Live Cost</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Meeting Cost Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate the true financial salary cost of office meetings, Zoom calls, and standups. Real-time cost ticker and team setup.
-          </p>
-        </div>
-        <a href="meeting-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Tip & Bill Split (Food) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="tip bill split restaurant dining food dinner lunch group check portion">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🧾
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Food & Dining</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Split by Names</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Tip & Bill Split Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Split restaurant checks evenly or by participant names with custom tip percentages, tax options, and instant WhatsApp summary.
-          </p>
-        </div>
-        <a href="tip-bill-split-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Sleep Cycle (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="sleep cycle rem bedtime wake up wake time nap rest health morning fatigue 90 min">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🌙
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Self & Health</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">90-min REM</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Sleep Cycle & Wake Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Wake up energized by timing your alarms to complete 90-minute REM cycles. Real-time suggested alarms with seconds and calendar reminders.
-          </p>
-        </div>
-        <a href="sleep-cycle-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Fuel Cost & Commute (Corporate & Utility) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="fuel cost gas trip commute car mpg carpool road travel driving">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            ⛽
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Commute & Travel</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Fuel Cost & Commute Tool</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate exact gas costs for daily office commutes or road trips. Split fuel easily with carpool passengers.
-          </p>
-        </div>
-        <a href="fuel-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Beam Steel Rebar Converter (Civil) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam steel rebar cutting length bbs weight tonnage civil engineering bar bending schedule IS 1786">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🏗️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Civil & Steel</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">IS 1786</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Steel Rebar Converter</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate main and extra rebar cutting lengths, unit weight (D²/162.28), and bar bending schedule (BBS) tonnage in KG and MT.
-          </p>
-        </div>
-        <a href="beam-steel-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Beam Stirrups (Ring) Converter (Civil) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam stirrups rings cutting length bbs civil engineering shear reinforcement rings per beam weight tonnage IS 2502">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            ⚙️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Civil & Steel</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">IS 2502</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Stirrups (Ring) Converter</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Compute stirrup cutting length with 135° standard seismic hooks, rings per beam, total ring count, and steel weight.
-          </p>
-        </div>
-        <a href="beam-stirrups-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Calorie & TDEE (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="calorie deficit tdee bmr weight loss fat loss nutrition diet fitness healthy">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🥗
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Health & Fitness</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Calorie Deficit & TDEE</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your maintenance calories (TDEE) and exact daily calorie deficit target for healthy fat loss.
-          </p>
-        </div>
-        <a href="calorie-tdee-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Personal Loan & EMI (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="loan emi mortgage car auto interest payment bank debt personal">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            💳
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Finance</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Personal Loan & EMI</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your monthly payment (EMI), total interest payable, and see a full amortization breakdown.
-          </p>
-        </div>
-        <a href="loan-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Compound Interest (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="compound interest investment savings wealth fire stock index returns future value">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            📊
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Investing</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Compound Interest Growth</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Project your wealth growth over time with monthly deposits, annual returns, and dynamic growth charts.
-          </p>
-        </div>
-        <a href="compound-interest-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Salary & In-Hand (Corporate) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="salary hourly wage freelance contractor rate billable work hours pay career in hand ctc">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            💼
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Corporate & Pay</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Salary & In-Hand Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate exact monthly take-home salary from Annual CTC, or convert hourly wages to annual pay with PF and tax options.
-          </p>
-        </div>
-        <a href="salary-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Profit Margin & Markup (Corporate) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="profit margin markup e-commerce shopify sales revenue cost cogs retail business">
+      <!-- Card: Percentage & Discount (utility) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="percentage discount sale price off change increase decrease shopping cart math fraction retail tax">
         <div>
           <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🏷️
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Business & Margin</span>
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Multi-Item Cart</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Profit Margin & Markup</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate gross profit, net margin, and required markup percentages to price goods for maximum profit. Multi-product list support.
+          <h2 data-i18n="pct_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Percentage & Discount</h2>
+          <p data-i18n="pct_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate sale price after coupon discounts, sales tax, percentage difference, and multi-item shopping carts.
           </p>
         </div>
-        <a href="profit-margin-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="percentage-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Mortgage Early Payoff (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="mortgage extra payment early payoff principal amortization home loan savings">
+      <!-- Card: Pregnancy Due Date & EDD (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="pregnancy due date edd lmp conception ivf trimester countdown gestational age weeks baby">
         <div>
-          <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🏠
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Real Estate</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Mortgage Early Payoff</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            See how adding an extra monthly payment cuts years off your mortgage term and saves tens of thousands in interest.
-          </p>
-        </div>
-        <a href="mortgage-payoff-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Percentage & Discount (Utility & Food) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="percentage discount sales tax tip coupon sale fraction math daily shopping cart">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🛍️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">Daily Math</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Percentage & Discount</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Quickly calculate sale price after coupon discounts, sales tax, percentage difference, and multi-item shopping carts.
-          </p>
-        </div>
-        <a href="percentage-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-    
-      <!-- Card: Retirement & FIRE Planner (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="retirement fire financial independence corpus pension savings nest egg 4 percent rule early retirement">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🏖️
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Finance</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">FIRE & 4% Rule</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Retirement & FIRE Planner</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Determine your retirement nest egg corpus, monthly pension, inflation adjustment, and safe withdrawal rate (4% rule).
-          </p>
-        </div>
-        <a href="retirement-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Credit Card Payoff (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="credit card payoff debt freedom apr interest avalanche snowball minimum payment debt reduction">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            💳
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Debt & Credit</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Interest Savings</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Credit Card Payoff</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate months to become credit card debt-free, total interest charges, and see how extra monthly payments accelerate payoff.
-          </p>
-        </div>
-        <a href="credit-card-payoff-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: House Affordability (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="house affordability how much house can i afford home mortgage budget dti 28 36 rule rent vs buy property">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🏡
-          </div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Real Estate</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">28/36 DTI</span>
-          </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">House Affordability</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Find out how much house you can afford based on income, down payment, monthly debts, and standard DTI guidelines with PITI breakdown.
-          </p>
-        </div>
-        <a href="house-affordability-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
-          Open Calculator →
-        </a>
-      </div>
-
-      <!-- Card: Pregnancy Due Date (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="pregnancy due date edd naegele rule trimester conception baby delivery ultrasound lmp">
-        <div>
-          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             👶
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Health & Family</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Naegele's Rule</span>
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Trimesters & LMP</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Pregnancy Due Date & EDD</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your estimated delivery date (EDD), gestational age in weeks & days, trimester progression, and milestone timeline.
+          <h2 data-i18n="pregnancy_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Pregnancy Due Date & EDD</h2>
+          <p data-i18n="pregnancy_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate estimated delivery date (EDD), gestational age in weeks & days, trimester progression, and milestone timeline.
           </p>
         </div>
-        <a href="pregnancy-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="pregnancy-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Daily Water Intake (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="water intake hydration daily glasses liters milliliters climate workout sweat health fluid">
+      <!-- Card: Compound Interest Growth (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="compound interest wealth rule of 72 monthly contributions future value savings account cagr stock market">
         <div>
-          <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            💧
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            📊
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Daily Health</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Hydration Tracker</span>
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Rule of 72</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Daily Water Intake</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your optimal daily water requirement in Liters and 250mL glasses based on body weight, workout intensity, and climate.
+          <h2 data-i18n="compound_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Compound Interest Growth</h2>
+          <p data-i18n="compound_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Project your wealth growth over time with monthly deposits, annual returns, and dynamic growth charts.
           </p>
         </div>
-        <a href="water-intake-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="compound-interest-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Ovulation & Period Tracker (Health) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="ovulation period tracker menstrual cycle fertility fertile window conception family planning luteal phase">
+      <!-- Card: Weekly Timesheet & Overtime (corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="weekly timesheet hours overtime wage paycheck bi-weekly punch clock lunch break work duration gross pay">
         <div>
-          <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⏱️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_popular" class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">⭐ Popular</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Overtime 1.5x</span>
+          </div>
+          <h2 data-i18n="timesheet_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Weekly Timesheet & Overtime</h2>
+          <p data-i18n="timesheet_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Log clock-in/out times, deduct lunch breaks, calculate regular vs overtime (1.5x) hours, and weekly gross paycheck.
+          </p>
+        </div>
+        <a href="timesheet-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Sleep Cycle & Wake Calculator (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="sleep cycle rem wake up bedtime 90 minute circadian rest alarm sleep debt power nap">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🌙
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">🌙 Sleep Health</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">90m Cycles</span>
+          </div>
+          <h2 data-i18n="sleep_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Sleep Cycle & Wake Calculator</h2>
+          <p data-i18n="sleep_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Wake up energized by timing your alarms to complete 90-minute REM cycles. Real-time suggested alarms with seconds.
+          </p>
+        </div>
+        <a href="sleep-cycle-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Calorie Deficit & TDEE (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="calories tdee bmr deficit surplus macros weight loss maintenance bulking cutting protein fat carbs diet">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🥗
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">🥗 Fitness</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Macros & TDEE</span>
+          </div>
+          <h2 data-i18n="calorie_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Calorie Deficit & TDEE</h2>
+          <p data-i18n="calorie_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate maintenance calories (TDEE) and exact daily calorie deficit target for healthy fat loss and macros.
+          </p>
+        </div>
+        <a href="calorie-tdee-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Ovulation & Period Tracker (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="ovulation fertility period tracker menstrual cycle fertile window luteal phase pregnancy chance calendar">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🌸
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950 px-2 py-0.5 rounded-md">Women's Health</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md">🌸 Women's Health</span>
             <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Fertile Window</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Ovulation & Period Tracker</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+          <h2 data-i18n="ovulation_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Ovulation & Period Tracker</h2>
+          <p data-i18n="ovulation_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Estimate your 6-day fertile window, exact ovulation day, upcoming period dates, and a 3-month cycle forecast.
           </p>
         </div>
-        <a href="ovulation-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="ovulation-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: GPA & CGPA Calculator (Utility) -->
+      <!-- Card: Concrete Volume & Cement Bags (civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="concrete volume slab footing column cylinder cement bags sand aggregate m20 m25 m15 cubic meter yard">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏗️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_civil" class="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded-md">🏗️ Civil #1</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Mix Ratio & Bags</span>
+          </div>
+          <h2 data-i18n="concrete_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Concrete Volume & Cement Bags</h2>
+          <p data-i18n="concrete_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate concrete volume for slabs, footings, and round columns. Computes required 50kg cement bags, sand, and aggregate.
+          </p>
+        </div>
+        <a href="concrete-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Daily Water Intake (health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="water intake hydration daily litres glasses cups weight workout climate weather health dehydration">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            💧
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">💧 Hydration</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">8oz Glasses</span>
+          </div>
+          <h2 data-i18n="water_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Daily Water Intake</h2>
+          <p data-i18n="water_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate optimal daily water requirement in Liters and 250mL glasses based on body weight, workout, and climate.
+          </p>
+        </div>
+        <a href="water-intake-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: College GPA & CGPA (utility) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="gpa cgpa grade calculator college semester credits quality points 4.0 scale 10 scale honours">
         <div>
           <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🎓
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Education & Grades</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">🎓 Education</span>
             <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">4.0 & 10.0 Scales</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">College GPA & CGPA</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate your semester GPA, cumulative CGPA across 4.0 and 10.0 scales, total quality points, and academic honours standing.
+          <h2 data-i18n="gpa_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">College GPA & CGPA</h2>
+          <p data-i18n="gpa_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate your semester GPA, cumulative CGPA across 4.0 and 10.0 scales, quality points, and honours standing.
           </p>
         </div>
-        <a href="gpa-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="gpa-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Brick & Mortar Wall (Civil) -->
+      <!-- Card: Retirement & FIRE Planner (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="retirement fire safe withdrawal 4 percent pension nest egg corpus inflation 401k superannuation provident fund">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏖️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span data-i18n="badge_high_value" class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">💰 High Value</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">FIRE Corpus</span>
+          </div>
+          <h2 data-i18n="retirement_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Retirement & FIRE Planner</h2>
+          <p data-i18n="retirement_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Determine your retirement nest egg corpus, monthly pension, inflation adjustment, and safe withdrawal rate (4% rule).
+          </p>
+        </div>
+        <a href="retirement-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Credit Card Payoff (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="credit card payoff debt snowball avalanche minimum payment interest saved debt free credit balance">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            💳
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md">💳 Debt-Free</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Payoff Acceleration</span>
+          </div>
+          <h2 data-i18n="credit_card_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Credit Card Payoff</h2>
+          <p data-i18n="credit_card_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate months to become credit card debt-free, total interest charges, and see how extra payments accelerate payoff.
+          </p>
+        </div>
+        <a href="credit-card-payoff-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: House Affordability (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="house affordability home price mortgage debt to income dti down payment property tax piti 28 36 rule">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏡
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">🏡 Real Estate</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">DTI & PITI</span>
+          </div>
+          <h2 data-i18n="house_afford_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">House Affordability</h2>
+          <p data-i18n="house_afford_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Find out how much house you can afford based on income, down payment, debts, and standard DTI guidelines with PITI.
+          </p>
+        </div>
+        <a href="house-affordability-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Mortgage Early Payoff (finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="mortgage payoff early prepayment extra payments amortization schedule interest saved loan term reduction">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏠
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">🏡 Amortization</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Extra Payments</span>
+          </div>
+          <h2 data-i18n="mortgage_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Mortgage Early Payoff</h2>
+          <p data-i18n="mortgage_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate how extra monthly, annual, or lump-sum payments accelerate your mortgage payoff and slash interest.
+          </p>
+        </div>
+        <a href="mortgage-payoff-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Beam Steel Rebar BBS (civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam steel rebar bar bending schedule bbs civil engineering weight cutting length d2/162 is 1786">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏗️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">🏗️ Civil BBS</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">IS 1786 D²/162</span>
+          </div>
+          <h2 data-i18n="beam_steel_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Steel Rebar BBS</h2>
+          <p data-i18n="beam_steel_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate main and extra rebar cutting lengths, unit weight (D²/162.28), and bar bending schedule (BBS) tonnage.
+          </p>
+        </div>
+        <a href="beam-steel-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Beam Stirrups (Ring) Converter (civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam stirrups rings cutting length hook length tie bar civil engineering hooks 135 degree is 2502">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⚙️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded-md">⚙️ Civil Rings</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">IS 2502 Hook BBS</span>
+          </div>
+          <h2 data-i18n="beam_stirrups_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Beam Stirrups (Ring) Converter</h2>
+          <p data-i18n="beam_stirrups_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Compute stirrup cutting length with 135° standard seismic hooks, rings per beam, total ring count, and steel weight.
+          </p>
+        </div>
+        <a href="beam-stirrups-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Brick & Mortar Wall (civil) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="brick wall calculator masonry bricks count cement sand mortar 9 inch 4.5 inch partition wall civil engineering">
         <div>
           <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🧱
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Civil & Masonry</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Openings Deduction</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">🧱 Masonry</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Openings Deduction</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Brick & Mortar Wall</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Estimate required bricks count, 50kg cement bags, and sand volume for 4.5" and 9" masonry walls with door and window deductions.
+          <h2 data-i18n="brick_wall_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Brick & Mortar Wall</h2>
+          <p data-i18n="brick_wall_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Estimate required bricks count, 50kg cement bags, and sand volume for 4.5" and 9" masonry walls with deductions.
           </p>
         </div>
-        <a href="brick-wall-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="brick-wall-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card: Tile & Square Feet (Civil) -->
+      <!-- Card: Flooring Tile & Square Feet (civil) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="tile calculator flooring square feet area tiles per box 2x2 2x4 gvt vitrified tile boxes cost estimate civil">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🔲
           </div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Flooring & Tiles</span>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">🔲 Flooring</span>
             <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Box Packaging</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Flooring Tile & Square Feet</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-            Calculate the exact number of tiles, packaging boxes, and total square footage needed for rooms with cutting and corner wastage.
+          <h2 data-i18n="tile_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Flooring Tile & Square Feet</h2>
+          <p data-i18n="tile_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate exact number of tiles, packaging boxes, and total square footage needed for rooms with cutting wastage.
           </p>
         </div>
-        <a href="tile-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+        <a href="tile-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-    </div>
-
-    <!-- Empty Search State -->
-    <div id="noResults" class="hidden text-center py-16">
-      <div class="text-4xl mb-3">🔍</div>
-      <p class="text-slate-500 dark:text-slate-400 text-base font-medium">No calculators found matching your search.</p>
-    </div>
-  </main>
-
-  <!-- Educational Trust Section -->
-  <section class="border-t border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-obsidian-800/50 py-14">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto space-y-6 text-slate-600 dark:text-slate-400 text-sm leading-relaxed text-center sm:text-left">
-        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Why Use CalcHub Calculators?</h2>
-        <p>
-          CalcHub brings together essential everyday calculations across work, food, civil construction, fitness, and money into one unified, private interface. Zero login barriers, no ads cluttering your screen, and no tracking.
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-3">
-          <div class="premium-card p-5 rounded-2xl">
-            <div class="text-2xl mb-2">🔒</div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">100% Client-Side Privacy</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Your numbers never leave your device. All calculations are executed directly inside your local browser.</p>
+      <!-- Card: Meeting Cost Calculator (corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="meeting cost live ticker salary drain hourly wage corporate team waste conference call zoom productivity">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            👥
           </div>
-          <div class="premium-card p-5 rounded-2xl">
-            <div class="text-2xl mb-2">⚡</div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Standard IS & Clinical Rules</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">All tools use standard clinical, banking, and civil engineering algorithms with transparent explanations.</p>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">👥 Corporate</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Live Ticker</span>
           </div>
-          <div class="premium-card p-5 rounded-2xl">
-            <div class="text-2xl mb-2">📱</div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Fully Responsive</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Flawless on phone, tablet, or desktop with instant responsive updates and interactive copy tools.</p>
-          </div>
+          <h2 data-i18n="meeting_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Meeting Cost Calculator</h2>
+          <p data-i18n="meeting_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate the true financial salary cost of office meetings, Zoom calls, and standups. Real-time cost ticker and team setup.
+          </p>
         </div>
+        <a href="meeting-cost-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
       </div>
+
+      <!-- Card: Salary & In-Hand Calculator (corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="in hand salary ctc take home pay tax deductions pf provident fund gratuity professional tax hourly rate">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            💼
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">💼 In-Hand Pay</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">PF & TDS</span>
+          </div>
+          <h2 data-i18n="salary_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Salary & In-Hand Calculator</h2>
+          <p data-i18n="salary_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate exact monthly take-home salary from Annual CTC, or convert hourly wages to annual pay with PF and tax options.
+          </p>
+        </div>
+        <a href="salary-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Profit Margin & Markup (corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="profit margin markup revenue cost of goods gross net discount gst wholesale retail pricing">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏷️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">🏷️ Business</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Multi-Product</span>
+          </div>
+          <h2 data-i18n="margin_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Profit Margin & Markup</h2>
+          <p data-i18n="margin_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate gross profit, net margin, and required markup percentages to price goods for maximum profit.
+          </p>
+        </div>
+        <a href="profit-margin-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Fuel Cost & Commute Tool (food) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="fuel cost gas mileage mpg kmpl road trip commute car travel split cost petrol diesel efficiency">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⛽
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950 px-2 py-0.5 rounded-md">⛽ Commute</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Road Trip Split</span>
+          </div>
+          <h2 data-i18n="fuel_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Fuel Cost & Commute Tool</h2>
+          <p data-i18n="fuel_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate exact gas costs for daily office commutes or road trips. Split fuel easily with carpool passengers.
+          </p>
+        </div>
+        <a href="fuel-cost-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Tip & Bill Split Calculator (food) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="tip bill split dining restaurant gratuity per person check service charge evenly share group dinner">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🧾
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950 px-2 py-0.5 rounded-md">🧾 Food & Dining</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Even Split</span>
+          </div>
+          <h2 data-i18n="tip_title" class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Tip & Bill Split Calculator</h2>
+          <p data-i18n="tip_sub" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Split restaurant checks evenly or by participant names with custom tip percentages, tax options, and instant summary.
+          </p>
+        </div>
+        <a href="tip-bill-split-calculator.html" data-i18n="open_calc" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
     </div>
   </section>
 

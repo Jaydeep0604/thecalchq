@@ -54,6 +54,7 @@
       </nav>
 
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="language-selector-mount"></div>
         <div class="currency-selector-mount"></div>
         <div class="theme-toggle-mount"></div>
       </div>
@@ -68,7 +69,7 @@
       <span class="text-slate-800 dark:text-slate-200 font-semibold">Weekly Timesheet & Payroll</span>
     </nav>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Weekly Timesheet & Work Hours Calculator</h1>
+      <h1 data-i18n="timesheet_title" class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Weekly Timesheet & Work Hours Calculator</h1>
       <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
         Overtime & Gross Pay
       </span>
@@ -263,7 +264,7 @@
                 class="w-full px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white outline-none focus:ring-1 focus:ring-cyan-500">
             </td>
             <td class="p-1 sm:p-2">
-              <input type="number" id="break_${idx}" value="${defaultBreak}" min="0" step="5" oninput="calculateTimesheet()"
+              <input type="number" id="break_${idx}" value="${defaultBreak}" min="0" step="any" oninput="calculateTimesheet()"
                 class="w-16 px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white outline-none text-right">
             </td>
             <td class="p-2 sm:p-3 text-right font-black text-cyan-600 dark:text-cyan-400" id="hours_${idx}">

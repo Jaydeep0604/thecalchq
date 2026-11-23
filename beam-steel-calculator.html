@@ -44,7 +44,7 @@
       </a>
 
       <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
-        <a href="index.html" data-i18n="back_to_calc" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Back to Calculators</a>
+        <a href="index.html" data-i18n="back_to_calc" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition"><span data-i18n="back_to_calc">← Calculators</span></a>
         <a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Beam Stirrups (Rings)</a>
       </nav>
 
@@ -63,7 +63,7 @@
       <span class="text-slate-800 dark:text-slate-200 font-semibold">Beam Steel Calculator</span>
     </nav>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Beam Steel Weight & Rebar Converter</h1>
+      <h1 data-i18n="beam_steel_title" class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Beam Steel Weight & Rebar Converter</h1>
       <span class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
         🏗️ Civil Engineering & BBS
       </span>
@@ -99,7 +99,7 @@
     <!-- Input Form Section (7 cols + 5 cols preview) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
       <!-- Input Controls (7 cols) -->
-      <form id="rebarForm" class="lg:col-span-7 premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+      <form novalidate id="rebarForm" class="lg:col-span-7 premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
         <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
           <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
             <span>📐</span> Add Beam Rebar Specification

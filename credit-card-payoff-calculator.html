@@ -54,6 +54,7 @@
       </nav>
 
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="language-selector-mount"></div>
         <div class="currency-selector-mount"></div>
         <div class="theme-toggle-mount"></div>
       </div>
@@ -68,7 +69,7 @@
       <span class="text-slate-800 dark:text-slate-200 font-semibold">Credit Card Payoff</span>
     </nav>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Credit Card Payoff Calculator</h1>
+      <h1 data-i18n="credit_card_title" class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Credit Card Payoff Calculator</h1>
       <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
         Debt-Free Planner
       </span>
@@ -108,7 +109,7 @@
                   Annual Interest Rate (APR)
                 </label>
                 <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1">
-                  <input type="number" id="cardApr" value="22" min="1" max="45" step="0.5"
+                  <input type="number" id="cardApr" value="22" min="1" max="45" step="any"
                     class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
                   <span class="text-slate-400 text-xs font-bold">%</span>
                 </div>

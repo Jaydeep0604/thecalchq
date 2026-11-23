@@ -53,6 +53,7 @@
       </nav>
 
       <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="language-selector-mount"></div>
         <div class="theme-toggle-mount"></div>
       </div>
     </div>
@@ -66,7 +67,7 @@
       <span class="text-slate-800 dark:text-slate-200 font-semibold">GPA & CGPA Calculator</span>
     </nav>
     <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">College GPA & CGPA Calculator</h1>
+      <h1 data-i18n="gpa_title" class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">College GPA & CGPA Calculator</h1>
       <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
         4.0 & 10.0 Scales
       </span>
@@ -99,7 +100,7 @@
         <!-- Prior Cumulative GPA (Optional) -->
         <div>
           <label for="priorGpa" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Prior Cumulative GPA</label>
-          <input type="number" id="priorGpa" value="" placeholder="e.g. 3.50 (optional)" min="0" max="10" step="0.01" oninput="calculateGpa()"
+          <input type="number" id="priorGpa" value="" placeholder="e.g. 3.50 (optional)" min="0" max="10" step="any" oninput="calculateGpa()"
             class="w-full px-3 py-2 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm">
         </div>
 
