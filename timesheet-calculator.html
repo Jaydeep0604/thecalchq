@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross | CalcHub</title>
+  <meta name="description" content="Free weekly timesheet calculator with lunch break deductions, daily and weekly overtime (1.5x), and gross paycheck calculations. Quick-fill standard shifts.">
+  <meta name="keywords" content="timesheet calculator, work hours calculator, time card calculator, overtime calculator, payroll timesheet, employee hours tracker">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            ⏱️
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="salary-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Salary & CTC</a>
+        <a href="meeting-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Meeting Cost</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Breadcrumb & Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Weekly Timesheet & Payroll</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Weekly Timesheet & Work Hours Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Overtime & Gross Pay
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Log daily clock-in/out times, deduct lunch breaks, and calculate regular hours, overtime (1.5x), and total gross wage.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    
+    <!-- Top Configuration Bar -->
+    <div class="premium-card rounded-2xl p-4 sm:p-6 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+        <!-- Hourly Wage -->
+        <div>
+          <label for="hourlyRate" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+            Base Hourly Pay Rate
+          </label>
+          <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+            <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+            <input type="number" id="hourlyRate" value="25" min="0" step="any"
+              class="w-full font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+            <span class="text-slate-400 text-xs font-bold">/hr</span>
+          </div>
+        </div>
+
+        <!-- Overtime Policy -->
+        <div>
+          <label for="otPolicy" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+            Overtime Rule (1.5x Rate)
+          </label>
+          <select id="otPolicy" onchange="calculateTimesheet()"
+            class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-xs sm:text-sm cursor-pointer">
+            <option value="weekly40">Over 40 hrs / week</option>
+            <option value="daily8">Over 8 hrs / day (California / Daily)</option>
+            <option value="none">No Overtime (Flat Rate)</option>
+          </select>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="flex items-center gap-2 justify-end sm:pt-4">
+          <button type="button" onclick="fillStandard9to5()"
+            class="px-3 py-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800 font-bold text-xs hover:bg-cyan-100 transition-all">
+            ⚡ Fill Mon-Fri 9 to 5
+          </button>
+          <button type="button" onclick="clearTimesheet()"
+            class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-xs transition-all">
+            Clear All
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Weekly Grid (8 cols) -->
+      <div class="lg:col-span-8 space-y-4">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 overflow-x-auto">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+            <span>📅</span> Weekly Work Log
+          </h2>
+
+          <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+            <thead class="bg-slate-100 dark:bg-slate-800 uppercase text-[11px] font-bold text-slate-500 rounded-lg">
+              <tr>
+                <th class="p-2 sm:p-3">Day</th>
+                <th class="p-2 sm:p-3">Start Time</th>
+                <th class="p-2 sm:p-3">End Time</th>
+                <th class="p-2 sm:p-3">Break (Min)</th>
+                <th class="p-2 sm:p-3 text-right">Hours</th>
+              </tr>
+            </thead>
+            <tbody id="timesheetRows" class="divide-y divide-slate-100 dark:divide-slate-800">
+              <!-- Dynamically rendered 7 days -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right Column: Payroll Summary (4 cols) -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Total Gross Pay</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500">
+              Weekly Earnings
+            </span>
+          </div>
+
+          <!-- Big Gross Pay -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resGrossPay">
+              $0.00
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resHoursSubtext">
+              0.00 total hours logged
+            </div>
+          </div>
+
+          <!-- Breakdown Matrix -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Regular Hours:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resRegHours">0.00 hrs</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Regular Pay:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resRegPay">$0.00</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Overtime Hours (1.5x):</span>
+              <span class="font-bold text-amber-500" id="resOtHours">0.00 hrs</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Overtime Pay:</span>
+              <span class="font-bold text-amber-500" id="resOtPay">$0.00</span>
+            </div>
+            <div class="flex justify-between py-2 bg-slate-50 dark:bg-slate-800/80 px-3 rounded-xl font-bold">
+              <span class="text-slate-700 dark:text-slate-200">Total Net Work:</span>
+              <span class="text-cyan-600 dark:text-cyan-400 text-sm" id="resTotalHours">0.00 hrs</span>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyTimesheetSummary()" id="btnCopyTime"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Paycheck</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppTimesheet()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+    function getCurSymbol() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function fmtCur(val) {
+      const sym = getCurSymbol();
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function renderDays() {
+      const tbody = document.getElementById('timesheetRows');
+      tbody.innerHTML = DAYS.map((day, idx) => {
+        const isWeekend = idx >= 5;
+        const defaultStart = isWeekend ? '' : '09:00';
+        const defaultEnd = isWeekend ? '' : '17:00';
+        const defaultBreak = isWeekend ? '0' : '30';
+
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+            <td class="p-2 sm:p-3 font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+              <span>${isWeekend ? '🏖️' : '💼'}</span>
+              <span>${day}</span>
+            </td>
+            <td class="p-1 sm:p-2">
+              <input type="time" id="start_${idx}" value="${defaultStart}" onchange="calculateTimesheet()"
+                class="w-full px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white outline-none focus:ring-1 focus:ring-cyan-500">
+            </td>
+            <td class="p-1 sm:p-2">
+              <input type="time" id="end_${idx}" value="${defaultEnd}" onchange="calculateTimesheet()"
+                class="w-full px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white outline-none focus:ring-1 focus:ring-cyan-500">
+            </td>
+            <td class="p-1 sm:p-2">
+              <input type="number" id="break_${idx}" value="${defaultBreak}" min="0" step="5" oninput="calculateTimesheet()"
+                class="w-16 px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white outline-none text-right">
+            </td>
+            <td class="p-2 sm:p-3 text-right font-black text-cyan-600 dark:text-cyan-400" id="hours_${idx}">
+              0.00
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function calculateTimesheet() {
+      const rate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+      const otPolicy = document.getElementById('otPolicy').value;
+
+      let dailyHours = [];
+      let totalWeekHours = 0;
+
+      for (let i = 0; i < 7; i++) {
+        const startVal = document.getElementById(`start_${i}`).value;
+        const endVal = document.getElementById(`end_${i}`).value;
+        const breakMin = parseFloat(document.getElementById(`break_${i}`).value) || 0;
+
+        let netHours = 0;
+        if (startVal && endVal) {
+          const [sH, sM] = startVal.split(':').map(Number);
+          const [eH, eM] = endVal.split(':').map(Number);
+          let startTotal = sH * 60 + sM;
+          let endTotal = eH * 60 + eM;
+
+          // If shift crosses midnight (e.g. 22:00 to 06:00)
+          if (endTotal < startTotal) {
+            endTotal += 24 * 60;
+          }
+
+          const workedMinutes = Math.max(0, (endTotal - startTotal) - breakMin);
+          netHours = workedMinutes / 60;
+        }
+
+        dailyHours.push(netHours);
+        totalWeekHours += netHours;
+        document.getElementById(`hours_${i}`).innerText = netHours.toFixed(2);
+      }
+
+      let regularHours = 0;
+      let overtimeHours = 0;
+
+      if (otPolicy === 'daily8') {
+        // Daily overtime: any hours over 8 per day is OT
+        dailyHours.forEach(h => {
+          if (h > 8) {
+            regularHours += 8;
+            overtimeHours += (h - 8);
+          } else {
+            regularHours += h;
+          }
+        });
+      } else if (otPolicy === 'weekly40') {
+        // Weekly overtime: any hours over 40 per week is OT
+        if (totalWeekHours > 40) {
+          regularHours = 40;
+          overtimeHours = totalWeekHours - 40;
+        } else {
+          regularHours = totalWeekHours;
+          overtimeHours = 0;
+        }
+      } else {
+        // Flat rate
+        regularHours = totalWeekHours;
+        overtimeHours = 0;
+      }
+
+      const regularPay = regularHours * rate;
+      const overtimePay = overtimeHours * (rate * 1.5);
+      const grossPay = regularPay + overtimePay;
+
+      // Render Outputs
+      document.getElementById('resGrossPay').innerText = fmtCur(grossPay);
+      document.getElementById('resHoursSubtext').innerText = `${totalWeekHours.toFixed(2)} total hours logged`;
+      document.getElementById('resRegHours').innerText = `${regularHours.toFixed(2)} hrs`;
+      document.getElementById('resRegPay').innerText = fmtCur(regularPay);
+      document.getElementById('resOtHours').innerText = `${overtimeHours.toFixed(2)} hrs`;
+      document.getElementById('resOtPay').innerText = fmtCur(overtimePay);
+      document.getElementById('resTotalHours').innerText = `${totalWeekHours.toFixed(2)} hrs`;
+    }
+
+    function fillStandard9to5() {
+      for (let i = 0; i < 7; i++) {
+        if (i < 5) {
+          document.getElementById(`start_${i}`).value = '09:00';
+          document.getElementById(`end_${i}`).value = '17:00';
+          document.getElementById(`break_${i}`).value = '30';
+        } else {
+          document.getElementById(`start_${i}`).value = '';
+          document.getElementById(`end_${i}`).value = '';
+          document.getElementById(`break_${i}`).value = '0';
+        }
+      }
+      calculateTimesheet();
+    }
+
+    function clearTimesheet() {
+      for (let i = 0; i < 7; i++) {
+        document.getElementById(`start_${i}`).value = '';
+        document.getElementById(`end_${i}`).value = '';
+        document.getElementById(`break_${i}`).value = '0';
+      }
+      calculateTimesheet();
+    }
+
+    function copyTimesheetSummary() {
+      const gross = document.getElementById('resGrossPay').innerText;
+      const totalHours = document.getElementById('resTotalHours').innerText;
+      const regHours = document.getElementById('resRegHours').innerText;
+      const otHours = document.getElementById('resOtHours').innerText;
+      const rate = document.getElementById('hourlyRate').value;
+
+      const text = `CalcHub Weekly Timesheet Summary:\n• Base Rate: $${rate}/hr\n• Total Hours: ${totalHours} (Regular: ${regHours}, OT: ${otHours})\n• Gross Paycheck: ${gross}\n\nTrack your work hours at: https://jaydeep0604.github.io/calchub/timesheet-calculator.html`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyTime');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppTimesheet() {
+      const gross = document.getElementById('resGrossPay').innerText;
+      const totalHours = document.getElementById('resTotalHours').innerText;
+
+      const text = `CalcHub Weekly Paycheck:\n⏱️ Total Hours: ${totalHours}\n💵 Gross Pay: ${gross}\n\nCalculate timesheets at: https://jaydeep0604.github.io/calchub/timesheet-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.getElementById('hourlyRate').addEventListener('input', calculateTimesheet);
+    window.addEventListener('currencyChanged', calculateTimesheet);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderDays();
+      calculateTimesheet();
+    });
+  </script>
+</body>
+</html>

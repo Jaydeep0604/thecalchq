@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator - Mutual Fund Systematic Investment & Step-Up Planner | CalcHub</title>
+  <meta name="description" content="Calculate returns on SIP, Lumpsum, and Step-Up mutual fund investments. See total wealth gained, maturity value, inflation-adjusted returns, and annual growth charts.">
+  <meta name="keywords" content="sip calculator, mutual fund sip calculator, step up sip calculator, lumpsum calculator, wealth growth calculator, investment return calculator">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            📈
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="compound-interest-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Compound Interest</a>
+        <a href="loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Loan EMI</a>
+        <a href="auto-loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Auto Loan</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Breadcrumb & Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">SIP & Wealth Planner</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Mutual Fund SIP & Step-Up Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
+        Compound Wealth
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Forecast your mutual fund systematic investment wealth. Compare regular SIP, one-time Lumpsum, and annual Step-Up growth with inflation adjustments.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-6">
+          
+          <!-- Mode Selector Tabs -->
+          <div class="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <button type="button" id="tabSip" onclick="setMode('sip')"
+              class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+              Monthly SIP
+            </button>
+            <button type="button" id="tabLumpsum" onclick="setMode('lumpsum')"
+              class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              One-Time Lumpsum
+            </button>
+            <button type="button" id="tabStepup" onclick="setMode('stepup')"
+              class="flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              Step-Up SIP
+            </button>
+          </div>
+
+          <!-- Investment Amount -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label for="invAmount" id="lblInvAmount" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                Monthly Investment
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-cyan-500">
+                <span class="text-slate-500 dark:text-slate-400 font-bold text-sm" data-currency-symbol>$</span>
+                <input type="number" id="invAmount" value="5000" min="100" max="10000000" step="any"
+                  class="w-28 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+              </div>
+            </div>
+            <input type="range" id="invAmountSlider" min="500" max="200000" step="500" value="5000"
+              class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span id="sliderMinLabel"><span data-currency-symbol>$</span>500</span>
+              <span id="sliderMaxLabel"><span data-currency-symbol>$</span>200,000</span>
+            </div>
+          </div>
+
+          <!-- Expected Annual Return Rate (%) -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label for="returnRate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                Expected Annual Return (p.a.)
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-cyan-500">
+                <input type="number" id="returnRate" value="12" min="1" max="35" step="any"
+                  class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                <span class="text-slate-500 dark:text-slate-400 font-bold text-sm">%</span>
+              </div>
+            </div>
+            <input type="range" id="returnRateSlider" min="1" max="30" step="0.5" value="12"
+              class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>1% (Conservative)</span>
+              <span>12% (Equity Index)</span>
+              <span>30% (High Growth)</span>
+            </div>
+          </div>
+
+          <!-- Time Horizon (Years) -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label for="timeYears" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                Investment Time Horizon
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-cyan-500">
+                <input type="number" id="timeYears" value="10" min="1" max="40" step="any"
+                  class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                <span class="text-slate-500 dark:text-slate-400 font-bold text-sm">Yrs</span>
+              </div>
+            </div>
+            <input type="range" id="timeYearsSlider" min="1" max="40" step="1" value="10"
+              class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            <div class="flex justify-between text-[11px] text-slate-400">
+              <span>1 Yr</span>
+              <span>10 Yrs</span>
+              <span>40 Yrs</span>
+            </div>
+          </div>
+
+          <!-- Step-Up Annual Increment Field (Shown only when in Step-Up mode) -->
+          <div id="stepupContainer" class="hidden space-y-2 p-3 sm:p-4 rounded-xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40">
+            <div class="flex justify-between items-center">
+              <label for="stepupPercent" class="text-xs sm:text-sm font-bold text-cyan-900 dark:text-cyan-200">
+                Annual Step-Up Increment (% / yr)
+              </label>
+              <div class="flex items-center gap-1 bg-white dark:bg-slate-800 border border-cyan-200 dark:border-cyan-800 rounded-xl px-3 py-1.5">
+                <input type="number" id="stepupPercent" value="10" min="1" max="50" step="any"
+                  class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                <span class="text-cyan-600 dark:text-cyan-400 font-bold text-sm">%</span>
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400">
+              Your monthly SIP increases by this percentage every 12 months as your income increases.
+            </p>
+          </div>
+
+          <!-- Inflation Adjustment Toggle -->
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div>
+              <span class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 block">Adjust for Inflation</span>
+              <span class="text-[11px] text-slate-500 dark:text-slate-400">Calculate real purchasing power in today's money (6% p.a.)</span>
+            </div>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="inflationToggle" class="sr-only peer">
+              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-slate-600 peer-checked:bg-cyan-600"></div>
+            </label>
+          </div>
+
+        </div>
+
+        <!-- Reverse SIP Goal Planner Card -->
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>🎯</span> Target Wealth Goal Planner
+            </h3>
+            <span class="text-[11px] font-bold text-cyan-600 dark:text-cyan-400">Reverse Calculator</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            Have a target in mind? Enter how much you want to accumulate, and find out the exact monthly SIP needed.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="targetGoalAmount" class="text-xs font-bold text-slate-600 dark:text-slate-400 block mb-1">Target Wealth</label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5">
+                <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                <input type="number" id="targetGoalAmount" value="1000000" step="any"
+                  class="w-full font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+              </div>
+            </div>
+            <div class="flex flex-col justify-end">
+              <button type="button" onclick="calculateRequiredSip()"
+                class="w-full py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all">
+                Find Required Monthly SIP →
+              </button>
+            </div>
+          </div>
+          <div id="goalResultNotice" class="hidden p-3 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800 text-xs text-cyan-950 dark:text-cyan-200">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Results & Projections (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Expected Maturity Value</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500">
+              Future Value
+            </span>
+          </div>
+
+          <!-- Big Maturity Value -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resMaturity">
+              $0
+            </div>
+            <div id="inflationSubtext" class="text-xs text-slate-500 dark:text-slate-400 mt-1 hidden">
+              Purchasing power in today's value: <span id="resInflationVal" class="font-bold text-slate-800 dark:text-slate-200">$0</span>
+            </div>
+          </div>
+
+          <!-- Breakdown Grid -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+              <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Total Invested</span>
+              <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resInvested">$0</span>
+              <span class="text-[10px] text-slate-400 block mt-0.5" id="resInvestedPct">0% of total</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40">
+              <span class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 block mb-0.5">Est. Wealth Gain</span>
+              <span class="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400" id="resReturns">$0</span>
+              <span class="text-[10px] text-emerald-500 block mt-0.5" id="resReturnsPct">0% gain</span>
+            </div>
+          </div>
+
+          <!-- Visual Bar Proportion -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between text-[11px] font-bold">
+              <span class="text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span> Invested Capital
+              </span>
+              <span class="text-emerald-500 flex items-center gap-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> Wealth Gained
+              </span>
+            </div>
+            <div class="h-3 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex shadow-inner">
+              <div id="barInvested" class="bg-slate-400 transition-all duration-300" style="width: 50%"></div>
+              <div id="barReturns" class="bg-gradient-to-r from-cyan-500 to-emerald-500 transition-all duration-300" style="width: 50%"></div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copySummary()" id="btnCopy"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Breakdown</span>
+            </button>
+            <button type="button" onclick="shareWhatsApp()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Year-by-Year Schedule Toggle -->
+        <div class="premium-card rounded-2xl p-5">
+          <div class="flex items-center justify-between cursor-pointer" onclick="toggleSchedule()">
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📊</span> Annual Growth Breakdown Table
+            </h4>
+            <span id="scheduleToggleIcon" class="text-xs text-slate-400">▼ Expand</span>
+          </div>
+
+          <div id="scheduleTableWrapper" class="hidden mt-4 overflow-x-auto max-h-72 border border-slate-100 dark:border-slate-800 rounded-xl">
+            <table class="w-full text-left text-xs text-slate-600 dark:text-slate-300">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-[11px] font-bold uppercase text-slate-500 sticky top-0">
+                <tr>
+                  <th class="p-2.5">Year</th>
+                  <th class="p-2.5">Invested</th>
+                  <th class="p-2.5">Future Value</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentMode = 'sip'; // 'sip' | 'lumpsum' | 'stepup'
+
+    function setMode(mode) {
+      currentMode = mode;
+      
+      const tabSip = document.getElementById('tabSip');
+      const tabLumpsum = document.getElementById('tabLumpsum');
+      const tabStepup = document.getElementById('tabStepup');
+      const stepupContainer = document.getElementById('stepupContainer');
+      const lblInvAmount = document.getElementById('lblInvAmount');
+
+      [tabSip, tabLumpsum, tabStepup].forEach(tab => {
+        tab.className = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+      });
+
+      const activeClasses = "flex-1 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+
+      if (mode === 'sip') {
+        tabSip.className = activeClasses;
+        stepupContainer.classList.add('hidden');
+        lblInvAmount.innerText = "Monthly Investment";
+        document.getElementById('invAmountSlider').max = 200000;
+        document.getElementById('sliderMaxLabel').innerHTML = `<span data-currency-symbol>${getCurrencySymbol()}</span>200,000`;
+      } else if (mode === 'lumpsum') {
+        tabLumpsum.className = activeClasses;
+        stepupContainer.classList.add('hidden');
+        lblInvAmount.innerText = "One-Time Lumpsum Investment";
+        document.getElementById('invAmountSlider').max = 2000000;
+        document.getElementById('sliderMaxLabel').innerHTML = `<span data-currency-symbol>${getCurrencySymbol()}</span>2,000,000`;
+      } else if (mode === 'stepup') {
+        tabStepup.className = activeClasses;
+        stepupContainer.classList.remove('hidden');
+        lblInvAmount.innerText = "Initial Monthly Investment";
+        document.getElementById('invAmountSlider').max = 200000;
+        document.getElementById('sliderMaxLabel').innerHTML = `<span data-currency-symbol>${getCurrencySymbol()}</span>200,000`;
+      }
+
+      calculateSip();
+    }
+
+    function getCurrencySymbol() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function formatCur(val) {
+      const sym = getCurrencySymbol();
+      if (val >= 10000000) {
+        return `${sym}${(val / 10000000).toFixed(2)} Cr`;
+      } else if (val >= 100000) {
+        return `${sym}${(val / 100000).toFixed(2)} Lakh`;
+      }
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    }
+
+    function syncInputs(numId, rangeId) {
+      const num = document.getElementById(numId);
+      const range = document.getElementById(rangeId);
+      if (!num || !range) return;
+
+      num.addEventListener('input', () => {
+        range.value = num.value;
+        calculateSip();
+      });
+
+      range.addEventListener('input', () => {
+        num.value = range.value;
+        calculateSip();
+      });
+    }
+
+    syncInputs('invAmount', 'invAmountSlider');
+    syncInputs('returnRate', 'returnRateSlider');
+    syncInputs('timeYears', 'timeYearsSlider');
+
+    document.getElementById('stepupPercent').addEventListener('input', calculateSip);
+    document.getElementById('inflationToggle').addEventListener('change', calculateSip);
+
+    function calculateSip() {
+      const P = parseFloat(document.getElementById('invAmount').value) || 0;
+      const r = parseFloat(document.getElementById('returnRate').value) || 0;
+      const t = parseFloat(document.getElementById('timeYears').value) || 0;
+      const stepPct = parseFloat(document.getElementById('stepupPercent').value) || 0;
+      const adjustInflation = document.getElementById('inflationToggle').checked;
+
+      const monthlyRate = r / 12 / 100;
+      const totalMonths = Math.round(t * 12);
+
+      let totalInvested = 0;
+      let futureValue = 0;
+      let yearlyData = [];
+
+      if (currentMode === 'lumpsum') {
+        totalInvested = P;
+        futureValue = P * Math.pow(1 + r / 100, t);
+        
+        for (let yr = 1; yr <= t; yr++) {
+          const yrFV = P * Math.pow(1 + r / 100, yr);
+          yearlyData.push({ year: yr, invested: P, fv: yrFV });
+        }
+      } else if (currentMode === 'sip') {
+        // Standard SIP formula: FV = P * [ (1 + i)^n - 1 ] * (1 + i) / i
+        totalInvested = P * totalMonths;
+        if (monthlyRate > 0) {
+          futureValue = P * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+        } else {
+          futureValue = totalInvested;
+        }
+
+        for (let yr = 1; yr <= t; yr++) {
+          const n = yr * 12;
+          const yrFV = monthlyRate > 0 ? P * ((Math.pow(1 + monthlyRate, n) - 1) / monthlyRate) * (1 + monthlyRate) : P * n;
+          yearlyData.push({ year: yr, invested: P * n, fv: yrFV });
+        }
+      } else if (currentMode === 'stepup') {
+        // Step up SIP: monthly payment increases by stepPct each year
+        let curMonthly = P;
+        let cumulativeFV = 0;
+        let cumulativeInvested = 0;
+
+        for (let yr = 1; yr <= t; yr++) {
+          for (let m = 0; m < 12; m++) {
+            cumulativeInvested += curMonthly;
+            cumulativeFV = (cumulativeFV + curMonthly) * (1 + monthlyRate);
+          }
+          yearlyData.push({ year: yr, invested: cumulativeInvested, fv: cumulativeFV });
+          curMonthly = curMonthly * (1 + stepPct / 100);
+        }
+        totalInvested = cumulativeInvested;
+        futureValue = cumulativeFV;
+      }
+
+      const returns = Math.max(0, futureValue - totalInvested);
+
+      // Render Results
+      document.getElementById('resMaturity').innerText = formatCur(futureValue);
+      document.getElementById('resInvested').innerText = formatCur(totalInvested);
+      document.getElementById('resReturns').innerText = formatCur(returns);
+
+      const invPct = futureValue > 0 ? ((totalInvested / futureValue) * 100).toFixed(0) : 50;
+      const retPct = futureValue > 0 ? (100 - invPct).toFixed(0) : 50;
+
+      document.getElementById('resInvestedPct').innerText = `${invPct}% of total`;
+      document.getElementById('resReturnsPct').innerText = `${retPct}% gain`;
+
+      document.getElementById('barInvested').style.width = `${invPct}%`;
+      document.getElementById('barReturns').style.width = `${retPct}%`;
+
+      // Inflation adjustment
+      const infBox = document.getElementById('inflationSubtext');
+      if (adjustInflation) {
+        const infRate = 0.06; // standard 6% inflation
+        const realFV = futureValue / Math.pow(1 + infRate, t);
+        document.getElementById('resInflationVal').innerText = formatCur(realFV);
+        infBox.classList.remove('hidden');
+      } else {
+        infBox.classList.add('hidden');
+      }
+
+      // Populate Table
+      const tbody = document.getElementById('scheduleTableBody');
+      tbody.innerHTML = yearlyData.map(row => `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+          <td class="p-2.5 font-bold">Yr ${row.year}</td>
+          <td class="p-2.5">${formatCur(row.invested)}</td>
+          <td class="p-2.5 font-bold text-cyan-600 dark:text-cyan-400">${formatCur(row.fv)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function calculateRequiredSip() {
+      const target = parseFloat(document.getElementById('targetGoalAmount').value) || 0;
+      const r = parseFloat(document.getElementById('returnRate').value) || 0;
+      const t = parseFloat(document.getElementById('timeYears').value) || 0;
+      const monthlyRate = r / 12 / 100;
+      const totalMonths = t * 12;
+
+      if (target <= 0 || t <= 0) return;
+
+      let reqSip = 0;
+      if (monthlyRate > 0) {
+        reqSip = target / (((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate));
+      } else {
+        reqSip = target / totalMonths;
+      }
+
+      const notice = document.getElementById('goalResultNotice');
+      notice.innerHTML = `To build a wealth of <strong>${formatCur(target)}</strong> in <strong>${t} years</strong> at <strong>${r}%</strong> return, you need to invest <strong>${formatCur(reqSip)}/month</strong>.`;
+      notice.classList.remove('hidden');
+    }
+
+    function toggleSchedule() {
+      const wrapper = document.getElementById('scheduleTableWrapper');
+      const icon = document.getElementById('scheduleToggleIcon');
+      if (wrapper.classList.contains('hidden')) {
+        wrapper.classList.remove('hidden');
+        icon.innerText = '▲ Collapse';
+      } else {
+        wrapper.classList.add('hidden');
+        icon.innerText = '▼ Expand';
+      }
+    }
+
+    function copySummary() {
+      const maturity = document.getElementById('resMaturity').innerText;
+      const invested = document.getElementById('resInvested').innerText;
+      const returns = document.getElementById('resReturns').innerText;
+      const years = document.getElementById('timeYears').value;
+      const rate = document.getElementById('returnRate').value;
+
+      const text = `CalcHub SIP Wealth Summary:\n• Investment Horizon: ${years} Years\n• Expected Return: ${rate}% p.a.\n• Total Invested: ${invested}\n• Estimated Wealth Gain: ${returns}\n• Total Future Maturity: ${maturity}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/sip-calculator.html`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopy');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsApp() {
+      const maturity = document.getElementById('resMaturity').innerText;
+      const invested = document.getElementById('resInvested').innerText;
+      const returns = document.getElementById('resReturns').innerText;
+      const years = document.getElementById('timeYears').value;
+
+      const text = `CalcHub SIP Investment Forecast:\n💰 Total Invested: ${invested}\n📈 Wealth Gained: ${returns}\n🏆 Total Future Value: ${maturity} in ${years} years.\n\nPlan your wealth at: https://jaydeep0604.github.io/calchub/sip-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    window.addEventListener('currencyChanged', () => {
+      calculateSip();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      calculateSip();
+    });
+  </script>
+</body>
+</html>

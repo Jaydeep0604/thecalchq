@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI & Body Fat Calculator - Visual Gauge & Healthy Weight Range</title>
+  <meta name="description" content="Calculate your Body Mass Index (BMI), visual health category, ideal weight range, and US Navy Body Fat percentage. Free, accurate, and instant.">
+  <meta name="keywords" content="BMI calculator, body mass index, body fat calculator, ideal weight calculator, healthy weight range, metric imperial BMI">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            C
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="calorie-tdee-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Calorie / TDEE</a>
+        <a href="sleep-cycle-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Sleep Cycles</a>
+        <a href="age-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Age Calculator</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Breadcrumb & Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">BMI & Body Fat</span>
+    </nav>
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">BMI & Body Fat Calculator</h1>
+          <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+            🏥 WHO Health Standards
+          </span>
+        </div>
+        <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+          Calculate your Body Mass Index (BMI), visual health gauge classification, ideal target weight range, and US Navy Body Fat percentage.
+        </p>
+      </div>
+
+      <!-- Unit Switcher -->
+      <div class="inline-flex p-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold shadow-inner">
+        <button type="button" id="unitMetricBtn" class="px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold shadow-sm transition">
+          Metric (kg, cm)
+        </button>
+        <button type="button" id="unitImperialBtn" class="px-3.5 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 font-semibold hover:text-slate-900 dark:hover:text-white transition">
+          Imperial (lbs, ft/in)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>⚖️</span> Body Measurements
+          </h2>
+
+          <div class="space-y-5">
+            <!-- Gender -->
+            <div>
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">Biological Sex</label>
+              <div class="grid grid-cols-2 gap-3">
+                <button type="button" id="genderMaleBtn" class="gender-btn active py-2.5 px-4 rounded-xl border border-cyan-500 bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 font-bold text-xs flex items-center justify-center gap-2 transition">
+                  <span>👨</span> Male
+                </button>
+                <button type="button" id="genderFemaleBtn" class="gender-btn py-2.5 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition">
+                  <span>👩</span> Female
+                </button>
+              </div>
+            </div>
+
+            <!-- Age -->
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label for="bmiAgeInput" class="text-xs font-bold text-slate-700 dark:text-slate-300">Age</label>
+                <span class="text-xs font-black text-cyan-600 dark:text-cyan-400" id="ageValDisplay">25 yrs</span>
+              </div>
+              <input type="number" id="bmiAgeInput" value="25" min="2" max="120" step="1"
+                class="w-full px-3.5 py-2 text-sm font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <!-- Height Inputs (Metric vs Imperial) -->
+            <div id="heightMetricContainer">
+              <div class="flex justify-between items-center mb-1.5">
+                <label for="heightCmInput" class="text-xs font-bold text-slate-700 dark:text-slate-300">Height (Centimeters)</label>
+                <span class="text-xs font-black text-cyan-600 dark:text-cyan-400" id="heightFtEquiv">5 ft 9 in</span>
+              </div>
+              <div class="relative rounded-xl shadow-sm">
+                <input type="number" id="heightCmInput" value="175" min="50" max="260" step="any"
+                  class="w-full pr-12 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">CM</span>
+              </div>
+            </div>
+
+            <div id="heightImperialContainer" class="hidden">
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1.5">Height (Feet & Inches)</label>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="relative rounded-xl shadow-sm">
+                  <input type="number" id="heightFtInput" value="5" min="1" max="8" step="1"
+                    class="w-full pr-10 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                  <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">FT</span>
+                </div>
+                <div class="relative rounded-xl shadow-sm">
+                  <input type="number" id="heightInInput" value="9" min="0" max="11" step="any"
+                    class="w-full pr-10 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                  <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400">IN</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weight Input -->
+            <div>
+              <div class="flex justify-between items-center mb-1.5">
+                <label for="weightInput" class="text-xs font-bold text-slate-700 dark:text-slate-300">Body Weight</label>
+                <span class="text-xs font-bold text-slate-400" id="weightEquivLabel">≈ 154 lbs</span>
+              </div>
+              <div class="relative rounded-xl shadow-sm">
+                <input type="number" id="weightInput" value="70" min="20" max="350" step="any"
+                  class="w-full pr-12 pl-3.5 py-2 text-sm font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-bold text-slate-400" id="weightUnitBadge">KG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional US Navy Body Fat % Estimator -->
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📐</span> US Navy Body Fat % (Optional)
+            </h3>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Circumference Method</span>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400">
+            For athletic individuals, BMI can overestimate fatness. Enter circumferences to calculate true body fat percentage:
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <label for="neckCircInput" class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Neck (cm)</label>
+              <input type="number" id="neckCircInput" value="38" min="20" max="80" step="any"
+                class="w-full px-3 py-1.5 font-bold rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500">
+            </div>
+            <div>
+              <label for="waistCircInput" class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Waist / Navel (cm)</label>
+              <input type="number" id="waistCircInput" value="82" min="30" max="180" step="any"
+                class="w-full px-3 py-1.5 font-bold rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500">
+            </div>
+            <div id="hipCircBox" class="hidden">
+              <label for="hipCircInput" class="font-bold text-slate-700 dark:text-slate-300 block mb-1">Hips (cm - Females)</label>
+              <input type="number" id="hipCircInput" value="95" min="30" max="180" step="any"
+                class="w-full px-3 py-1.5 font-bold rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-cyan-500">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Interactive Gauge (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        
+        <!-- BMI Result Card -->
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">BMI Health Score</span>
+            <div class="flex items-center gap-2">
+              <button id="copyBmiBtn" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1">
+                <span>📋</span> Copy
+              </button>
+              <button id="shareBmiWhatsAppBtn" class="px-2.5 py-1 rounded-lg text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 hover:bg-emerald-100 transition flex items-center gap-1">
+                <span>💬</span> Share
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Value & Badge -->
+          <div class="text-center">
+            <div class="text-5xl sm:text-6xl font-black text-cyan-600 dark:text-cyan-400 tracking-tight" id="bmiScoreVal">
+              22.9
+            </div>
+            <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold" id="bmiCategoryBadge">
+              Normal Weight
+            </div>
+          </div>
+
+          <!-- Visual Color Gauge Bar with Dynamic Indicator Needle -->
+          <div class="space-y-1.5 pt-2">
+            <div class="relative h-4 rounded-full overflow-hidden bg-gradient-to-r from-sky-400 via-emerald-400 via-amber-400 to-rose-500 shadow-inner"></div>
+            <!-- Gauge Needle -->
+            <div class="relative h-4">
+              <div id="gaugePointer" class="absolute top-0 -translate-x-1/2 flex flex-col items-center transition-all duration-300" style="left: 45%;">
+                <div class="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-b-[6px] border-b-slate-900 dark:border-b-white"></div>
+                <span class="text-[10px] font-black text-slate-900 dark:text-white" id="pointerLabel">22.9</span>
+              </div>
+            </div>
+            <!-- Scale Labels -->
+            <div class="flex justify-between text-[10px] font-bold text-slate-400 pt-1">
+              <span>Under (&lt;18.5)</span>
+              <span>Normal (18.5-24.9)</span>
+              <span>Over (25-29.9)</span>
+              <span>Obese (30+)</span>
+            </div>
+          </div>
+
+          <!-- Deep Metrics Breakdown -->
+          <div class="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2.5 text-xs">
+            <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Healthy Weight Range:</span>
+              <span class="font-bold text-emerald-600 dark:text-emerald-400" id="healthyWeightRange">56.7 kg – 76.3 kg</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">US Navy Body Fat %:</span>
+              <span class="font-black text-slate-900 dark:text-white font-mono" id="bodyFatPercentVal">~15.4%</span>
+            </div>
+            <div class="flex justify-between py-1 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Fat Mass:</span>
+              <span class="font-bold text-slate-700 dark:text-slate-300 font-mono" id="fatMassVal">10.8 kg</span>
+            </div>
+            <div class="flex justify-between py-1">
+              <span class="text-slate-500 dark:text-slate-400 font-medium">Lean Body Mass:</span>
+              <span class="font-bold text-cyan-600 dark:text-cyan-400 font-mono" id="leanMassVal">59.2 kg</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Educational Explanation Article -->
+    <article class="mt-10 premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-8 space-y-5">
+      <div>
+        <h2 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight mb-2">
+          Understanding Body Mass Index (BMI) & Body Fat
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          BMI is a screening tool developed by Adolphe Quetelet calculated as <code>weight (kg) ÷ [height (m)]²</code>. While BMI offers an excellent statistical baseline for general cardiovascular risk, it does not distinguish between muscle mass and adipose fat tissue. That is why our calculator pairs standard BMI with the US Navy Body Fat equation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+        <div class="p-3 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/60">
+          <span class="font-black text-sky-600 dark:text-sky-400 block mb-1">Underweight (&lt; 18.5)</span>
+          <p class="text-slate-500 dark:text-slate-400 text-[11px]">May indicate malnutrition, vitamin deficiency, or decreased immune function.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60">
+          <span class="font-black text-emerald-600 dark:text-emerald-400 block mb-1">Normal (18.5 – 24.9)</span>
+          <p class="text-slate-500 dark:text-slate-400 text-[11px]">Optimal ratio for longevity and minimal cardiovascular and metabolic risks.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60">
+          <span class="font-black text-amber-600 dark:text-amber-400 block mb-1">Overweight (25 – 29.9)</span>
+          <p class="text-slate-500 dark:text-slate-400 text-[11px]">Slightly elevated health risks. Common in strength athletes with high muscle density.</p>
+        </div>
+        <div class="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60">
+          <span class="font-black text-rose-600 dark:text-rose-400 block mb-1">Obese (30+)</span>
+          <p class="text-slate-500 dark:text-slate-400 text-[11px]">Increased risk of hypertension, type 2 diabetes, and sleep apnea.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="bg-white dark:bg-obsidian-900 text-slate-500 dark:text-slate-400 text-xs py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+    © 2026 CalcHub. All rights reserved. Body Mass Index and health screening tools.
+  </footer>
+
+  <script>
+    let unitMode = 'metric'; // 'metric' or 'imperial'
+    let currentGender = 'male';
+
+    const unitMetricBtn = document.getElementById('unitMetricBtn');
+    const unitImperialBtn = document.getElementById('unitImperialBtn');
+    const heightMetricContainer = document.getElementById('heightMetricContainer');
+    const heightImperialContainer = document.getElementById('heightImperialContainer');
+
+    const genderMaleBtn = document.getElementById('genderMaleBtn');
+    const genderFemaleBtn = document.getElementById('genderFemaleBtn');
+    const hipCircBox = document.getElementById('hipCircBox');
+
+    const bmiAgeInput = document.getElementById('bmiAgeInput');
+    const ageValDisplay = document.getElementById('ageValDisplay');
+    const heightCmInput = document.getElementById('heightCmInput');
+    const heightFtInput = document.getElementById('heightFtInput');
+    const heightInInput = document.getElementById('heightInInput');
+    const heightFtEquiv = document.getElementById('heightFtEquiv');
+
+    const weightInput = document.getElementById('weightInput');
+    const weightUnitBadge = document.getElementById('weightUnitBadge');
+    const weightEquivLabel = document.getElementById('weightEquivLabel');
+
+    const neckCircInput = document.getElementById('neckCircInput');
+    const waistCircInput = document.getElementById('waistCircInput');
+    const hipCircInput = document.getElementById('hipCircInput');
+
+    const bmiScoreVal = document.getElementById('bmiScoreVal');
+    const bmiCategoryBadge = document.getElementById('bmiCategoryBadge');
+    const gaugePointer = document.getElementById('gaugePointer');
+    const pointerLabel = document.getElementById('pointerLabel');
+    const healthyWeightRange = document.getElementById('healthyWeightRange');
+    const bodyFatPercentVal = document.getElementById('bodyFatPercentVal');
+    const fatMassVal = document.getElementById('fatMassVal');
+    const leanMassVal = document.getElementById('leanMassVal');
+
+    const copyBmiBtn = document.getElementById('copyBmiBtn');
+    const shareBmiWhatsAppBtn = document.getElementById('shareBmiWhatsAppBtn');
+
+    // Unit toggle
+    unitMetricBtn.addEventListener('click', () => {
+      if (unitMode === 'metric') return;
+      unitMode = 'metric';
+      unitMetricBtn.className = 'px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold shadow-sm transition';
+      unitImperialBtn.className = 'px-3.5 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 font-semibold hover:text-slate-900 dark:hover:text-white transition';
+      
+      heightMetricContainer.classList.remove('hidden');
+      heightImperialContainer.classList.add('hidden');
+      weightUnitBadge.textContent = 'KG';
+
+      // Convert lbs to kg
+      const curLbs = parseFloat(weightInput.value) || 154;
+      weightInput.value = (curLbs / 2.20462).toFixed(1);
+      calculateBMI();
+    });
+
+    unitImperialBtn.addEventListener('click', () => {
+      if (unitMode === 'imperial') return;
+      unitMode = 'imperial';
+      unitImperialBtn.className = 'px-3.5 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold shadow-sm transition';
+      unitMetricBtn.className = 'px-3.5 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 font-semibold hover:text-slate-900 dark:hover:text-white transition';
+
+      heightImperialContainer.classList.remove('hidden');
+      heightMetricContainer.classList.add('hidden');
+      weightUnitBadge.textContent = 'LBS';
+
+      // Convert kg to lbs
+      const curKg = parseFloat(weightInput.value) || 70;
+      weightInput.value = (curKg * 2.20462).toFixed(1);
+
+      // Convert cm to ft + in
+      const cm = parseFloat(heightCmInput.value) || 175;
+      const totalInches = cm / 2.54;
+      const ft = Math.floor(totalInches / 12);
+      const inc = Math.round(totalInches % 12);
+      heightFtInput.value = ft;
+      heightInInput.value = inc;
+
+      calculateBMI();
+    });
+
+    // Gender toggle
+    genderMaleBtn.addEventListener('click', () => {
+      currentGender = 'male';
+      genderMaleBtn.className = 'gender-btn active py-2.5 px-4 rounded-xl border border-cyan-500 bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 font-bold text-xs flex items-center justify-center gap-2 transition';
+      genderFemaleBtn.className = 'gender-btn py-2.5 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition';
+      hipCircBox.classList.add('hidden');
+      calculateBMI();
+    });
+
+    genderFemaleBtn.addEventListener('click', () => {
+      currentGender = 'female';
+      genderFemaleBtn.className = 'gender-btn active py-2.5 px-4 rounded-xl border border-pink-500 bg-pink-50 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 font-bold text-xs flex items-center justify-center gap-2 transition';
+      genderMaleBtn.className = 'gender-btn py-2.5 px-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition';
+      hipCircBox.classList.remove('hidden');
+      calculateBMI();
+    });
+
+    function getHeightInMeters() {
+      if (unitMode === 'metric') {
+        const cm = parseFloat(heightCmInput.value) || 175;
+        return cm / 100;
+      } else {
+        const ft = parseFloat(heightFtInput.value) || 5;
+        const inc = parseFloat(heightInInput.value) || 9;
+        const totalInches = (ft * 12) + inc;
+        return (totalInches * 2.54) / 100;
+      }
+    }
+
+    function getWeightInKg() {
+      const val = parseFloat(weightInput.value) || 70;
+      return unitMode === 'metric' ? val : (val / 2.20462);
+    }
+
+    function calculateBMI() {
+      const heightM = Math.max(0.5, getHeightInMeters());
+      const weightKg = Math.max(10, getWeightInKg());
+      const heightCm = heightM * 100;
+
+      // Update height & weight subtitle labels
+      const totalInches = heightCm / 2.54;
+      const ft = Math.floor(totalInches / 12);
+      const inc = Math.round(totalInches % 12);
+      heightFtEquiv.textContent = `${ft} ft ${inc} in`;
+      ageValDisplay.textContent = `${bmiAgeInput.value || 25} yrs`;
+
+      if (unitMode === 'metric') {
+        weightEquivLabel.textContent = `≈ ${(weightKg * 2.20462).toFixed(1)} lbs`;
+      } else {
+        weightEquivLabel.textContent = `≈ ${weightKg.toFixed(1)} kg`;
+      }
+
+      // BMI Formula = weight / (height * height)
+      const bmi = weightKg / (heightM * heightM);
+      bmiScoreVal.textContent = bmi.toFixed(1);
+      pointerLabel.textContent = bmi.toFixed(1);
+
+      // Category Determination
+      let catText = 'Normal Weight';
+      let catClasses = 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
+      if (bmi < 18.5) {
+        catText = 'Underweight';
+        catClasses = 'bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800';
+      } else if (bmi <= 24.9) {
+        catText = 'Normal Weight';
+        catClasses = 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800';
+      } else if (bmi <= 29.9) {
+        catText = 'Overweight';
+        catClasses = 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800';
+      } else if (bmi <= 34.9) {
+        catText = 'Obese (Class 1)';
+        catClasses = 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-800';
+      } else {
+        catText = 'Severely Obese (Class 2+)';
+        catClasses = 'bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-700';
+      }
+
+      bmiCategoryBadge.textContent = catText;
+      bmiCategoryBadge.className = `mt-2 inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-black ${catClasses}`;
+
+      // Gauge pointer placement (mapped from 15 to 35 BMI range)
+      const minBmi = 15;
+      const maxBmi = 35;
+      const clampedBmi = Math.max(minBmi, Math.min(maxBmi, bmi));
+      const percent = ((clampedBmi - minBmi) / (maxBmi - minBmi)) * 100;
+      gaugePointer.style.left = `${percent}%`;
+
+      // Healthy weight range (BMI 18.5 to 24.9)
+      const minHealthyKg = 18.5 * (heightM * heightM);
+      const maxHealthyKg = 24.9 * (heightM * heightM);
+      if (unitMode === 'metric') {
+        healthyWeightRange.textContent = `${minHealthyKg.toFixed(1)} kg – ${maxHealthyKg.toFixed(1)} kg`;
+      } else {
+        healthyWeightRange.textContent = `${(minHealthyKg * 2.20462).toFixed(1)} lbs – ${(maxHealthyKg * 2.20462).toFixed(1)} lbs`;
+      }
+
+      // US Navy Body Fat % Equation
+      const waist = Math.max(30, parseFloat(waistCircInput.value) || 82);
+      const neck = Math.max(20, parseFloat(neckCircInput.value) || 38);
+      const hip = Math.max(30, parseFloat(hipCircInput.value) || 95);
+
+      let bodyFat = 0;
+      if (currentGender === 'male') {
+        // Navy Male Formula: 495 / (1.0324 - 0.19077*log10(waist-neck) + 0.15456*log10(heightCm)) - 450
+        const diff = Math.max(1, waist - neck);
+        const denom = 1.0324 - (0.19077 * Math.log10(diff)) + (0.15456 * Math.log10(heightCm));
+        bodyFat = denom > 0 ? (495 / denom) - 450 : 15;
+      } else {
+        // Navy Female Formula: 495 / (1.29579 - 0.35004*log10(waist+hip-neck) + 0.22100*log10(heightCm)) - 450
+        const diff = Math.max(1, (waist + hip) - neck);
+        const denom = 1.29579 - (0.35004 * Math.log10(diff)) + (0.22100 * Math.log10(heightCm));
+        bodyFat = denom > 0 ? (495 / denom) - 450 : 24;
+      }
+
+      bodyFat = Math.max(3, Math.min(65, bodyFat));
+      bodyFatPercentVal.textContent = `~${bodyFat.toFixed(1)}%`;
+
+      const fatMass = weightKg * (bodyFat / 100);
+      const leanMass = weightKg - fatMass;
+
+      if (unitMode === 'metric') {
+        fatMassVal.textContent = `${fatMass.toFixed(1)} kg`;
+        leanMassVal.textContent = `${leanMass.toFixed(1)} kg`;
+      } else {
+        fatMassVal.textContent = `${(fatMass * 2.20462).toFixed(1)} lbs`;
+        leanMassVal.textContent = `${(leanMass * 2.20462).toFixed(1)} lbs`;
+      }
+    }
+
+    [bmiAgeInput, heightCmInput, heightFtInput, heightInInput, weightInput, neckCircInput, waistCircInput, hipCircInput].forEach(inp => {
+      inp.addEventListener('input', calculateBMI);
+    });
+
+    copyBmiBtn.addEventListener('click', () => {
+      const summary = `🏥 BMI Health Breakdown:\n` +
+        `• BMI Score: ${bmiScoreVal.textContent} (${bmiCategoryBadge.textContent.trim()})\n` +
+        `• Healthy Target Weight: ${healthyWeightRange.textContent}\n` +
+        `• Estimated Body Fat %: ${bodyFatPercentVal.textContent}\n` +
+        `Calculated via CalcHub • Free & Instant`;
+      navigator.clipboard.writeText(summary).then(() => {
+        if (window.showToast) window.showToast('BMI summary copied to clipboard!');
+      });
+    });
+
+    shareBmiWhatsAppBtn.addEventListener('click', () => {
+      const summary = `🏥 *My Body Mass Index (BMI) Score:*\n` +
+        `• BMI: ${bmiScoreVal.textContent} (${bmiCategoryBadge.textContent.trim()})\n` +
+        `• Healthy Range: ${healthyWeightRange.textContent}\n` +
+        `Check yours on https://jaydeep0604.github.io/calchub/bmi-calculator.html`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(summary)}`, '_blank');
+    });
+
+    calculateBMI();
+  </script>
+</body>
+</html>

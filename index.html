@@ -3,23 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CalcHub - Free Finance, Corporate, Civil Engineering & Utility Calculators</title>
-  <meta name="description" content="Accurate, free online calculators for personal finance, corporate meetings, dining bill split, beam steel rebar BBS, fuel costs, calorie deficits, and sleep cycles. Fast, private, and 100% free.">
-  <meta name="keywords" content="financial calculators, meeting cost calculator, tip calculator, sleep cycle calculator, beam steel calculator, stirrups calculator, calorie deficit, fuel cost calculator">
+  <title>CalcHub - Free Standard, Scientific & Real-Life Calculators</title>
+  <meta name="description" content="Free, instant, private calculators for everyday life: Standard & Scientific desk calculator, SIP wealth planner, Auto loan EMI, Age calculator, Concrete volume, Timesheet, BMI, and more.">
+  <meta name="keywords" content="standard calculator, scientific calculator, online calculator, free calculator, sip calculator, age calculator, bmi calculator, car loan calculator, concrete calculator, timesheet calculator">
   
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          },
           colors: {
             brand: {
-              50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8'
             },
             obsidian: {
-              900: '#080c14', 800: '#0f172a', 700: '#1e293b', 600: '#334155'
+              900: '#0b0f19',
+              800: '#111827',
+              700: '#1a2234',
+              600: '#242f47'
             }
           }
         }
@@ -27,24 +37,26 @@
     }
   </script>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/css/theme.css">
-  
+
+  <!-- Core Engines (Theme, i18n, Currency, Standard Calc) -->
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/i18n.js"></script>
   <script src="assets/js/currency.js"></script>
+  <script src="assets/js/standard-calc.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
 
-  <!-- Header -->
+  <!-- Top Navigation Header -->
   <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
-      
       <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-cyan-500 dark:from-cyan-500 dark:to-emerald-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-cyan-500 dark:to-emerald-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">
           %
         </div>
         <span class="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">
@@ -53,12 +65,13 @@
       </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
-        <a href="#calculators" data-i18n="nav_all" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
-        <a href="meeting-cost-calculator.html" data-i18n="nav_meeting" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Meeting Cost</a>
-        <a href="tip-bill-split-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Bill Split</a>
-        <a href="loan-calculator.html" data-i18n="nav_loan" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Loans</a>
-        <a href="sleep-cycle-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Sleep Cycles</a>
+      <nav class="hidden lg:flex items-center space-x-5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="#heroCalculator" class="text-cyan-600 dark:text-cyan-400">⚡ Desk Calc</a>
+        <a href="sip-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">SIP Planner</a>
+        <a href="auto-loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Car EMI</a>
+        <a href="age-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Age & DOB</a>
+        <a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Concrete BBS</a>
+        <a href="#calculators" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Tools (19)</a>
       </nav>
 
       <!-- Global Controls -->
@@ -77,64 +90,449 @@
 
     <!-- Mobile Dropdown Navigation -->
     <div id="mobileMenu" class="hidden lg:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 px-4 pt-2 pb-4 space-y-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
-      <a href="#calculators" data-i18n="nav_all" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">All Calculators</a>
-      <a href="meeting-cost-calculator.html" data-i18n="nav_meeting" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Corporate Meeting Cost</a>
-      <a href="tip-bill-split-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Dining Tip & Bill Split</a>
-      <a href="loan-calculator.html" data-i18n="nav_loan" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Loan & EMI</a>
-      <a href="sleep-cycle-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Sleep Cycle Calculator</a>
-      <a href="privacy-policy.html" data-i18n="nav_privacy" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Privacy Policy</a>
+      <a href="#heroCalculator" class="block py-2 text-cyan-600 dark:text-cyan-400">⚡ Instant Desk Calculator</a>
+      <a href="sip-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Mutual Fund SIP & Wealth</a>
+      <a href="auto-loan-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Auto Loan & Car EMI</a>
+      <a href="age-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Chronological Age & DOB</a>
+      <a href="bmi-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">BMI & Body Fat Calculator</a>
+      <a href="concrete-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Concrete Volume & Cement Bags</a>
+      <a href="timesheet-calculator.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Weekly Timesheet & Paycheck</a>
+      <a href="unit-converter.html" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Universal Unit Converter</a>
+      <a href="#calculators" class="block py-2 hover:text-cyan-600 dark:hover:text-cyan-400">Browse All 19 Calculators</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden pt-12 pb-8 sm:pt-16 sm:pb-12 text-center">
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- ========================================== -->
+  <!-- HERO STANDARD & SCIENTIFIC DESK CALCULATOR -->
+  <!-- Shown first immediately on homepage open   -->
+  <!-- ========================================== -->
+  <section id="heroCalculator" class="relative pt-6 sm:pt-8 pb-10 sm:pb-12 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/50 dark:from-obsidian-900 dark:via-obsidian-800/40 dark:to-obsidian-900">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      
+      <!-- Top Title & Badge -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black tracking-wider uppercase bg-cyan-50 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+              ⚡ Instant Online Calculator
+            </span>
+            <span class="hidden sm:inline-block text-xs text-slate-400 dark:text-slate-500 font-medium">
+              Zero lag • 100% Client-Side
+            </span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight mt-1">
+            Standard & Scientific Desk Calculator
+          </h1>
+        </div>
 
+        <!-- Mode Switches & Tape Drawer Trigger -->
+        <div class="flex items-center gap-2">
+          <!-- Standard / Scientific Tabs -->
+          <div class="p-1 bg-slate-200/80 dark:bg-slate-800 rounded-xl flex items-center">
+            <button type="button" id="tabStdMode"
+              class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white font-bold text-xs shadow-sm transition">
+              Standard
+            </button>
+            <button type="button" id="tabSciMode"
+              class="px-3 py-1.5 rounded-lg text-slate-500 dark:text-slate-400 font-semibold hover:text-slate-900 dark:hover:text-white text-xs transition">
+              Scientific
+            </button>
+          </div>
+
+          <!-- History Tape Drawer Button -->
+          <button type="button" id="toggleTapeBtn"
+            class="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+            <span>📜 Tape</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Calculator Hardware Enclosure -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- Calculator Unit (Main Body - 8 cols on desktop when tape open, or full width) -->
+        <div class="lg:col-span-8 bg-white dark:bg-obsidian-800 rounded-3xl p-4 sm:p-6 lg:p-7 border border-slate-200 dark:border-slate-700 shadow-xl relative overflow-hidden">
+          
+          <!-- Obsidian Digital LED Display Screen -->
+          <div class="rounded-2xl p-4 sm:p-6 mb-5 bg-slate-100/90 dark:bg-obsidian-900/90 border border-slate-200 dark:border-slate-700/80 text-right shadow-inner relative flex flex-col justify-between min-h-[110px] sm:min-h-[125px]">
+            <!-- Status Indicators & Badges (Top Row) -->
+            <div class="flex items-center justify-between text-xs text-slate-400 font-mono select-none">
+              <div class="flex items-center gap-2">
+                <span id="stdMemoryBadge" class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 font-bold text-[10px] opacity-0 transition-opacity">
+                  [M] MEM
+                </span>
+                <span id="stdAngleBadge" class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-500 font-bold text-[10px]">
+                  DEG
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" id="copyStdResultBtn" title="Copy result to clipboard"
+                  class="text-[11px] font-sans font-bold text-slate-500 hover:text-cyan-500 dark:hover:text-cyan-400 flex items-center gap-1 transition">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pending Calculation Expression String -->
+            <div id="stdCalcExpr" class="text-xs sm:text-sm font-mono text-slate-500 dark:text-slate-400 h-5 overflow-hidden truncate">
+            </div>
+
+            <!-- Big Main Answer Display -->
+            <div id="stdCalcDisplay" class="text-3xl sm:text-4xl lg:text-5xl font-black font-mono tracking-tight text-slate-900 dark:text-white select-all break-all overflow-x-auto no-scrollbar">
+              0
+            </div>
+          </div>
+
+          <!-- Memory Registers Strip -->
+          <div class="grid grid-cols-4 gap-2 mb-3">
+            <button type="button" id="btnCalcMC" class="py-2 rounded-xl text-xs font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">MC</button>
+            <button type="button" id="btnCalcMR" class="py-2 rounded-xl text-xs font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">MR</button>
+            <button type="button" id="btnCalcMPlus" class="py-2 rounded-xl text-xs font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">M+</button>
+            <button type="button" id="btnCalcMMinus" class="py-2 rounded-xl text-xs font-black bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">M−</button>
+          </div>
+
+          <!-- Scientific Extension Keypad (Hidden by default, shown in scientific mode) -->
+          <div id="scientificPanel" class="hidden grid grid-cols-5 sm:grid-cols-6 gap-2 mb-3 pt-2 border-t border-slate-100 dark:border-slate-800/80">
+            <button type="button" id="stdAngleToggleBtn" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 hover:bg-slate-200 transition">DEG</button>
+            <button type="button" data-calc-fn="sin" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">sin</button>
+            <button type="button" data-calc-fn="cos" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">cos</button>
+            <button type="button" data-calc-fn="tan" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">tan</button>
+            <button type="button" data-calc-fn="asin" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">sin⁻¹</button>
+            <button type="button" data-calc-fn="acos" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">cos⁻¹</button>
+
+            <button type="button" data-calc-fn="atan" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">tan⁻¹</button>
+            <button type="button" data-calc-fn="ln" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">ln</button>
+            <button type="button" data-calc-fn="log" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">log₁₀</button>
+            <button type="button" data-calc-fn="pi" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">π</button>
+            <button type="button" data-calc-fn="e" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">e</button>
+            <button type="button" data-calc-fn="sqr" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">x²</button>
+
+            <button type="button" data-calc-fn="cube" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">x³</button>
+            <button type="button" data-calc-op="pow" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">xʸ</button>
+            <button type="button" data-calc-fn="sqrt" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">√x</button>
+            <button type="button" data-calc-fn="cbrt" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">∛x</button>
+            <button type="button" data-calc-fn="inv" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">1/x</button>
+            <button type="button" data-calc-fn="fact" class="py-2 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 transition">n!</button>
+          </div>
+
+          <!-- Standard Keypad Grid (4 columns) -->
+          <div class="grid grid-cols-4 gap-2.5 sm:gap-3">
+            <!-- Row 1: Clear, Backspace, %, / -->
+            <button type="button" id="btnCalcClear"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 font-black text-sm sm:text-base transition active:scale-95 shadow-sm">
+              AC
+            </button>
+            <button type="button" id="btnCalcBackspace"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 font-black text-sm sm:text-base transition active:scale-95 shadow-sm flex items-center justify-center">
+              ⌫
+            </button>
+            <button type="button" id="btnCalcPercent"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 font-black text-sm sm:text-base transition active:scale-95 shadow-sm">
+              %
+            </button>
+            <button type="button" data-calc-op="/"
+              class="h-12 sm:h-14 rounded-2xl bg-cyan-600/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-600 hover:text-white font-black text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              ÷
+            </button>
+
+            <!-- Row 2: 7, 8, 9, * -->
+            <button type="button" data-calc-digit="7"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              7
+            </button>
+            <button type="button" data-calc-digit="8"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              8
+            </button>
+            <button type="button" data-calc-digit="9"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              9
+            </button>
+            <button type="button" data-calc-op="*"
+              class="h-12 sm:h-14 rounded-2xl bg-cyan-600/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-600 hover:text-white font-black text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              ×
+            </button>
+
+            <!-- Row 3: 4, 5, 6, - -->
+            <button type="button" data-calc-digit="4"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              4
+            </button>
+            <button type="button" data-calc-digit="5"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              5
+            </button>
+            <button type="button" data-calc-digit="6"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              6
+            </button>
+            <button type="button" data-calc-op="-"
+              class="h-12 sm:h-14 rounded-2xl bg-cyan-600/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-600 hover:text-white font-black text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              −
+            </button>
+
+            <!-- Row 4: 1, 2, 3, + -->
+            <button type="button" data-calc-digit="1"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              1
+            </button>
+            <button type="button" data-calc-digit="2"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              2
+            </button>
+            <button type="button" data-calc-digit="3"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              3
+            </button>
+            <button type="button" data-calc-op="+"
+              class="h-12 sm:h-14 rounded-2xl bg-cyan-600/10 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-600 hover:text-white font-black text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              +
+            </button>
+
+            <!-- Row 5: ±, 0, ., = -->
+            <button type="button" id="btnCalcSign"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              ±
+            </button>
+            <button type="button" data-calc-digit="0"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              0
+            </button>
+            <button type="button" id="btnCalcDecimal"
+              class="h-12 sm:h-14 rounded-2xl bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-lg sm:text-xl transition active:scale-95 shadow-sm">
+              .
+            </button>
+            <button type="button" id="btnCalcEquals"
+              class="h-12 sm:h-14 rounded-2xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-black text-xl sm:text-2xl transition active:scale-95 shadow-md">
+              =
+            </button>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400">
+            <span>⌨️ Keyboard & Numpad Supported (0-9, +, -, *, /, Enter, Backspace)</span>
+            <span class="hidden sm:inline">CalcHub Precision Math</span>
+          </div>
+
+        </div>
+
+        <!-- Running Tape History Drawer (Desktop side-panel or mobile collapsible) -->
+        <div id="stdTapeDrawer" class="lg:col-span-4 bg-white dark:bg-obsidian-800 rounded-3xl p-4 sm:p-6 border border-slate-200 dark:border-slate-700 shadow-xl flex flex-col h-[480px]">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="text-sm font-extrabold text-slate-900 dark:text-white">📜 Calculation Tape</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 font-bold">History</span>
+            </div>
+            <button type="button" id="clearTapeBtn"
+              class="text-xs text-slate-400 hover:text-red-500 font-bold transition">
+              Clear
+            </button>
+          </div>
+
+          <!-- Tape List (Scrollable) -->
+          <div id="stdTapeList" class="flex-grow overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800/60 py-2 no-scrollbar text-xs">
+            <!-- Dynamically populated past calculations -->
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-slate-800 text-[11px] text-slate-400 text-center">
+            Click any history line to recall calculation result.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- BROWSE SPECIALIZED CALCULATORS SECTION     -->
+  <!-- ========================================== -->
+  <section class="relative overflow-hidden pt-8 pb-4 text-center">
     <div class="max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 relative z-10">
-      <span data-i18n="hero_badge" class="inline-flex items-center gap-1.5 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 rounded-full mb-5 border border-cyan-200/80 dark:border-cyan-800/60 shadow-sm">
-        ✨ Corporate, Food, Health & Financial Tools
+      <span class="inline-flex items-center gap-1.5 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950/60 rounded-full mb-3 border border-cyan-200/80 dark:border-cyan-800/60 shadow-sm">
+        ✨ Specialized Purpose Calculators
       </span>
       
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-5">
-        <span data-i18n="hero_title_1">Calculators for</span> <br>
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 dark:from-cyan-400 dark:via-sky-400 dark:to-indigo-300" data-i18n="hero_title_2">Everyday Real Life</span>
-      </h1>
+      <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white leading-tight mb-3">
+        Built for Real-Life Decisions
+      </h2>
       
-      <p data-i18n="hero_desc" class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
-        From corporate meeting costs and dinner bill splits to home loans, sleep cycles, and calorie targets. 100% private, instant, and free.
+      <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-6 font-normal">
+        From SIP investments and car loan EMIs to concrete volumes, work hours, exact chronological age, and REM sleep cycles.
       </p>
 
       <!-- Search Bar -->
-      <div class="max-w-xl mx-auto relative mb-6">
+      <div class="max-w-xl mx-auto relative mb-5">
         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 dark:text-slate-500">
           <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
-        <input type="text" id="searchInput" data-i18n-placeholder="search_placeholder" placeholder="Search (e.g. meeting, bill split, sleep, loan, fuel, calorie)..." 
-          class="w-full pl-11 pr-14 py-3.5 bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:focus:ring-cyan-400 transition text-sm sm:text-base">
+        <input type="text" id="searchInput" placeholder="Search (e.g. sip, car loan, age, bmi, concrete, timesheet, unit, sleep)..." 
+          class="w-full pl-11 pr-14 py-3 bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 dark:focus:ring-cyan-400 transition text-sm sm:text-base">
         <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
           <kbd class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-bold text-slate-400 dark:text-slate-500 bg-slate-100 dark:bg-slate-700 rounded-md border border-slate-200 dark:border-slate-600">/</kbd>
         </div>
       </div>
 
-      <!-- Cool Category Filter Pills (Zero warm colors) -->
-      <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-8 sm:mb-10 px-1" id="filterContainer">
-        <button class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm transition" data-category="all">All 13 Tools</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="civil" data-i18n="cat_civil">🏗️ Civil & Steel</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="corporate" data-i18n="cat_corporate">🏢 Corporate & Work</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="finance" data-i18n="cat_finance">💰 Money & Loans</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="food" data-i18n="cat_food">🍲 Food & Dining</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="health" data-i18n="cat_health">🧘 Self & Health</button>
+      <!-- Cool Category Filter Pills -->
+      <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 px-1" id="filterContainer">
+        <button class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm transition" data-category="all">All 19 Tools</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="finance">💰 Money & Loans</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="civil">🏗️ Civil & Steel</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="corporate">🏢 Corporate & Work</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="health">🧘 Health & Body</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="food">🍲 Food & Dining</button>
+        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="utility">⚡ Daily Utilities</button>
       </div>
     </div>
   </section>
 
-  <!-- Calculators Grid Section (12 Tools) -->
+  <!-- Calculators Grid Section (19 Comprehensive Tools) -->
   <main id="calculators" class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-16 w-full flex-grow">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="calcGrid">
       
-      <!-- Card 1: Meeting Cost (Corporate) -->
+      <!-- Card: Mutual Fund SIP & Wealth Planner (Finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="sip mutual fund step up lumpsum investment wealth fire returns stock index growth compound">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            📈
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Money & Wealth</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Step-Up SIP</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">SIP & Wealth Planner</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Forecast mutual fund returns on Monthly SIP, Lumpsum, and Step-Up investments with inflation-adjusted real purchasing power.
+          </p>
+        </div>
+        <a href="sip-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Auto Loan & Car EMI (Finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="auto loan car emi vehicle payment down payment trade in sales tax financing interest">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🚗
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Auto & Finance</span>
+            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Amortization</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Auto Loan & Car EMI</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate your monthly car payment (EMI), down payment, trade-in value, sales tax, and complete annual amortization schedule.
+          </p>
+        </div>
+        <a href="auto-loan-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Chronological Age Calculator (Health & Daily) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="age date of birth dob chronological birthday countdown years months days live seconds zodiac">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🎂
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Health & Life</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Live Seconds</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Exact Chronological Age</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate your exact age in years, months, days, and live ticking seconds. See your next birthday countdown, total days lived, and zodiac stats.
+          </p>
+        </div>
+        <a href="age-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: BMI & Body Fat Calculator (Health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="bmi body mass index navy body fat percentage ideal weight target health fitness lean mass metric imperial">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⚖️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Fitness & Body</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Navy Fat %</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">BMI & Body Fat Calculator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Interactive BMI visual gauge, WHO weight categories, target healthy weight range, and US Navy body fat percentage estimator.
+          </p>
+        </div>
+        <a href="bmi-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Concrete Volume & Cement Bags (Civil) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="concrete volume cement bags sand aggregate rcc m20 m25 m15 slab footing column civil engineering cubic yards cubic meters">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            🏗️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Civil & RCC</span>
+            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">1.54x Dry Vol</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Concrete & Cement Bags</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate concrete volume for slabs, footings, and round columns. Computes required 50kg cement bags, sand, aggregate, and water.
+          </p>
+        </div>
+        <a href="concrete-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Weekly Timesheet & Payroll (Corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="timesheet work hours overtime payroll weekly time card punch in clock out paycheck gross wages 1.5x">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            ⏱️
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Corporate & Work</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Overtime (1.5x)</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Weekly Timesheet & Overtime</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Log clock-in/out times, deduct lunch breaks, calculate regular vs overtime (1.5x) hours, and estimate total gross weekly wages.
+          </p>
+        </div>
+        <a href="timesheet-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Universal Unit Converter (Utility) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="unit converter length metric imperial weight area volume speed temperature digital data storage feet meters kg lbs">
+        <div>
+          <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
+            📐
+          </div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Daily Utilities</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Multi-Unit</span>
+          </div>
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Universal Unit Converter</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Convert between metric and imperial across Length, Weight, Area, Volume, Temperature, Speed, and Digital Storage instantly.
+          </p>
+        </div>
+        <a href="unit-converter.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
+          Open Calculator →
+        </a>
+      </div>
+
+      <!-- Card: Meeting Cost (Corporate) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="meeting cost corporate employee salary time zoom standup work office productivity">
         <div>
           <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -142,19 +540,19 @@
           </div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Corporate</span>
-            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Trending</span>
+            <span class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Live Cost</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="meeting_title">Meeting Cost Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="meeting_sub">
-            Calculate the true financial salary cost of office meetings, Zoom calls, and standups. Perfect for team leaders.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Meeting Cost Calculator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate the true financial salary cost of office meetings, Zoom calls, and standups. Real-time cost ticker and team setup.
           </p>
         </div>
-        <a href="meeting-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="meeting-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 2: Tip & Bill Split (Food) -->
+      <!-- Card: Tip & Bill Split (Food) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="tip bill split restaurant dining food dinner lunch group check portion">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -162,20 +560,20 @@
           </div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Food & Dining</span>
-            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Daily Essential</span>
+            <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Split by Names</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="tip_title">Tip & Bill Split Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="tip_sub">
-            Split restaurant checks evenly with custom tip percentages and fair per-person shares. Mobile-friendly.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Tip & Bill Split Calculator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Split restaurant checks evenly or by participant names with custom tip percentages, tax options, and instant WhatsApp summary.
           </p>
         </div>
-        <a href="tip-bill-split-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="tip-bill-split-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 3: Sleep Cycle (Health / Self) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="sleep cycle rem bedtime wake up wake time nap rest health morning fatigue">
+      <!-- Card: Sleep Cycle (Health) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="sleep cycle rem bedtime wake up wake time nap rest health morning fatigue 90 min">
         <div>
           <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🌙
@@ -184,36 +582,36 @@
             <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Self & Health</span>
             <span class="text-[11px] font-semibold text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">90-min REM</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="sleep_title">Sleep Cycle & Wake Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="sleep_sub">
-            Wake up energized by timing your alarms to complete 90-minute REM cycles instead of groggy in deep sleep.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Sleep Cycle & Wake Calculator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Wake up energized by timing your alarms to complete 90-minute REM cycles. Real-time suggested alarms with seconds and calendar reminders.
           </p>
         </div>
-        <a href="sleep-cycle-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="sleep-cycle-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 4: Fuel Cost & Commute (Travel) -->
+      <!-- Card: Fuel Cost & Commute (Corporate & Utility) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="fuel cost gas trip commute car mpg carpool road travel driving">
         <div>
           <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            🚗
+            ⛽
           </div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Commute & Travel</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="fuel_title">Fuel Cost & Commute Tool</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="fuel_sub">
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Fuel Cost & Commute Tool</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Calculate exact gas costs for daily office commutes or road trips. Split fuel easily with carpool passengers.
           </p>
         </div>
-        <a href="fuel-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="fuel-cost-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 5A: Beam Steel Weight & Rebar Converter (Civil) -->
+      <!-- Card: Beam Steel Rebar Converter (Civil) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam steel rebar cutting length bbs weight tonnage civil engineering bar bending schedule IS 1786">
         <div>
           <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -228,12 +626,12 @@
             Calculate main and extra rebar cutting lengths, unit weight (D²/162.28), and bar bending schedule (BBS) tonnage in KG and MT.
           </p>
         </div>
-        <a href="beam-steel-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="beam-steel-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 5B: Beam Stirrups (Ring) Converter (Civil) -->
+      <!-- Card: Beam Stirrups (Ring) Converter (Civil) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="civil" data-keywords="beam stirrups rings cutting length bbs civil engineering shear reinforcement rings per beam weight tonnage IS 2502">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -248,12 +646,12 @@
             Compute stirrup cutting length with 135° standard seismic hooks, rings per beam, total ring count, and steel weight.
           </p>
         </div>
-        <a href="beam-stirrups-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="beam-stirrups-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 6: Calorie & TDEE (Health / Self) -->
+      <!-- Card: Calorie & TDEE (Health) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="health" data-keywords="calorie deficit tdee bmr weight loss fat loss nutrition diet fitness healthy">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -262,18 +660,18 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Health & Fitness</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="calorie_title">Calorie Deficit & TDEE</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="calorie_sub">
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Calorie Deficit & TDEE</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Calculate your maintenance calories (TDEE) and exact daily calorie deficit target for healthy fat loss.
           </p>
         </div>
-        <a href="calorie-tdee-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="calorie-tdee-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 7: Loan & EMI (Finance) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="loan emi mortgage car auto interest payment bank debt">
+      <!-- Card: Personal Loan & EMI (Finance) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="loan emi mortgage car auto interest payment bank debt personal">
         <div>
           <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             💳
@@ -281,37 +679,37 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded-md">Finance</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="loan_title">Loan & EMI Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="loan_sub">
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Personal Loan & EMI</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Calculate your monthly payment (EMI), total interest payable, and see a full amortization breakdown.
           </p>
         </div>
-        <a href="loan-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="loan-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 8: Compound Interest (Finance) -->
+      <!-- Card: Compound Interest (Finance) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="compound interest investment savings wealth fire stock index returns future value">
         <div>
           <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
-            📈
+            📊
           </div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded-md">Investing</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="compound_title">Compound Interest</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="compound_sub">
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Compound Interest Growth</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             Project your wealth growth over time with monthly deposits, annual returns, and dynamic growth charts.
           </p>
         </div>
-        <a href="compound-interest-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="compound-interest-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 9: Hourly to Salary (Corporate / Work) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="salary hourly wage freelance contractor rate billable work hours pay career">
+      <!-- Card: Salary & In-Hand (Corporate) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="salary hourly wage freelance contractor rate billable work hours pay career in hand ctc">
         <div>
           <div class="w-12 h-12 rounded-xl bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             💼
@@ -319,17 +717,17 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-700 dark:text-cyan-300 bg-cyan-50 dark:bg-cyan-950 px-2 py-0.5 rounded-md">Corporate & Pay</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="salary_title">Salary & In-Hand Calculator</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="salary_sub">
-            Calculate exact monthly take-home salary from Annual CTC, or convert hourly wages to annual pay.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Salary & In-Hand Calculator</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate exact monthly take-home salary from Annual CTC, or convert hourly wages to annual pay with PF and tax options.
           </p>
         </div>
-        <a href="salary-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="salary-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 10: Profit Margin (Business) -->
+      <!-- Card: Profit Margin & Markup (Corporate) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="corporate" data-keywords="profit margin markup e-commerce shopify sales revenue cost cogs retail business">
         <div>
           <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -338,17 +736,17 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950 px-2 py-0.5 rounded-md">Business & Margin</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="margin_title">Profit Margin & Markup</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="margin_sub">
-            Calculate gross profit, net margin, and required markup percentages to price goods for maximum profit.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Profit Margin & Markup</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Calculate gross profit, net margin, and required markup percentages to price goods for maximum profit. Multi-product list support.
           </p>
         </div>
-        <a href="profit-margin-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="profit-margin-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 11: Mortgage Early Payoff (Finance) -->
+      <!-- Card: Mortgage Early Payoff (Finance) -->
       <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="finance" data-keywords="mortgage extra payment early payoff principal amortization home loan savings">
         <div>
           <div class="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-950/80 text-sky-600 dark:text-sky-400 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
@@ -357,18 +755,18 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950 px-2 py-0.5 rounded-md">Real Estate</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="mortgage_title">Mortgage Early Payoff</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="mortgage_sub">
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Mortgage Early Payoff</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
             See how adding an extra monthly payment cuts years off your mortgage term and saves tens of thousands in interest.
           </p>
         </div>
-        <a href="mortgage-payoff-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="mortgage-payoff-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
 
-      <!-- Card 12: Percentage & Discount (Daily) -->
-      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="food" data-keywords="percentage discount sales tax tip coupon sale fraction math daily shopping">
+      <!-- Card: Percentage & Discount (Utility & Food) -->
+      <div class="calc-card premium-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between" data-category="utility" data-keywords="percentage discount sales tax tip coupon sale fraction math daily shopping cart">
         <div>
           <div class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-2xl font-bold mb-4 shadow-sm">
             🛍️
@@ -376,12 +774,12 @@
           <div class="flex items-center gap-2 mb-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">Daily Math</span>
           </div>
-          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2" data-i18n="pct_title">Percentage & Discount</h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed" data-i18n="pct_sub">
-            Quickly calculate sale price after coupon discounts, sales tax, percentage difference, and retail savings.
+          <h2 class="text-xl font-extrabold text-slate-900 dark:text-white mb-2">Percentage & Discount</h2>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            Quickly calculate sale price after coupon discounts, sales tax, percentage difference, and multi-item shopping carts.
           </p>
         </div>
-        <a href="percentage-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm" data-i18n="open_calc">
+        <a href="percentage-calculator.html" class="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cyan-600 hover:bg-cyan-700 dark:bg-cyan-500 dark:hover:bg-cyan-600 text-white dark:text-slate-950 transition shadow-sm">
           Open Calculator →
         </a>
       </div>
@@ -401,7 +799,7 @@
       <div class="max-w-3xl mx-auto space-y-6 text-slate-600 dark:text-slate-400 text-sm leading-relaxed text-center sm:text-left">
         <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Why Use CalcHub Calculators?</h2>
         <p>
-          CalcHub brings together essential everyday calculations across work, food, fitness, and money into one unified, private interface. Zero login barriers, no ads cluttering your screen, and no tracking.
+          CalcHub brings together essential everyday calculations across work, food, civil construction, fitness, and money into one unified, private interface. Zero login barriers, no ads cluttering your screen, and no tracking.
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-3">
           <div class="premium-card p-5 rounded-2xl">
@@ -411,8 +809,8 @@
           </div>
           <div class="premium-card p-5 rounded-2xl">
             <div class="text-2xl mb-2">⚡</div>
-            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Verified Formulas</h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400">All tools use standard clinical, banking, and mathematical algorithms with transparent explanations.</p>
+            <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Standard IS & Clinical Rules</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">All tools use standard clinical, banking, and civil engineering algorithms with transparent explanations.</p>
           </div>
           <div class="premium-card p-5 rounded-2xl">
             <div class="text-2xl mb-2">📱</div>
@@ -435,42 +833,44 @@
         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
           Free, accurate, and instant tools designed to make calculations simple and private.
         </p>
-        <p class="text-xs" data-i18n="footer_rights">© 2026 CalcHub. All rights reserved.</p>
+        <p class="text-xs">© 2026 CalcHub. All rights reserved.</p>
       </div>
 
       <div>
-        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Corporate & Civil</h4>
+        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Civil & Engineering</h4>
         <ul class="space-y-2">
-          <li><a href="meeting-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Meeting Cost Calculator</a></li>
-          <li><a href="salary-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Salary & In-Hand Calculator</a></li>
+          <li><a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Concrete Volume & Bags</a></li>
           <li><a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Steel Rebar BBS</a></li>
           <li><a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Stirrups (Rings)</a></li>
+          <li><a href="unit-converter.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Unit Converter</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Health & Travel</h4>
+        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Finance & Wealth</h4>
         <ul class="space-y-2">
-          <li><a href="sleep-cycle-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Sleep Cycle & Wake-Up</a></li>
-          <li><a href="calorie-tdee-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Calorie Deficit & TDEE</a></li>
-          <li><a href="fuel-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Fuel Cost & Commute</a></li>
+          <li><a href="sip-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">SIP & Step-Up Planner</a></li>
+          <li><a href="auto-loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Auto Loan & Car EMI</a></li>
           <li><a href="loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Loan & EMI Calculator</a></li>
+          <li><a href="compound-interest-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Compound Interest</a></li>
+          <li><a href="mortgage-payoff-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Mortgage Early Payoff</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Legal & Transparency</h4>
+        <h4 class="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider mb-3">Work, Health & Life</h4>
         <ul class="space-y-2">
+          <li><a href="age-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Chronological Age & DOB</a></li>
+          <li><a href="bmi-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">BMI & Body Fat Calculator</a></li>
+          <li><a href="timesheet-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Weekly Timesheet & Payroll</a></li>
+          <li><a href="meeting-cost-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Meeting Cost Calculator</a></li>
+          <li><a href="sleep-cycle-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Sleep Cycle & REM Alarms</a></li>
           <li><a href="privacy-policy.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Privacy Policy</a></li>
-          <li><a href="terms.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Terms of Service</a></li>
-          <li><a href="about.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">About Us</a></li>
-          <li><a href="contact.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Contact & Feedback</a></li>
         </ul>
       </div>
     </div>
   </footer>
 
-  <!-- Search & Filter Script -->
   <script>
     const searchInput = document.getElementById('searchInput');
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -498,9 +898,9 @@
 
       cards.forEach(card => {
         const category = card.getAttribute('data-category');
-        const keywords = card.getAttribute('data-keywords').toLowerCase();
-        const title = card.querySelector('h2').textContent.toLowerCase();
-        const desc = card.querySelector('p').textContent.toLowerCase();
+        const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+        const title = card.querySelector('h2') ? card.querySelector('h2').textContent.toLowerCase() : '';
+        const desc = card.querySelector('p') ? card.querySelector('p').textContent.toLowerCase() : '';
 
         const matchesCategory = (currentCategory === 'all' || category === currentCategory);
         const matchesQuery = query === '' || title.includes(query) || desc.includes(query) || keywords.includes(query);

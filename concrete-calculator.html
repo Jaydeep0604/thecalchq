@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concrete Calculator - Slab, Footing & Column Volume & Cement Bags | CalcHub</title>
+  <meta name="description" content="Calculate concrete volume in cubic yards, cubic meters, and cubic feet for slabs, footings, and columns. Estimate required cement bags, sand, aggregate, and water.">
+  <meta name="keywords" content="concrete calculator, slab concrete volume, cement bag calculator, rcc mix ratio, m20 concrete mix, cubic yards calculator, footing concrete calculator">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🏗️
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Steel Rebar</a>
+        <a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Beam Stirrups</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Breadcrumb & Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Concrete & RCC Estimator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Concrete Volume & Cement Bags Estimator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Civil & Site Engineering
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Accurately calculate concrete volume for slabs, footings, and round columns. Computes dry volume (1.54x), required cement bags (50kg), sand, aggregate, and water.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          
+          <!-- Shape Selector Tabs -->
+          <div>
+            <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-2">Structure Type</label>
+            <div class="grid grid-cols-3 gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl text-center">
+              <button type="button" id="tabSlab" onclick="setStructure('slab')"
+                class="py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+                Slab / Footing
+              </button>
+              <button type="button" id="tabColumn" onclick="setStructure('column')"
+                class="py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                Round Column
+              </button>
+              <button type="button" id="tabBeam" onclick="setStructure('beam')"
+                class="py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                Beam / Wall
+              </button>
+            </div>
+          </div>
+
+          <!-- Unit Selector (Feet vs Meters) -->
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Measurement System:</span>
+            <div class="flex p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg">
+              <button type="button" id="unitFeet" onclick="setUnitSystem('feet')"
+                class="px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+                Feet (ft / in)
+              </button>
+              <button type="button" id="unitMeters" onclick="setUnitSystem('meters')"
+                class="px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                Meters (m / mm)
+              </button>
+            </div>
+          </div>
+
+          <!-- Dimensions Input Forms -->
+          <!-- 1. Slab / Footing (Length, Width, Thickness) -->
+          <div id="dimsSlab" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="slabLength" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Length (<span class="unit-len-label">ft</span>)
+                </label>
+                <input type="number" id="slabLength" value="20" min="0.1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+              </div>
+              <div>
+                <label for="slabWidth" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Width (<span class="unit-len-label">ft</span>)
+                </label>
+                <input type="number" id="slabWidth" value="15" min="0.1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+              </div>
+            </div>
+            <div>
+              <label for="slabThick" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Thickness / Depth (<span class="unit-thick-label">inches</span>)
+              </label>
+              <input type="number" id="slabThick" value="6" min="1" step="any"
+                class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+            </div>
+          </div>
+
+          <!-- 2. Round Column (Diameter, Height) -->
+          <div id="dimsColumn" class="hidden space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="colDiameter" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Diameter (<span class="unit-thick-label">inches</span>)
+                </label>
+                <input type="number" id="colDiameter" value="12" min="1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+              </div>
+              <div>
+                <label for="colHeight" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Height / Depth (<span class="unit-len-label">ft</span>)
+                </label>
+                <input type="number" id="colHeight" value="10" min="0.1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantity / Number of Pieces -->
+          <div>
+            <label for="structQty" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+              Quantity / Number of identical members
+            </label>
+            <input type="number" id="structQty" value="1" min="1" step="1"
+              class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-base">
+          </div>
+
+          <!-- Concrete Mix Ratio Grade Selection -->
+          <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <label for="concreteMixGrade" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
+              Concrete Mix Grade (Cement : Sand : Aggregate)
+            </label>
+            <select id="concreteMixGrade" onchange="calculateConcrete()"
+              class="w-full px-4 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-cyan-500 outline-none text-sm cursor-pointer">
+              <option value="M20" selected>M20 Grade (1 : 1.5 : 3) - Standard Slab, Beam & Column RCC</option>
+              <option value="M25">M25 Grade (1 : 1 : 2) - Heavy Load RCC & Foundations</option>
+              <option value="M15">M15 Grade (1 : 2 : 4) - General Flooring & Plain Concrete (PCC)</option>
+              <option value="M10">M10 Grade (1 : 3 : 6) - Base Course & Leveling PCC</option>
+              <option value="M7.5">M7.5 Grade (1 : 4 : 8) - Foundation Bedding & Mass Concrete</option>
+            </select>
+          </div>
+
+          <!-- Wastage Allowance -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+              <span>Site Wastage & Spill Allowance</span>
+              <span id="wastageValueLabel" class="text-cyan-600 dark:text-cyan-400">5%</span>
+            </div>
+            <input type="range" id="wastagePct" min="0" max="15" step="1" value="5"
+              class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Materials Breakdown (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Required Concrete Volume</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Wet Volume
+            </span>
+          </div>
+
+          <!-- Volume Primary Display -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resPrimaryVol">
+              0 cu.yd
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resSecondaryVol">
+              0 m³ | 0 cu.ft
+            </div>
+          </div>
+
+          <!-- Materials Bill Matrix -->
+          <div class="space-y-3 pt-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Batch Material Requirements</h3>
+
+            <!-- Cement Bags -->
+            <div class="p-3.5 rounded-xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-200 block">Cement (50 kg Bags)</span>
+                <span class="text-[11px] text-slate-400" id="resCementKg">0 kg total</span>
+              </div>
+              <div class="text-right">
+                <span class="text-xl sm:text-2xl font-black text-cyan-600 dark:text-cyan-400" id="resCementBags">0</span>
+                <span class="text-xs text-slate-400 block font-bold">Bags</span>
+              </div>
+            </div>
+
+            <!-- Sand -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">Fine Sand</span>
+                <span class="text-[11px] text-slate-400" id="resSandCft">0 cu.ft</span>
+              </div>
+              <div class="text-right">
+                <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resSandTons">0 Tons</span>
+              </div>
+            </div>
+
+            <!-- Coarse Aggregate -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">Coarse Aggregate (Gravel)</span>
+                <span class="text-[11px] text-slate-400" id="resAggrCft">0 cu.ft</span>
+              </div>
+              <div class="text-right">
+                <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resAggrTons">0 Tons</span>
+              </div>
+            </div>
+
+            <!-- Water -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">Mixing Water (w/c ~ 0.5)</span>
+                <span class="text-[11px] text-slate-400">Clean potable water</span>
+              </div>
+              <div class="text-right">
+                <span class="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400" id="resWaterLiters">0 L</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyConcreteSummary()" id="btnCopyConc"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Bill</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppConcrete()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Technical Explanatory Note -->
+        <div class="premium-card rounded-2xl p-4 text-xs text-slate-500 dark:text-slate-400 space-y-1.5">
+          <p class="font-bold text-slate-700 dark:text-slate-200">💡 Civil Engineering Rule-of-Thumb:</p>
+          <p>• Dry Volume Factor: Wet volume shrinks by ~54% when mixed with water. Dry volume = <strong>1.54 × Wet Volume</strong>.</p>
+          <p>• Standard 1 Bag of Cement = <strong>50 kg</strong> (approx <strong>1.226 cu.ft</strong> or <strong>0.0347 m³</strong>).</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentStructure = 'slab';
+    let currentUnit = 'feet'; // 'feet' or 'meters'
+
+    const MIX_RATIOS = {
+      'M20': { c: 1, s: 1.5, a: 3 },
+      'M25': { c: 1, s: 1, a: 2 },
+      'M15': { c: 1, s: 2, a: 4 },
+      'M10': { c: 1, s: 3, a: 6 },
+      'M7.5': { c: 1, s: 4, a: 8 }
+    };
+
+    function setStructure(type) {
+      currentStructure = type;
+      
+      const tabSlab = document.getElementById('tabSlab');
+      const tabColumn = document.getElementById('tabColumn');
+      const tabBeam = document.getElementById('tabBeam');
+      const dimsSlab = document.getElementById('dimsSlab');
+      const dimsColumn = document.getElementById('dimsColumn');
+
+      [tabSlab, tabColumn, tabBeam].forEach(t => {
+        t.className = "py-2 text-xs sm:text-sm font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+      });
+
+      const activeCls = "py-2 text-xs sm:text-sm font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+
+      if (type === 'slab' || type === 'beam') {
+        if (type === 'slab') tabSlab.className = activeCls;
+        if (type === 'beam') tabBeam.className = activeCls;
+        dimsSlab.classList.remove('hidden');
+        dimsColumn.classList.add('hidden');
+      } else if (type === 'column') {
+        tabColumn.className = activeCls;
+        dimsSlab.classList.add('hidden');
+        dimsColumn.classList.remove('hidden');
+      }
+
+      calculateConcrete();
+    }
+
+    function setUnitSystem(unit) {
+      currentUnit = unit;
+      const btnFt = document.getElementById('unitFeet');
+      const btnM = document.getElementById('unitMeters');
+
+      if (unit === 'feet') {
+        btnFt.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        btnM.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        document.querySelectorAll('.unit-len-label').forEach(el => el.innerText = 'ft');
+        document.querySelectorAll('.unit-thick-label').forEach(el => el.innerText = 'inches');
+      } else {
+        btnM.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        btnFt.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        document.querySelectorAll('.unit-len-label').forEach(el => el.innerText = 'm');
+        document.querySelectorAll('.unit-thick-label').forEach(el => el.innerText = 'mm');
+      }
+
+      calculateConcrete();
+    }
+
+    document.getElementById('wastagePct').addEventListener('input', (e) => {
+      document.getElementById('wastageValueLabel').innerText = `${e.target.value}%`;
+      calculateConcrete();
+    });
+
+    ['slabLength', 'slabWidth', 'slabThick', 'colDiameter', 'colHeight', 'structQty'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateConcrete);
+    });
+
+    function calculateConcrete() {
+      const qty = parseInt(document.getElementById('structQty').value) || 1;
+      const wastage = (parseFloat(document.getElementById('wastagePct').value) || 0) / 100;
+      let wetVolumeM3 = 0; // standard calculation in m³
+
+      if (currentStructure === 'slab' || currentStructure === 'beam') {
+        const len = parseFloat(document.getElementById('slabLength').value) || 0;
+        const wid = parseFloat(document.getElementById('slabWidth').value) || 0;
+        const thick = parseFloat(document.getElementById('slabThick').value) || 0;
+
+        if (currentUnit === 'feet') {
+          // len (ft), wid (ft), thick (in)
+          const thickFt = thick / 12;
+          const volCuFt = len * wid * thickFt * qty;
+          wetVolumeM3 = volCuFt * 0.0283168;
+        } else {
+          // len (m), wid (m), thick (mm)
+          const thickM = thick / 1000;
+          wetVolumeM3 = len * wid * thickM * qty;
+        }
+      } else if (currentStructure === 'column') {
+        const dia = parseFloat(document.getElementById('colDiameter').value) || 0;
+        const height = parseFloat(document.getElementById('colHeight').value) || 0;
+
+        if (currentUnit === 'feet') {
+          // dia (in), height (ft)
+          const radiusFt = (dia / 12) / 2;
+          const volCuFt = Math.PI * Math.pow(radiusFt, 2) * height * qty;
+          wetVolumeM3 = volCuFt * 0.0283168;
+        } else {
+          // dia (mm), height (m)
+          const radiusM = (dia / 1000) / 2;
+          wetVolumeM3 = Math.PI * Math.pow(radiusM, 2) * height * qty;
+        }
+      }
+
+      // Add wastage
+      const totalWetM3 = wetVolumeM3 * (1 + wastage);
+      const totalCuYards = totalWetM3 * 1.30795;
+      const totalCuFt = totalWetM3 * 35.3147;
+
+      if (currentUnit === 'feet') {
+        document.getElementById('resPrimaryVol').innerText = `${totalCuYards.toFixed(2)} cu.yd`;
+        document.getElementById('resSecondaryVol').innerText = `${totalCuFt.toFixed(1)} cu.ft (${totalWetM3.toFixed(2)} m³) with ${(wastage*100).toFixed(0)}% wastage`;
+      } else {
+        document.getElementById('resPrimaryVol').innerText = `${totalWetM3.toFixed(2)} m³`;
+        document.getElementById('resSecondaryVol').innerText = `${totalCuYards.toFixed(2)} cu.yd (${totalCuFt.toFixed(1)} cu.ft) with ${(wastage*100).toFixed(0)}% wastage`;
+      }
+
+      // Dry Volume = 1.54 * Wet Volume
+      const dryVolumeM3 = totalWetM3 * 1.54;
+      const mixGrade = document.getElementById('concreteMixGrade').value;
+      const ratio = MIX_RATIOS[mixGrade] || MIX_RATIOS['M20'];
+      const totalParts = ratio.c + ratio.s + ratio.a;
+
+      // Cement
+      const cementVolM3 = dryVolumeM3 * (ratio.c / totalParts);
+      // Density of cement = 1440 kg/m³
+      const cementTotalKg = cementVolM3 * 1440;
+      const cementBags = Math.ceil(cementTotalKg / 50);
+
+      // Sand
+      const sandVolM3 = dryVolumeM3 * (ratio.s / totalParts);
+      const sandVolCft = sandVolM3 * 35.3147;
+      // Density of dry sand ~ 1600 kg/m³ = 1.6 Tons/m³
+      const sandTons = (sandVolM3 * 1.6);
+
+      // Aggregate
+      const aggrVolM3 = dryVolumeM3 * (ratio.a / totalParts);
+      const aggrVolCft = aggrVolM3 * 35.3147;
+      // Density of aggregate ~ 1500 kg/m³ = 1.5 Tons/m³
+      const aggrTons = (aggrVolM3 * 1.5);
+
+      // Water (water-cement ratio ~ 0.5 -> 25 to 28 liters per 50kg bag)
+      const waterLiters = Math.round(cementBags * 26);
+
+      // Render Bill
+      document.getElementById('resCementBags').innerText = cementBags;
+      document.getElementById('resCementKg').innerText = `${Math.round(cementTotalKg).toLocaleString()} kg total`;
+
+      document.getElementById('sandVolume' in document ? '' : 'resSandTons').innerText = `${sandTons.toFixed(2)} Tons`;
+      document.getElementById('resSandCft').innerText = `${sandVolCft.toFixed(1)} cu.ft (${Math.round(sandTons * 1000)} kg)`;
+
+      document.getElementById('resAggrTons').innerText = `${aggrTons.toFixed(2)} Tons`;
+      document.getElementById('resAggrCft').innerText = `${aggrVolCft.toFixed(1)} cu.ft (${Math.round(aggrTons * 1000)} kg)`;
+
+      document.getElementById('resWaterLiters').innerText = `${waterLiters.toLocaleString()} L`;
+    }
+
+    function copyConcreteSummary() {
+      const vol = document.getElementById('resPrimaryVol').innerText;
+      const bags = document.getElementById('resCementBags').innerText;
+      const sand = document.getElementById('resSandTons').innerText;
+      const aggr = document.getElementById('resAggrTons').innerText;
+      const water = document.getElementById('resWaterLiters').innerText;
+      const mix = document.getElementById('concreteMixGrade').value;
+
+      const text = `CalcHub Concrete Estimation:\n• Concrete Volume: ${vol}\n• Mix Ratio: ${mix}\n• Cement Bags (50kg): ${bags} Bags\n• Sand: ${sand}\n• Aggregate: ${aggr}\n• Water: ${water}\n\nEstimate concrete at: https://jaydeep0604.github.io/calchub/concrete-calculator.html`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyConc');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppConcrete() {
+      const vol = document.getElementById('resPrimaryVol').innerText;
+      const bags = document.getElementById('resCementBags').innerText;
+      const sand = document.getElementById('resSandTons').innerText;
+      const aggr = document.getElementById('resAggrTons').innerText;
+
+      const text = `CalcHub Concrete Material Bill:\n🏗️ Volume: ${vol}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n🪨 Aggregate: ${aggr}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/concrete-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      calculateConcrete();
+    });
+  </script>
+</body>
+</html>
