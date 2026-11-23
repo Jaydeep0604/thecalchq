@@ -72,7 +72,7 @@
         <a href="auto-loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Car EMI</a>
         <a href="age-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Age & DOB</a>
         <a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Concrete BBS</a>
-        <a href="#calculators" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Tools (28)</a>
+        <a href="#calculators" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Tools (29)</a>
       </nav>
 
       <!-- Global Controls -->
@@ -378,13 +378,13 @@
 
       <!-- Cool Category Filter Pills -->
       <div class="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-6 px-1" id="filterContainer">
-        <button class="filter-btn active px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 dark:bg-cyan-500 text-white dark:text-slate-950 shadow-sm transition" data-category="all">All 28 Tools</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="finance">💰 Money & Loans</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="civil">🏗️ Civil & Steel</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="corporate">🏢 Corporate & Work</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="health">🧘 Health & Body</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="food">🍲 Food & Dining</button>
-        <button class="filter-btn px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold bg-white dark:bg-obsidian-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-category="utility">⚡ Daily Utilities</button>
+        <button class="filter-btn active px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="all" data-i18n="cat_all">All Tools (29)</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="finance" data-i18n="cat_finance">💰 Money & Loans</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="civil" data-i18n="cat_civil">🏗️ Civil & Steel</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="corporate" data-i18n="cat_corporate">🏢 Corporate & Work</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="health" data-i18n="cat_health">🧘 Health & Body</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="food" data-i18n="cat_food">🍲 Food & Dining</button>
+        <button class="filter-btn px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all" data-category="utility" data-i18n="cat_utility">⚡ Daily Utilities</button>
       </div>
     </div>
   </section>
@@ -1078,12 +1078,8 @@
 
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
-        filterBtns.forEach(b => {
-          b.classList.remove('active', 'bg-slate-900', 'dark:bg-cyan-500', 'text-white', 'dark:text-slate-950');
-          b.classList.add('bg-white', 'dark:bg-obsidian-800', 'text-slate-600', 'dark:text-slate-300');
-        });
-        btn.classList.remove('bg-white', 'dark:bg-obsidian-800', 'text-slate-600', 'dark:text-slate-300');
-        btn.classList.add('active', 'bg-slate-900', 'dark:bg-cyan-500', 'text-white', 'dark:text-slate-950');
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
 
         currentCategory = btn.getAttribute('data-category');
         filterCards();

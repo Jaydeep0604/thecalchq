@@ -318,3 +318,78 @@ html.dark .unit-toggle-btn.active {
     justify-content: center;
   }
 }
+
+/* ========================================================
+   CATEGORY FILTER BUTTONS (Home Search Selection)
+   100% Reliable Contrast & Active States in Light & Dark Modes
+   Prevents touch-hover conflicts and invisible text
+   ======================================================== */
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Inactive State - Light Mode (High contrast dark slate text on white) */
+.filter-btn:not(.active) {
+  background-color: #ffffff !important;
+  color: #334155 !important; /* slate-700 */
+  border: 1px solid #cbd5e1 !important; /* slate-300 */
+  font-weight: 700 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.filter-btn:not(.active):hover {
+  background-color: #f1f5f9 !important; /* slate-100 */
+  color: #0f172a !important; /* slate-900 */
+  border-color: #94a3b8 !important; /* slate-400 */
+}
+
+/* Inactive State - Dark Mode */
+.dark .filter-btn:not(.active) {
+  background-color: #111827 !important; /* obsidian-800 */
+  color: #cbd5e1 !important; /* slate-300 */
+  border: 1px solid #334155 !important; /* slate-700 */
+  box-shadow: none;
+}
+
+.dark .filter-btn:not(.active):hover {
+  background-color: #1e293b !important; /* slate-800 */
+  color: #ffffff !important;
+  border-color: #475569 !important;
+}
+
+/* Active State - Light Mode (Crisp Slate-900 with Pure White Text) */
+.filter-btn.active {
+  background-color: #0f172a !important; /* slate-900 */
+  color: #ffffff !important;
+  border: 1px solid #0f172a !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.2), 0 2px 4px -2px rgba(15, 23, 42, 0.2) !important;
+}
+
+.filter-btn.active:hover {
+  background-color: #1e293b !important; /* slate-800 */
+  color: #ffffff !important;
+  border: 1px solid #1e293b !important;
+}
+
+/* Active State - Dark Mode (Electric Cyan-500 with Deep Slate-950 Text & Cyan Glow) */
+.dark .filter-btn.active {
+  background-color: #06b6d4 !important; /* cyan-500 */
+  color: #020617 !important; /* slate-950 */
+  border: 1px solid #06b6d4 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.45) !important;
+}
+
+.dark .filter-btn.active:hover {
+  background-color: #22d3ee !important; /* cyan-400 */
+  color: #020617 !important;
+  border: 1px solid #22d3ee !important;
+}
