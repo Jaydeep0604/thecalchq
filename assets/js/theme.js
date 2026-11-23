@@ -1,5 +1,5 @@
 /**
- * CalcHub Dark/Light Theme Manager
+ * TheCalcHQ Dark/Light Theme Manager
  * Supports: System preference detection, localStorage persistence,
  * dynamic theme toggling, and Chart.js color palette updates.
  */

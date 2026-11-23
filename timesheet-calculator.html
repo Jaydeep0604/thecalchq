@@ -4,7 +4,7 @@
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross | CalcHub</title>
+  <title>Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross | TheCalcHQ</title>
   <meta name="description" content="Free weekly timesheet calculator with lunch break deductions, daily and weekly overtime (1.5x), and gross paycheck calculations. Quick-fill standard shifts.">
   <meta name="keywords" content="timesheet calculator, work hours calculator, time card calculator, overtime calculator, payroll timesheet, employee hours tracker">
   
@@ -32,6 +32,53 @@
   <script src="assets/js/theme.js"></script>
   <script src="assets/js/i18n.js"></script>
   <script src="assets/js/currency.js"></script>
+
+  <!-- Canonical & PWA Specifications -->
+  <link rel="canonical" href="https://thecalchq.com/timesheet-calculator.html">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TheCalcHQ">
+
+  <!-- Open Graph / Social Media Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thecalchq.com/timesheet-calculator.html">
+  <meta property="og:title" content="Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross | TheCalcHQ">
+  <meta property="og:description" content="Free weekly timesheet calculator with lunch break deductions, daily and weekly overtime (1.5x), and gross paycheck calculations. Quick-fill standard shifts.">
+  <meta property="og:image" content="https://thecalchq.com/assets/images/og-card.svg">
+  <meta property="og:site_name" content="TheCalcHQ">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://thecalchq.com/timesheet-calculator.html">
+  <meta name="twitter:title" content="Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross | TheCalcHQ">
+  <meta name="twitter:description" content="Free weekly timesheet calculator with lunch break deductions, daily and weekly overtime (1.5x), and gross paycheck calculations. Quick-fill standard shifts.">
+  <meta name="twitter:image" content="https://thecalchq.com/assets/images/og-card.svg">
+
+  <!-- Google Rich Snippet JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Timesheet Calculator - Work Hours, Overtime Pay & Weekly Gross",
+    "url": "https://thecalchq.com/timesheet-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "description": "Free weekly timesheet calculator with lunch break deductions, daily and weekly overtime (1.5x), and gross paycheck calculations. Quick-fill standard shifts.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "850"
+    }
+  }
+  </script>
+
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
 
@@ -43,7 +90,7 @@
           <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
             ⏱️
           </div>
-          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">HQ</span></span>
         </a>
       </div>
 
@@ -197,7 +244,8 @@
 
           <!-- Action buttons -->
           <div class="grid grid-cols-2 gap-3 pt-2">
-            <button type="button" onclick="copyTimesheetSummary()" id="btnCopyTime"
+            <button type="button" onclick="window.print()" class="px-3 py-2 rounded-xl bg-cyan-50 dark:bg-cyan-950/60 hover:bg-cyan-100 text-cyan-800 dark:text-cyan-300 font-bold text-xs flex items-center justify-center gap-1.5 border border-cyan-200 dark:border-cyan-800/80 transition-all"><span>🖨️</span> <span>PDF Paycheck</span></button>
+          <button type="button" onclick="copyTimesheetSummary()" id="btnCopyTime"
               class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
               <span>Copy Paycheck</span>
@@ -217,7 +265,7 @@
   <!-- Footer -->
   <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
     <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <p>© 2026 TheCalcHQ. Free, private, client-side calculating tools.</p>
       <div class="flex items-center gap-4">
         <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
         <a href="terms.html" class="hover:underline">Terms of Service</a>

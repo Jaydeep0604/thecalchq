@@ -1,5 +1,5 @@
 /**
- * CalcHub Multi-Currency Engine
+ * TheCalcHQ Multi-Currency Engine
  * Handles global currency selection, localStorage persistence, 
  * dynamic symbol updating, and localized number formatting.
  */

@@ -1,5 +1,5 @@
 /**
- * CalcHub Premier Standard & Scientific Calculator Engine
+ * TheCalcHQ Premier Standard & Scientific Calculator Engine
  * Delivers desktop & mobile-first high-precision arithmetic,
  * scientific functions (Trig, Logs, Powers), Memory register,
  * running tape history, and full keyboard/numpad support.

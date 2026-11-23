@@ -3,7 +3,7 @@
     mortgage_sub: "Berechnen Sie, wie Sondertilgungen Ihre Laufzeit verkürzen und Zinskosten drastisch senken.",
     mortgage_title: "Remboursement Anticipé de Prêt Immobilier",
     mortgage_sub: "Calculez comment des versements anticipés réduisent la durée de votre prêt et vos intérêts.",
- * CalcHub Multi-Language Translation (i18n) Engine - Complete Edition
+ * TheCalcHQ Multi-Language Translation (i18n) Engine - Complete Edition
  * Languages: English (en), Gujarati (gu), Hindi (hi), Spanish (es), French (fr), German (de)
  * Provides comprehensive translation across all 28 calculators, forms, and results.
  */
@@ -65,7 +65,7 @@ const TRANSLATIONS = {
     tape_history: "📜 Calculation Tape",
     clear_tape: "Clear",
     keyboard_hint: "⌨️ Keyboard & Numpad Supported (0-9, +, -, *, /, Enter, Backspace)",
-    precision_tag: "CalcHub Precision Math",
+    precision_tag: "TheCalcHQ Precision Math",
     
     // Badges
     badge_trending_1: "🔥 Trending #1",
@@ -163,7 +163,7 @@ const TRANSLATIONS = {
     tip_title: "Tip & Bill Split Calculator",
     tip_sub: "Split restaurant checks evenly or by participant names with custom tip percentages, tax options, and instant summary.",
 
-    footer_rights: "© 2026 CalcHub. All rights reserved.",
+    footer_rights: "© 2026 TheCalcHQ. All rights reserved.",
     footer_desc: "Free, accurate, and instant tools designed to make calculations simple and private."
   },
 
@@ -214,7 +214,7 @@ const TRANSLATIONS = {
     tape_history: "📜 ગણતરી ટેપ હિસ્ટ્રી",
     clear_tape: "સાફ કરો",
     keyboard_hint: "⌨️ કીબોર્ડ અને નમપેડ સપોર્ટેડ (0-9, +, -, *, /, Enter, Backspace)",
-    precision_tag: "CalcHub પ્રિસિઝન મેથ",
+    precision_tag: "TheCalcHQ પ્રિસિઝન મેથ",
 
     // Badges
     badge_trending_1: "🔥 ટ્રેન્ડિંગ #૧",
@@ -312,7 +312,7 @@ const TRANSLATIONS = {
     tip_title: "ટિપ અને બિલ સ્પ્લિટ",
     tip_sub: "રેસ્ટોરન્ટ બિલ સરખે ભાગે અથવા વ્યક્તિગત નામો મુજબ ટિપ સાથે વહેંચો.",
 
-    footer_rights: "© 2026 CalcHub. સર્વાધિકાર સુરક્ષિત.",
+    footer_rights: "© 2026 TheCalcHQ. સર્વાધિકાર સુરક્ષિત.",
     footer_desc: "ગણતરીઓને સરળ, ઝડપી અને ખાનગી બનાવવા માટે રચાયેલા ૧૦૦% મફત ટૂલ્સ."
   },
 
@@ -363,7 +363,7 @@ const TRANSLATIONS = {
     tape_history: "📜 गणना टेप इतिहास",
     clear_tape: "साफ़ करें",
     keyboard_hint: "⌨️ कीबोर्ड और नमपैड समर्थित (0-9, +, -, *, /, Enter, Backspace)",
-    precision_tag: "CalcHub प्रिसिजन मैथ",
+    precision_tag: "TheCalcHQ प्रिसिजन मैथ",
 
     // Badges
     badge_trending_1: "🔥 ट्रेंडिंग #1",
@@ -461,7 +461,7 @@ const TRANSLATIONS = {
     tip_title: "टिप और बिल विभाजन",
     tip_sub: "रेस्तरां बिल को समान रूप से या प्रतिभागियों के नाम के अनुसार उचित टिप के साथ विभाजित करें।",
 
-    footer_rights: "© 2026 CalcHub. सर्वाधिकार सुरक्षित।",
+    footer_rights: "© 2026 TheCalcHQ. सर्वाधिकार सुरक्षित।",
     footer_desc: "गणना को सरल, त्वरित और निजी बनाने के लिए डिज़ाइन किए गए 100% मुफ़्त टूल्स।"
   },
 
@@ -602,7 +602,7 @@ const TRANSLATIONS = {
     tip_title: "Propinas y División de Cuenta",
     tip_sub: "Divide cuentas de restaurante equitativamente o por nombres con porcentajes de propina personalizados.",
 
-    footer_rights: "© 2026 CalcHub. Todos los derechos reservados.",
+    footer_rights: "© 2026 TheCalcHQ. Todos los derechos reservados.",
     footer_desc: "Herramientas 100% gratuitas, privadas e instantáneas diseñadas para facilitar tus cálculos diarios."
   },
 
@@ -644,7 +644,7 @@ const TRANSLATIONS = {
     sip_sub: "Prévoyez vos rendements d'épargne programmée et votre capital ajusté à l'inflation.",
     unit_title: "Convertisseur Universel d'Unités",
     unit_sub: "Convertissez instantanément longueurs, poids, surfaces, volumes, températures et vitesses.",
-    footer_rights: "© 2026 CalcHub. Tous droits réservés."
+    footer_rights: "© 2026 TheCalcHQ. Tous droits réservés."
   },
 
   de: {
@@ -685,7 +685,7 @@ const TRANSLATIONS = {
     sip_sub: "Berechnen Sie Renditen von monatlichen Sparplänen und Einmalanlagen mit Inflationsausgleich.",
     unit_title: "Universeller Einheitenrechner",
     unit_sub: "Rechnen Sie Längen, Gewichte, Flächen, Volumen, Temperaturen und Datenmengen blitzschnell um.",
-    footer_rights: "© 2026 CalcHub. Alle Rechte vorbehalten."
+    footer_rights: "© 2026 TheCalcHQ. Alle Rechte vorbehalten."
   }
 };
 

@@ -393,3 +393,44 @@ html.dark .unit-toggle-btn.active {
   color: #020617 !important;
   border: 1px solid #22d3ee !important;
 }
+
+/* ========================================================
+   OFFICIAL PRINT & PDF EXPORT STYLING (TheCalcHQ)
+   Generates crisp white professional documentation
+   ======================================================== */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 12pt !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  header, footer, nav, .nav-blur, #mobileMenu, #mobileMenuBtn,
+  .language-selector-mount, .currency-selector-mount, .theme-toggle-mount,
+  .no-print, button, input[type="range"], .tab-buttons {
+    display: none !important;
+  }
+  .premium-card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    page-break-inside: avoid;
+  }
+  .print-header {
+    display: block !important;
+    border-bottom: 2px solid #06b6d4;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+  }
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}
+@media screen {
+  .print-header {
+    display: none;
+  }
+}
