@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brick & Mortar Wall Calculator - Bricks Count, Cement Bags & Sand | CalcHub</title>
+  <meta name="description" content="Calculate total number of bricks, cement bags (50kg), and sand required for 4.5-inch and 9-inch masonry walls. Includes door/window deductions and mortar mix ratios.">
+  <meta name="keywords" content="brick calculator, brick wall calculator, masonry calculator, cement sand mortar ratio, how many bricks for wall, 9 inch wall bricks">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🧱
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Concrete Volume</a>
+        <a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Steel Rebar BBS</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Brick & Mortar Wall</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Brick & Mortar Wall Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Masonry Estimator
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Calculate exact total number of bricks, cement bags (50kg), and sand volume required for masonry walls with opening deductions.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📐</span> Wall Dimensions & Brick Type
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Unit Mode: Feet vs Meters -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Dimension Units:</span>
+              <div class="flex p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                <button type="button" id="unitFtBtn" onclick="setWallUnit('ft')"
+                  class="px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+                  Feet (ft / inches)
+                </button>
+                <button type="button" id="unitMBtn" onclick="setWallUnit('m')"
+                  class="px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                  Meters (m)
+                </button>
+              </div>
+            </div>
+
+            <!-- Wall Length & Height -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="wallLength" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Wall Length (<span class="unit-label">ft</span>)
+                </label>
+                <input type="number" id="wallLength" value="20" min="0.5" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-base">
+              </div>
+              <div>
+                <label for="wallHeight" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Wall Height (<span class="unit-label">ft</span>)
+                </label>
+                <input type="number" id="wallHeight" value="10" min="0.5" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-base">
+              </div>
+            </div>
+
+            <!-- Wall Thickness -->
+            <div>
+              <label for="wallThickness" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Wall Thickness
+              </label>
+              <select id="wallThickness" onchange="calculateBricks()"
+                class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm cursor-pointer">
+                <option value="9inch" selected>9-inch Wall (Full-Brick Outer Load-Bearing Wall)</option>
+                <option value="4.5inch">4.5-inch Wall (Half-Brick Interior Partition Wall)</option>
+                <option value="230mm">230 mm Metric Standard Wall</option>
+                <option value="115mm">115 mm Metric Partition Wall</option>
+              </select>
+            </div>
+
+            <!-- Brick Type & Mortar Mix -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div>
+                <label for="brickSize" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Brick Size Standard
+                </label>
+                <select id="brickSize" onchange="calculateBricks()"
+                  class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs cursor-pointer">
+                  <option value="traditional" selected>Traditional Indian Red (9" × 4.25" × 2.75")</option>
+                  <option value="modular">Modular IS Brick (190 × 90 × 90 mm)</option>
+                  <option value="flyash">Fly Ash Brick (230 × 110 × 75 mm)</option>
+                </select>
+              </div>
+              <div>
+                <label for="mortarRatio" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Mortar Mix (Cement : Sand)
+                </label>
+                <select id="mortarRatio" onchange="calculateBricks()"
+                  class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs cursor-pointer">
+                  <option value="1:6" selected>1 : 6 (Standard Superstructure)</option>
+                  <option value="1:4">1 : 4 (Rich Mix / Foundation / Plinth)</option>
+                  <option value="1:5">1 : 5 (Medium Strength)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Openings Deduction (Doors & Windows Area) -->
+            <div class="space-y-1.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <label for="openingsArea" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
+                Total Doors & Windows Opening Area (<span class="unit-area-label">sq.ft</span>)
+              </label>
+              <input type="number" id="openingsArea" value="21" min="0" step="any"
+                class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm">
+              <span class="text-[11px] text-slate-400">e.g. One standard 7 × 3 ft door = 21 sq.ft deduction</span>
+            </div>
+
+            <!-- Breakage & Wastage Slider -->
+            <div class="space-y-1">
+              <div class="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+                <span>Site Breakage & Wastage</span>
+                <span id="brickWastageLabel" class="text-cyan-600 dark:text-cyan-400">5%</span>
+              </div>
+              <input type="range" id="brickWastage" min="0" max="15" step="1" value="5"
+                class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Materials Bill (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Total Bricks Required</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              With Wastage
+            </span>
+          </div>
+
+          <!-- Big Brick Count -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resBricks">
+              0 Bricks
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resNetWallArea">
+              Net Wall Area: 0 sq.ft
+            </div>
+          </div>
+
+          <!-- Mortar Bill Breakdown -->
+          <div class="space-y-3 pt-2">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Masonry Mortar Materials</h3>
+
+            <!-- Cement Bags -->
+            <div class="p-3.5 rounded-xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-200 block">Cement (50 kg Bags)</span>
+                <span class="text-[11px] text-slate-400" id="resCementKg">0 kg total</span>
+              </div>
+              <div class="text-right">
+                <span class="text-xl sm:text-2xl font-black text-cyan-600 dark:text-cyan-400" id="resCementBags">0</span>
+                <span class="text-xs text-slate-400 block font-bold">Bags</span>
+              </div>
+            </div>
+
+            <!-- Sand -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 block">River Sand</span>
+                <span class="text-[11px] text-slate-400" id="resSandCft">0 cu.ft</span>
+              </div>
+              <div class="text-right">
+                <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resSandTons">0 Tons</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyBrickSummary()" id="btnCopyBrick"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Bill</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppBrick()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let wallUnit = 'ft';
+
+    function setWallUnit(u) {
+      wallUnit = u;
+      const bFt = document.getElementById('unitFtBtn');
+      const bM = document.getElementById('unitMBtn');
+
+      if (u === 'ft') {
+        bFt.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        bM.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        document.querySelectorAll('.unit-label').forEach(el => el.innerText = 'ft');
+        document.querySelectorAll('.unit-area-label').forEach(el => el.innerText = 'sq.ft');
+      } else {
+        bM.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        bFt.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        document.querySelectorAll('.unit-label').forEach(el => el.innerText = 'm');
+        document.querySelectorAll('.unit-area-label').forEach(el => el.innerText = 'sq.m');
+      }
+      calculateBricks();
+    }
+
+    document.getElementById('brickWastage').addEventListener('input', (e) => {
+      document.getElementById('brickWastageLabel').innerText = `${e.target.value}%`;
+      calculateBricks();
+    });
+
+    ['wallLength', 'wallHeight', 'openingsArea'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateBricks);
+    });
+
+    function calculateBricks() {
+      const len = parseFloat(document.getElementById('wallLength').value) || 0;
+      const hgt = parseFloat(document.getElementById('wallHeight').value) || 0;
+      const openArea = parseFloat(document.getElementById('openingsArea').value) || 0;
+      const wastage = (parseFloat(document.getElementById('brickWastage').value) || 0) / 100;
+      const thickType = document.getElementById('wallThickness').value;
+      const brickType = document.getElementById('brickSize').value;
+      const mortarMix = document.getElementById('mortarRatio').value;
+
+      let netAreaSqM = 0;
+      let netAreaSqFt = 0;
+
+      if (wallUnit === 'ft') {
+        const grossArea = len * hgt;
+        netAreaSqFt = Math.max(0, grossArea - openArea);
+        netAreaSqM = netAreaSqFt * 0.092903;
+      } else {
+        const grossArea = len * hgt;
+        netAreaSqM = Math.max(0, grossArea - openArea);
+        netAreaSqFt = netAreaSqM * 10.7639;
+      }
+
+      // Wall thickness in meters
+      let thickM = 0.23; // 9 inch / 230 mm
+      if (thickType === '4.5inch' || thickType === '115mm') {
+        thickM = 0.115;
+      }
+
+      const wallVolumeM3 = netAreaSqM * thickM;
+
+      // Standard Indian Traditional brick with mortar:
+      // Nominal size with 10mm mortar = 239mm x 118mm x 80mm
+      // Modular brick with mortar = 200mm x 100mm x 100mm = 0.002 m³ -> exactly 500 bricks per m³
+      let bricksPerM3 = 500;
+      if (brickType === 'traditional') {
+        bricksPerM3 = 490;
+      } else if (brickType === 'flyash') {
+        bricksPerM3 = 460;
+      }
+
+      const totalBricksRaw = wallVolumeM3 * bricksPerM3;
+      const totalBricks = Math.ceil(totalBricksRaw * (1 + wastage));
+
+      // Mortar volume calculation:
+      // ~25% to 30% of masonry wall volume is mortar
+      const wetMortarM3 = wallVolumeM3 * 0.28;
+      // Dry mortar volume factor is 1.33 (33% increase for dry mix voids)
+      const dryMortarM3 = wetMortarM3 * 1.33;
+
+      let cRatio = 1;
+      let sRatio = 6;
+      if (mortarMix === '1:4') { sRatio = 4; }
+      else if (mortarMix === '1:5') { sRatio = 5; }
+
+      const totalParts = cRatio + sRatio;
+      const cementVolM3 = dryMortarM3 * (cRatio / totalParts);
+      // Density of cement = 1440 kg/m³
+      const cementKg = cementVolM3 * 1440;
+      const cementBags = Math.ceil(cementKg / 50);
+
+      const sandVolM3 = dryMortarM3 * (sRatio / totalParts);
+      const sandCft = sandVolM3 * 35.3147;
+      const sandTons = sandVolM3 * 1.6;
+
+      document.getElementById('resBricks').innerText = `${totalBricks.toLocaleString()} Bricks`;
+      document.getElementById('resNetWallArea').innerText = `Net Wall Area: ${netAreaSqFt.toFixed(1)} sq.ft (${netAreaSqM.toFixed(1)} m²)`;
+      document.getElementById('resCementBags').innerText = cementBags;
+      document.getElementById('resCementKg').innerText = `${Math.round(cementKg).toLocaleString()} kg total`;
+      document.getElementById('resSandTons').innerText = `${sandTons.toFixed(2)} Tons`;
+      document.getElementById('resSandCft').innerText = `${sandCft.toFixed(1)} cu.ft`;
+    }
+
+    function copyBrickSummary() {
+      const bricks = document.getElementById('resBricks').innerText;
+      const bags = document.getElementById('resCementBags').innerText;
+      const sand = document.getElementById('resSandTons').innerText;
+      const area = document.getElementById('resNetWallArea').innerText;
+      const text = `CalcHub Brick Wall Bill:\n• ${bricks}\n• ${area}\n• Cement Bags: ${bags} Bags\n• Sand: ${sand}\n\nEstimate bricks: https://jaydeep0604.github.io/calchub/brick-wall-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyBrick');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppBrick() {
+      const bricks = document.getElementById('resBricks').innerText;
+      const bags = document.getElementById('resCementBags').innerText;
+      const sand = document.getElementById('resSandTons').innerText;
+      const text = `CalcHub Masonry Material Bill:\n🧱 Required: ${bricks}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/brick-wall-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateBricks);
+  </script>
+</body>
+</html>

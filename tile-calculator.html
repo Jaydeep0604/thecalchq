@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tile Calculator - Flooring & Wall Tiles Count, Boxes & Sq Ft | CalcHub</title>
+  <meta name="description" content="Calculate the exact number of flooring and wall tiles and boxes needed for rooms, kitchens, and bathrooms. Supports 2x2 ft, 2x4 ft, diagonal cuts, and cost estimates.">
+  <meta name="keywords" content="tile calculator, flooring calculator, square feet tile calculator, how many tile boxes do I need, 2x2 tile calculator, 2x4 vitrified tile">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🔲
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Concrete Volume</a>
+        <a href="brick-wall-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Brick Wall</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Flooring Tile Calculator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Tile & Square Feet Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Flooring & Wall Tiles
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Determine the exact number of tiles, boxes, and total square footage needed for your room with cut and corner wastage allowance.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📏</span> Room Area & Tile Dimensions
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Room Dimensions (Length x Width) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="roomLength" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Room Length (ft)
+                </label>
+                <input type="number" id="roomLength" value="16" min="1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-base">
+              </div>
+              <div>
+                <label for="roomWidth" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Room Width (ft)
+                </label>
+                <input type="number" id="roomWidth" value="12" min="1" step="any"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-base">
+              </div>
+            </div>
+
+            <!-- Tile Size Selection -->
+            <div>
+              <label for="tileSizeSelect" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Standard Tile Size
+              </label>
+              <select id="tileSizeSelect" onchange="onTilePresetChange()"
+                class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm cursor-pointer">
+                <option value="2x2" selected>2 × 2 ft (600 × 600 mm) - Standard Living/Bed Room</option>
+                <option value="2x4">2 × 4 ft (600 × 1200 mm) - Modern Large Format GVT</option>
+                <option value="1x1">1 × 1 ft (300 × 300 mm) - Bathroom / Balcony Anti-skid</option>
+                <option value="1x1.5">1 × 1.5 ft (300 × 450 mm) - Wall Tiles</option>
+                <option value="custom">Custom Size (Inches)</option>
+              </select>
+            </div>
+
+            <!-- Custom Tile Size (Hidden by default) -->
+            <div id="customTileBox" class="hidden grid grid-cols-2 gap-4">
+              <div>
+                <label for="tileLenIn" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Tile Length (inches)</label>
+                <input type="number" id="tileLenIn" value="24" min="1" step="any" oninput="calculateTiles()"
+                  class="w-full px-3 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm">
+              </div>
+              <div>
+                <label for="tileWidIn" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Tile Width (inches)</label>
+                <input type="number" id="tileWidIn" value="24" min="1" step="any" oninput="calculateTiles()"
+                  class="w-full px-3 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm">
+              </div>
+            </div>
+
+            <!-- Packaging & Pricing Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div>
+                <label for="tilesPerBox" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Tiles Per Box
+                </label>
+                <input type="number" id="tilesPerBox" value="4" min="1" step="1"
+                  class="w-full px-4 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm">
+              </div>
+              <div>
+                <label for="pricePerBox" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Price Per Box (Optional)
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5">
+                  <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                  <input type="number" id="pricePerBox" value="45" min="0" step="any"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                </div>
+              </div>
+            </div>
+
+            <!-- Wastage Pattern Selection -->
+            <div class="space-y-1 pt-1">
+              <div class="flex justify-between items-center text-xs font-bold text-slate-700 dark:text-slate-300">
+                <span>Layout & Cutting Wastage Allowance</span>
+                <span id="tileWastageLabel" class="text-cyan-600 dark:text-cyan-400">10% (Standard)</span>
+              </div>
+              <input type="range" id="tileWastage" min="0" max="20" step="1" value="10"
+                class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+              <div class="flex justify-between text-[11px] text-slate-400">
+                <span>5% (Simple Grid)</span>
+                <span>10% (Standard)</span>
+                <span>15%+ (Diagonal / Herringbone)</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Bill (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Total Boxes Needed</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Complete Order
+            </span>
+          </div>
+
+          <!-- Big Boxes Needed -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resBoxes">
+              0 Boxes
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resTilesCount">
+              0 Total Individual Tiles
+            </div>
+          </div>
+
+          <!-- Area Metrics Matrix -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Actual Room Floor Area:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resGrossArea">0 sq.ft</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Total Area With Wastage:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resTotalArea">0 sq.ft</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Area in Square Meters:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resAreaSqM">0 sq.m</span>
+            </div>
+            <div class="flex justify-between py-2 bg-slate-50 dark:bg-slate-800/80 px-3 rounded-xl font-bold">
+              <span class="text-slate-700 dark:text-slate-200">Estimated Total Cost:</span>
+              <span class="text-emerald-500 text-sm" id="resTotalCost">$0</span>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyTileSummary()" id="btnCopyTile"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Bill</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppTile()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getSym() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function fmt(val) {
+      const sym = getSym();
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function onTilePresetChange() {
+      const sel = document.getElementById('tileSizeSelect').value;
+      const customBox = document.getElementById('customTileBox');
+      const boxCount = document.getElementById('tilesPerBox');
+
+      if (sel === 'custom') {
+        customBox.classList.remove('hidden');
+      } else {
+        customBox.classList.add('hidden');
+        if (sel === '2x2') { boxCount.value = 4; }
+        else if (sel === '2x4') { boxCount.value = 2; }
+        else if (sel === '1x1') { boxCount.value = 10; }
+        else if (sel === '1x1.5') { boxCount.value = 6; }
+      }
+      calculateTiles();
+    }
+
+    document.getElementById('tileWastage').addEventListener('input', (e) => {
+      document.getElementById('tileWastageLabel').innerText = `${e.target.value}%`;
+      calculateTiles();
+    });
+
+    ['roomLength', 'roomWidth', 'tilesPerBox', 'pricePerBox'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateTiles);
+    });
+
+    function calculateTiles() {
+      const len = parseFloat(document.getElementById('roomLength').value) || 0;
+      const wid = parseFloat(document.getElementById('roomWidth').value) || 0;
+      const wastage = (parseFloat(document.getElementById('tileWastage').value) || 0) / 100;
+      const tilesPerBox = parseInt(document.getElementById('tilesPerBox').value) || 1;
+      const pricePerBox = parseFloat(document.getElementById('pricePerBox').value) || 0;
+      const sel = document.getElementById('tileSizeSelect').value;
+
+      const roomSqFt = len * wid;
+      const totalSqFt = roomSqFt * (1 + wastage);
+      const totalSqM = totalSqFt * 0.092903;
+
+      // Tile Area in sq.ft
+      let tileAreaSqFt = 4; // default 2x2 = 4 sq.ft
+      if (sel === '2x2') tileAreaSqFt = 4;
+      else if (sel === '2x4') tileAreaSqFt = 8;
+      else if (sel === '1x1') tileAreaSqFt = 1;
+      else if (sel === '1x1.5') tileAreaSqFt = 1.5;
+      else if (sel === 'custom') {
+        const lIn = parseFloat(document.getElementById('tileLenIn').value) || 24;
+        const wIn = parseFloat(document.getElementById('tileWidIn').value) || 24;
+        tileAreaSqFt = (lIn * wIn) / 144;
+      }
+
+      const totalTiles = tileAreaSqFt > 0 ? Math.ceil(totalSqFt / tileAreaSqFt) : 0;
+      const totalBoxes = tilesPerBox > 0 ? Math.ceil(totalTiles / tilesPerBox) : 0;
+      const totalCost = totalBoxes * pricePerBox;
+
+      document.getElementById('resBoxes').innerText = `${totalBoxes} Boxes`;
+      document.getElementById('resTilesCount').innerText = `${totalTiles} Total Tiles (${totalBoxes * tilesPerBox} tiles in ${totalBoxes} boxes)`;
+      document.getElementById('resGrossArea').innerText = `${roomSqFt.toFixed(1)} sq.ft`;
+      document.getElementById('resTotalArea').innerText = `${totalSqFt.toFixed(1)} sq.ft (incl. ${(wastage * 100).toFixed(0)}% waste)`;
+      document.getElementById('resAreaSqM').innerText = `${totalSqM.toFixed(1)} sq.m`;
+      document.getElementById('resTotalCost').innerText = fmt(totalCost);
+    }
+
+    function copyTileSummary() {
+      const boxes = document.getElementById('resBoxes').innerText;
+      const tiles = document.getElementById('resTilesCount').innerText;
+      const area = document.getElementById('resTotalArea').innerText;
+      const cost = document.getElementById('resTotalCost').innerText;
+      const text = `CalcHub Flooring Tile Bill:\n• Boxes Needed: ${boxes}\n• ${tiles}\n• Total Area: ${area}\n• Estimated Cost: ${cost}\n\nEstimate tiles: https://jaydeep0604.github.io/calchub/tile-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyTile');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppTile() {
+      const boxes = document.getElementById('resBoxes').innerText;
+      const tiles = document.getElementById('resTilesCount').innerText;
+      const area = document.getElementById('resTotalArea').innerText;
+      const text = `CalcHub Tile Order:\n🔲 Boxes: ${boxes}\n🧱 Tiles: ${tiles}\n📐 Area: ${area}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/tile-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    window.addEventListener('currencyChanged', calculateTiles);
+    document.addEventListener('DOMContentLoaded', calculateTiles);
+  </script>
+</body>
+</html>

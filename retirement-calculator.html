@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirement & FIRE Calculator - Corpus, Safe Withdrawal & Savings | CalcHub</title>
+  <meta name="description" content="Calculate your retirement nest egg, FIRE number, inflation-adjusted monthly pension, and safe withdrawal rate (4% rule). See if your savings will last a lifetime.">
+  <meta name="keywords" content="retirement calculator, fire calculator, early retirement, pension calculator, 4 percent rule, nest egg, financial independence">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🏖️
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="sip-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">SIP Planner</a>
+        <a href="compound-interest-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Compound Interest</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Retirement & FIRE</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Retirement & FIRE Planner</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Financial Independence
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Determine the exact corpus you need to retire comfortably, account for inflation, and check if your savings will last through life expectancy.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>⚙️</span> Timeline & Monthly Finances
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Age Timeline Grid (3 cols) -->
+            <div class="grid grid-cols-3 gap-3">
+              <div>
+                <label for="curAge" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Current Age</label>
+                <input type="number" id="curAge" value="30" min="18" max="80" step="1"
+                  class="w-full px-3 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-center text-base">
+              </div>
+              <div>
+                <label for="retAge" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Retirement Age</label>
+                <input type="number" id="retAge" value="60" min="25" max="85" step="1"
+                  class="w-full px-3 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-center text-base">
+              </div>
+              <div>
+                <label for="lifeExp" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Life Expectancy</label>
+                <input type="number" id="lifeExp" value="85" min="50" max="105" step="1"
+                  class="w-full px-3 py-2 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 text-center text-base">
+              </div>
+            </div>
+
+            <!-- Savings & Contribution -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="curSavings" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">Current Savings / Portfolio</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                  <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                  <input type="number" id="curSavings" value="50000" min="0" step="any"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                </div>
+              </div>
+              <div>
+                <label for="monthlySave" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">Monthly New Contribution</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                  <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                  <input type="number" id="monthlySave" value="1000" min="0" step="any"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                </div>
+              </div>
+            </div>
+
+            <!-- Desired Monthly Expense in Retirement -->
+            <div>
+              <label for="desiredExpense" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Target Monthly Living Expense (in today's purchasing power)
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                <input type="number" id="desiredExpense" value="3000" min="100" step="any"
+                  class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+              </div>
+              <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">
+                How much you would comfortably spend every month if you retired today.
+              </span>
+            </div>
+
+            <!-- Rates & Assumptions Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div>
+                <label for="preReturn" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Pre-Ret. Return</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5">
+                  <input type="number" id="preReturn" value="10" min="1" max="25" step="0.5"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+              <div>
+                <label for="postReturn" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Post-Ret. Return</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5">
+                  <input type="number" id="postReturn" value="7" min="1" max="20" step="0.5"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+              <div>
+                <label for="infRate" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Inflation Rate</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1.5">
+                  <input type="number" id="infRate" value="5" min="0" max="15" step="0.5"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Analysis (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Projected Nest Egg</span>
+            <span id="badgeStatus" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500">
+              On Track
+            </span>
+          </div>
+
+          <!-- Big Projected Corpus -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resCorpus">
+              $0
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resSubtext">
+              Accumulated at age 60
+            </div>
+          </div>
+
+          <!-- Comparison Grid: Target Needed vs Projected -->
+          <div class="grid grid-cols-2 gap-3 pt-1">
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+              <span class="text-[11px] font-bold text-slate-500 dark:text-slate-400 block mb-0.5">Required Corpus</span>
+              <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resRequiredCorpus">$0</span>
+              <span class="text-[10px] text-slate-400 block mt-0.5">Needed for lifetime</span>
+            </div>
+            <div class="p-3.5 rounded-xl border" id="boxSurplusShortfall">
+              <span class="text-[11px] font-bold block mb-0.5" id="lblSurplus">Surplus / Gap</span>
+              <span class="text-base sm:text-lg font-black" id="resSurplus">$0</span>
+              <span class="text-[10px] block mt-0.5" id="subSurplus">Safety buffer</span>
+            </div>
+          </div>
+
+          <!-- Monthly Inflation Breakdown -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 text-xs space-y-2">
+            <div class="flex justify-between">
+              <span class="text-slate-500 dark:text-slate-400">Monthly Expense at Retirement:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resFutureExpense">$0 / mo</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500 dark:text-slate-400">Years in Retirement:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resRetYears">25 Years</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-500 dark:text-slate-400">Safe 4% Rule Annual Income:</span>
+              <span class="font-bold text-emerald-500" id="resSafeAnnual">$0 / yr</span>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyRetirementSummary()" id="btnCopyRet"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Plan</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppRet()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getSym() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function fmt(val) {
+      const sym = getSym();
+      if (Math.abs(val) >= 10000000) {
+        return `${sym}${(val / 10000000).toFixed(2)} Cr`;
+      } else if (Math.abs(val) >= 100000) {
+        return `${sym}${(val / 100000).toFixed(2)} L`;
+      }
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    }
+
+    const inputIds = ['curAge', 'retAge', 'lifeExp', 'curSavings', 'monthlySave', 'desiredExpense', 'preReturn', 'postReturn', 'infRate'];
+    inputIds.forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateRetirement);
+    });
+
+    function calculateRetirement() {
+      const curAge = parseInt(document.getElementById('curAge').value) || 30;
+      const retAge = parseInt(document.getElementById('retAge').value) || 60;
+      const lifeExp = parseInt(document.getElementById('lifeExp').value) || 85;
+
+      const curSavings = parseFloat(document.getElementById('curSavings').value) || 0;
+      const monthlySave = parseFloat(document.getElementById('monthlySave').value) || 0;
+      const desiredExpense = parseFloat(document.getElementById('desiredExpense').value) || 0;
+
+      const preReturn = (parseFloat(document.getElementById('preReturn').value) || 0) / 100;
+      const postReturn = (parseFloat(document.getElementById('postReturn').value) || 0) / 100;
+      const infRate = (parseFloat(document.getElementById('infRate').value) || 0) / 100;
+
+      const yearsToRetire = Math.max(0, retAge - curAge);
+      const retYears = Math.max(1, lifeExp - retAge);
+
+      // 1. Future value of current savings: FV = PV * (1 + r)^n
+      const fvCurrentSavings = curSavings * Math.pow(1 + preReturn, yearsToRetire);
+
+      // 2. Future value of monthly contributions
+      const monthlyRate = preReturn / 12;
+      const totalMonths = yearsToRetire * 12;
+      let fvContributions = 0;
+      if (monthlyRate > 0 && totalMonths > 0) {
+        fvContributions = monthlySave * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) * (1 + monthlyRate);
+      } else {
+        fvContributions = monthlySave * totalMonths;
+      }
+
+      const totalProjectedCorpus = fvCurrentSavings + fvContributions;
+
+      // 3. Inflated monthly expense at retirement age
+      const futureMonthlyExpense = desiredExpense * Math.pow(1 + infRate, yearsToRetire);
+      const futureAnnualExpense = futureMonthlyExpense * 12;
+
+      // 4. Required corpus at retirement age:
+      // Real rate of return in retirement = (1 + postReturn) / (1 + infRate) - 1
+      const realRate = (postReturn - infRate) / (1 + infRate);
+      let requiredCorpus = 0;
+
+      if (Math.abs(realRate) > 0.0001) {
+        // Present value of growing annuity
+        requiredCorpus = futureAnnualExpense * ((1 - Math.pow(1 + realRate, -retYears)) / realRate);
+      } else {
+        requiredCorpus = futureAnnualExpense * retYears;
+      }
+
+      const surplus = totalProjectedCorpus - requiredCorpus;
+      const isSurplus = surplus >= 0;
+
+      // Render Outputs
+      document.getElementById('resCorpus').innerText = fmt(totalProjectedCorpus);
+      document.getElementById('resSubtext').innerText = `Accumulated at age ${retAge} (${yearsToRetire} yrs from now)`;
+      document.getElementById('resRequiredCorpus').innerText = fmt(requiredCorpus);
+      document.getElementById('resFutureExpense').innerText = `${fmt(futureMonthlyExpense)} / mo`;
+      document.getElementById('resRetYears').innerText = `${retYears} Years (Age ${retAge} to ${lifeExp})`;
+
+      const safe4Pct = totalProjectedCorpus * 0.04;
+      document.getElementById('resSafeAnnual').innerText = `${fmt(safe4Pct)} / yr`;
+
+      const badge = document.getElementById('badgeStatus');
+      const boxSurplus = document.getElementById('boxSurplusShortfall');
+      const lblSurplus = document.getElementById('lblSurplus');
+      const resSurplus = document.getElementById('resSurplus');
+      const subSurplus = document.getElementById('subSurplus');
+
+      if (isSurplus) {
+        badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-500";
+        badge.innerText = "✓ Fully Funded";
+        boxSurplus.className = "p-3.5 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-100 dark:border-emerald-900/40";
+        lblSurplus.className = "text-[11px] font-bold block mb-0.5 text-emerald-600 dark:text-emerald-400";
+        lblSurplus.innerText = "Corpus Surplus";
+        resSurplus.className = "text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400";
+        resSurplus.innerText = `+${fmt(surplus)}`;
+        subSurplus.innerText = "Excess wealth buffer";
+      } else {
+        badge.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/10 text-amber-500";
+        badge.innerText = "⚠ Shortfall Gap";
+        boxSurplus.className = "p-3.5 rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border-amber-100 dark:border-amber-900/40";
+        lblSurplus.className = "text-[11px] font-bold block mb-0.5 text-amber-600 dark:text-amber-400";
+        lblSurplus.innerText = "Corpus Shortfall";
+        resSurplus.className = "text-base sm:text-lg font-black text-amber-600 dark:text-amber-400";
+        resSurplus.innerText = fmt(Math.abs(surplus));
+        subSurplus.innerText = "Increase monthly savings";
+      }
+    }
+
+    function copyRetirementSummary() {
+      const corpus = document.getElementById('resCorpus').innerText;
+      const req = document.getElementById('resRequiredCorpus').innerText;
+      const expense = document.getElementById('resFutureExpense').innerText;
+      const text = `CalcHub Retirement Plan:\n• Projected Corpus: ${corpus}\n• Required Corpus: ${req}\n• Future Monthly Expense: ${expense}\n\nPlan your retirement: https://jaydeep0604.github.io/calchub/retirement-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyRet');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppRet() {
+      const corpus = document.getElementById('resCorpus').innerText;
+      const text = `CalcHub Retirement & FIRE Forecast:\n🏖️ Projected Wealth: ${corpus} at retirement!\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/retirement-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    window.addEventListener('currencyChanged', calculateRetirement);
+    document.addEventListener('DOMContentLoaded', calculateRetirement);
+  </script>
+</body>
+</html>

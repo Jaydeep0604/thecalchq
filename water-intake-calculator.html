@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Water Intake Calculator - Recommended Liters & Hydration Glasses | CalcHub</title>
+  <meta name="description" content="Calculate your optimal daily water intake based on weight, workout intensity, climate, and pregnancy. View recommended liters, milliliters, and glass breakdown.">
+  <meta name="keywords" content="water intake calculator, daily water intake, hydration calculator, how much water should I drink, water consumption by weight">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            💧
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="calorie-tdee-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Calorie & TDEE</a>
+        <a href="bmi-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">BMI & Body Fat</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Daily Water Intake</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Daily Water Intake & Hydration Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Clinical Hydration
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Calculate the exact amount of water you need to drink daily based on your body weight, daily workout intensity, and climate conditions.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>⚖️</span> Body Weight & Lifestyle
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Unit Mode: kg vs lbs -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Weight Unit:</span>
+              <div class="flex p-0.5 bg-slate-100 dark:bg-slate-800 rounded-lg">
+                <button type="button" id="unitKg" onclick="setWeightUnit('kg')"
+                  class="px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+                  Kilograms (kg)
+                </button>
+                <button type="button" id="unitLbs" onclick="setWeightUnit('lbs')"
+                  class="px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                  Pounds (lbs)
+                </button>
+              </div>
+            </div>
+
+            <!-- Weight Input & Slider -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label for="bodyWeight" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Your Body Weight
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5">
+                  <input type="number" id="bodyWeight" value="70" min="20" max="250" step="any"
+                    class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                  <span class="text-slate-400 text-xs font-bold" id="unitLabel">kg</span>
+                </div>
+              </div>
+              <input type="range" id="weightSlider" min="30" max="150" step="1" value="70"
+                class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            </div>
+
+            <!-- Daily Activity / Exercise -->
+            <div>
+              <label for="activityLevel" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Daily Physical Activity & Workouts
+              </label>
+              <select id="activityLevel" onchange="calculateWater()"
+                class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm cursor-pointer">
+                <option value="sedentary">Sedentary (Desk work, little/no exercise)</option>
+                <option value="light" selected>Moderate Exercise (30 - 45 min light workout)</option>
+                <option value="active">Active (60 - 90 min gym/sports/running)</option>
+                <option value="intense">Intense Athlete / Heavy Labor (2+ hours)</option>
+              </select>
+            </div>
+
+            <!-- Climate Conditions -->
+            <div>
+              <label for="climate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Climate & Weather Conditions
+              </label>
+              <select id="climate" onchange="calculateWater()"
+                class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm cursor-pointer">
+                <option value="moderate" selected>Temperate / Air-Conditioned (Normal)</option>
+                <option value="hot">Hot, Humid or Sunny Summer Weather (+500 mL)</option>
+                <option value="cold">Cold / Winter Weather (Dry air)</option>
+              </select>
+            </div>
+
+            <!-- Pregnancy / Nursing -->
+            <div>
+              <label for="specialCondition" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Special Condition (Optional)
+              </label>
+              <select id="specialCondition" onchange="calculateWater()"
+                class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm cursor-pointer">
+                <option value="none" selected>None / General Adult</option>
+                <option value="pregnant">Pregnant (+300 mL for amniotic support)</option>
+                <option value="breastfeeding">Breastfeeding / Lactating (+750 mL)</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Target Daily Intake</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Optimal Hydration
+            </span>
+          </div>
+
+          <!-- Big Water Display -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resLiters">
+              0.0 Liters
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resMlDisplay">
+              0 mL per day
+            </div>
+          </div>
+
+          <!-- Glass Count Matrix -->
+          <div class="p-4 rounded-2xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40 flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold text-cyan-900 dark:text-cyan-200 block">Standard Glasses (250 mL)</span>
+              <span class="text-[11px] text-slate-400">Spread evenly throughout the day</span>
+            </div>
+            <div class="text-right">
+              <span class="text-2xl sm:text-3xl font-black text-cyan-600 dark:text-cyan-400" id="resGlasses">0</span>
+              <span class="text-xs text-slate-400 block font-bold">Glasses</span>
+            </div>
+          </div>
+
+          <!-- Visual Glasses Strip -->
+          <div class="space-y-2">
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block">Daily Schedule Visualizer</span>
+            <div id="glassesGrid" class="flex flex-wrap gap-2">
+              <!-- Dynamically rendered icons -->
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyWaterSummary()" id="btnCopyWater"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Target</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppWater()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let weightUnit = 'kg';
+
+    function setWeightUnit(u) {
+      weightUnit = u;
+      const btnKg = document.getElementById('unitKg');
+      const btnLbs = document.getElementById('unitLbs');
+      const weightInput = document.getElementById('bodyWeight');
+      const slider = document.getElementById('weightSlider');
+      const unitLabel = document.getElementById('unitLabel');
+
+      if (u === 'kg') {
+        btnKg.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        btnLbs.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        unitLabel.innerText = 'kg';
+        slider.min = 30;
+        slider.max = 160;
+        weightInput.value = Math.round(weightInput.value * 0.453592) || 70;
+      } else {
+        btnLbs.className = "px-3 py-1 text-xs font-bold rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        btnKg.className = "px-3 py-1 text-xs font-bold rounded-md text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        unitLabel.innerText = 'lbs';
+        slider.min = 70;
+        slider.max = 350;
+        weightInput.value = Math.round(weightInput.value * 2.20462) || 154;
+      }
+      slider.value = weightInput.value;
+      calculateWater();
+    }
+
+    const wInput = document.getElementById('bodyWeight');
+    const wSlider = document.getElementById('weightSlider');
+    wInput.addEventListener('input', () => { wSlider.value = wInput.value; calculateWater(); });
+    wSlider.addEventListener('input', () => { wInput.value = wSlider.value; calculateWater(); });
+
+    function calculateWater() {
+      let weight = parseFloat(document.getElementById('bodyWeight').value) || 70;
+      // Convert to kg for standard baseline calculation
+      const weightKg = weightUnit === 'lbs' ? weight * 0.453592 : weight;
+
+      // Clinical Baseline: 35 mL per kg of body weight
+      let totalMl = weightKg * 35;
+
+      // Activity adjustment
+      const activity = document.getElementById('activityLevel').value;
+      if (activity === 'light') totalMl += 400;
+      else if (activity === 'active') totalMl += 800;
+      else if (activity === 'intense') totalMl += 1300;
+
+      // Climate adjustment
+      const climate = document.getElementById('climate').value;
+      if (climate === 'hot') totalMl += 500;
+
+      // Pregnancy adjustment
+      const special = document.getElementById('specialCondition').value;
+      if (special === 'pregnant') totalMl += 300;
+      else if (special === 'breastfeeding') totalMl += 750;
+
+      const totalLiters = totalMl / 1000;
+      const glassesCount = Math.round(totalMl / 250);
+
+      document.getElementById('resLiters').innerText = `${totalLiters.toFixed(2)} Liters`;
+      document.getElementById('resMlDisplay').innerText = `${Math.round(totalMl).toLocaleString()} mL per day`;
+      document.getElementById('resGlasses').innerText = glassesCount;
+
+      // Render Glasses Grid
+      const grid = document.getElementById('glassesGrid');
+      grid.innerHTML = '';
+      for (let i = 1; i <= Math.min(16, glassesCount); i++) {
+        const span = document.createElement('span');
+        span.className = "w-8 h-8 rounded-lg bg-cyan-100 dark:bg-cyan-950/80 text-cyan-600 dark:text-cyan-400 flex items-center justify-center text-sm shadow-sm";
+        span.innerText = "🥛";
+        span.title = `Glass ${i} (250 mL)`;
+        grid.appendChild(span);
+      }
+    }
+
+    function copyWaterSummary() {
+      const liters = document.getElementById('resLiters').innerText;
+      const glasses = document.getElementById('resGlasses').innerText;
+      const text = `CalcHub Daily Water Target: ${liters} (${glasses} glasses / day). Track hydration: https://jaydeep0604.github.io/calchub/water-intake-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyWater');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppWater() {
+      const liters = document.getElementById('resLiters').innerText;
+      const glasses = document.getElementById('resGlasses').innerText;
+      const text = `CalcHub Daily Hydration Target:\n💧 I need to drink ${liters} (${glasses} glasses) of water daily!\n\nCalculate your target at: https://jaydeep0604.github.io/calchub/water-intake-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateWater);
+  </script>
+</body>
+</html>

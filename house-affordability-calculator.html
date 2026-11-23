@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Affordability Calculator - How Much House Can I Afford? | CalcHub</title>
+  <meta name="description" content="Calculate the maximum home price you can afford based on income, monthly debts, down payment, and DTI (28/36 rule). Includes PITI breakdown and Rent vs Buy analysis.">
+  <meta name="keywords" content="house affordability calculator, how much house can I afford, home affordability, mortgage affordability, DTI calculator, rent vs buy">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🏡
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="mortgage-payoff-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Mortgage Payoff</a>
+        <a href="loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Personal Loan</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">House Affordability</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">House Affordability & Budget Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        28/36 DTI Rule
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Find out the maximum home purchase price you qualify for based on income, monthly debt obligations, and down payment savings.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>💰</span> Household Income & Debts
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Annual Income -->
+            <div>
+              <label for="annualIncome" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Gross Annual Household Income
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                <input type="number" id="annualIncome" value="95000" min="10000" step="any"
+                  class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+              </div>
+            </div>
+
+            <!-- Down Payment & Debts (2 cols) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="downPayment" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Cash Down Payment Saved
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                  <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                  <input type="number" id="downPayment" value="45000" min="0" step="any"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                </div>
+              </div>
+              <div>
+                <label for="monthlyDebt" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Monthly Debt (Car, Student, Cards)
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                  <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                  <input type="number" id="monthlyDebt" value="450" min="0" step="any"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                </div>
+              </div>
+            </div>
+
+            <!-- Loan Term & Interest Rate -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div>
+                <label for="mortgageTerm" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Loan Term (Years)
+                </label>
+                <select id="mortgageTerm" onchange="calculateAffordability()"
+                  class="w-full px-3 py-2.5 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-sm cursor-pointer">
+                  <option value="30" selected>30 Years Fixed</option>
+                  <option value="20">20 Years Fixed</option>
+                  <option value="15">15 Years Fixed</option>
+                </select>
+              </div>
+              <div>
+                <label for="mortgageRate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                  Mortgage Rate (APR %)
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                  <input type="number" id="mortgageRate" value="6.75" min="1" max="20" step="0.1"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Property Tax & DTI Rule Mode -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="propertyTaxRate" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Property Tax Rate (%)</label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5">
+                  <input type="number" id="propertyTaxRate" value="1.2" min="0" max="5" step="0.1"
+                    class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+              <div>
+                <label for="dtiMode" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Risk Profile (DTI)</label>
+                <select id="dtiMode" onchange="calculateAffordability()"
+                  class="w-full px-3 py-2 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs cursor-pointer">
+                  <option value="conservative" selected>Conservative (28% Front / 36% Back)</option>
+                  <option value="moderate">Moderate (31% Front / 40% Back)</option>
+                  <option value="aggressive">Aggressive (36% Front / 45% Back)</option>
+                </select>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Maximum Purchase Price</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Affordable Limit
+            </span>
+          </div>
+
+          <!-- Big Max Purchase Price -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resMaxHomePrice">
+              $0
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resSafePriceSub">
+              Comfortable target: $0
+            </div>
+          </div>
+
+          <!-- Monthly Payment Breakdown (PITI) -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Max Monthly Housing (PITI):</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resMonthlyHousing">$0 / mo</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Principal & Interest (P&I):</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resMonthlyPI">$0 / mo</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Property Tax & Ins. Reserve:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resMonthlyTax">$0 / mo</span>
+            </div>
+            <div class="flex justify-between py-2 bg-slate-50 dark:bg-slate-800/80 px-3 rounded-xl font-bold">
+              <span class="text-slate-700 dark:text-slate-200">Total Loan Borrowed:</span>
+              <span class="text-cyan-600 dark:text-cyan-400 text-sm" id="resLoanAmount">$0</span>
+            </div>
+          </div>
+
+          <!-- Rent vs Buy Insight Card -->
+          <div class="p-4 rounded-2xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40 text-xs space-y-1">
+            <span class="font-bold text-cyan-900 dark:text-cyan-200 block">📊 Rent vs. Buy Benchmark</span>
+            <p class="text-slate-600 dark:text-slate-400" id="resRentBenchmark">
+              If your current rent is over $0/mo, buying this property typically builds more net worth within 4-5 years.
+            </p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyAffordSummary()" id="btnCopyAfford"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Breakdown</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppAfford()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getSym() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function fmt(val) {
+      const sym = getSym();
+      if (Math.abs(val) >= 10000000) {
+        return `${sym}${(val / 10000000).toFixed(2)} Cr`;
+      } else if (Math.abs(val) >= 100000) {
+        return `${sym}${(val / 100000).toFixed(2)} L`;
+      }
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+    }
+
+    ['annualIncome', 'downPayment', 'monthlyDebt', 'mortgageRate', 'propertyTaxRate'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateAffordability);
+    });
+
+    function calculateAffordability() {
+      const income = parseFloat(document.getElementById('annualIncome').value) || 0;
+      const down = parseFloat(document.getElementById('downPayment').value) || 0;
+      const debt = parseFloat(document.getElementById('monthlyDebt').value) || 0;
+      const termYrs = parseInt(document.getElementById('mortgageTerm').value) || 30;
+      const rateApr = parseFloat(document.getElementById('mortgageRate').value) || 0;
+      const taxRate = (parseFloat(document.getElementById('propertyTaxRate').value) || 0) / 100;
+      const mode = document.getElementById('dtiMode').value;
+
+      const monthlyGross = income / 12;
+
+      let frontDti = 0.28;
+      let backDti = 0.36;
+      if (mode === 'moderate') {
+        frontDti = 0.31;
+        backDti = 0.40;
+      } else if (mode === 'aggressive') {
+        frontDti = 0.36;
+        backDti = 0.45;
+      }
+
+      // Max allowable housing payment is lower of Front-End and Back-End minus debt
+      const maxHousingFront = monthlyGross * frontDti;
+      const maxHousingBack = Math.max(0, (monthlyGross * backDti) - debt);
+      const maxMonthlyHousing = Math.min(maxHousingFront, maxHousingBack);
+
+      // Monthly mortgage interest rate
+      const r = rateApr / 12 / 100;
+      const n = termYrs * 12;
+
+      // Mortgage multiplier: payment per $1 borrowed
+      let pmtFactor = 0;
+      if (r > 0 && n > 0) {
+        pmtFactor = (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      } else {
+        pmtFactor = 1 / n;
+      }
+
+      // Monthly tax and insurance factor per $1 of house price
+      const monthlyTaxInsFactor = (taxRate + 0.005) / 12; // 0.5% home insurance assumption
+
+      // Solving for affordable home price:
+      // maxMonthlyHousing = Loan * pmtFactor + HomePrice * monthlyTaxInsFactor
+      // Since Loan = HomePrice - down:
+      // maxMonthlyHousing = (HomePrice - down) * pmtFactor + HomePrice * monthlyTaxInsFactor
+      // maxMonthlyHousing + down * pmtFactor = HomePrice * (pmtFactor + monthlyTaxInsFactor)
+      let maxHomePrice = 0;
+      const denom = pmtFactor + monthlyTaxInsFactor;
+      if (denom > 0) {
+        maxHomePrice = Math.max(0, (maxMonthlyHousing + (down * pmtFactor)) / denom);
+      }
+
+      const loanAmount = Math.max(0, maxHomePrice - down);
+      const monthlyPI = loanAmount * pmtFactor;
+      const monthlyTax = maxHomePrice * monthlyTaxInsFactor;
+      const safeHomePrice = maxHomePrice * 0.85; // 85% recommended comfort zone
+
+      document.getElementById('resMaxHomePrice').innerText = fmt(maxHomePrice);
+      document.getElementById('resSafePriceSub').innerText = `Comfortable safety target: ${fmt(safeHomePrice)}`;
+      document.getElementById('resMonthlyHousing').innerText = `${fmt(maxMonthlyHousing)} / mo`;
+      document.getElementById('resMonthlyPI').innerText = `${fmt(monthlyPI)} / mo`;
+      document.getElementById('resMonthlyTax').innerText = `${fmt(monthlyTax)} / mo`;
+      document.getElementById('resLoanAmount').innerText = fmt(loanAmount);
+
+      const rentEquiv = maxMonthlyHousing * 0.75;
+      document.getElementById('resRentBenchmark').innerHTML = 
+        `If your rent is over <strong>${fmt(rentEquiv)}/mo</strong>, owning a home up to <strong>${fmt(maxHomePrice)}</strong> typically generates superior long-term equity.`;
+    }
+
+    function copyAffordSummary() {
+      const maxP = document.getElementById('resMaxHomePrice').innerText;
+      const pmt = document.getElementById('resMonthlyHousing').innerText;
+      const loan = document.getElementById('resLoanAmount').innerText;
+      const text = `CalcHub Home Affordability:\n• Max Purchase Price: ${maxP}\n• Max Monthly PITI: ${pmt}\n• Loan Amount: ${loan}\n\nCheck how much house you can afford: https://jaydeep0604.github.io/calchub/house-affordability-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyAfford');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppAfford() {
+      const maxP = document.getElementById('resMaxHomePrice').innerText;
+      const pmt = document.getElementById('resMonthlyHousing').innerText;
+      const text = `CalcHub House Budget:\n🏡 Max Home Price: ${maxP}\n💵 Monthly Housing Payment: ${pmt}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/house-affordability-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    window.addEventListener('currencyChanged', calculateAffordability);
+    document.addEventListener('DOMContentLoaded', calculateAffordability);
+  </script>
+</body>
+</html>

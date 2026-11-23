@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPA & CGPA Calculator - Semester Grade Point Average & Honours | CalcHub</title>
+  <meta name="description" content="Calculate your semester GPA and cumulative CGPA across 4.0 and 10.0 scales. Supports custom credit hours, letter grades, and academic honours predictions.">
+  <meta name="keywords" content="gpa calculator, cgpa calculator, grade calculator, college gpa, weighted gpa, cumulative gpa, 4.0 scale gpa, 10 scale cgpa">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🎓
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="percentage-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Percentages</a>
+        <a href="unit-converter.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Unit Converter</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">GPA & CGPA Calculator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">College GPA & CGPA Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        4.0 & 10.0 Scales
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Add your courses, credit hours, and letter grades to calculate your semester GPA, cumulative CGPA, and academic standing.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    
+    <!-- Top Configuration -->
+    <div class="premium-card rounded-2xl p-4 sm:p-6 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+        <!-- Scale Selection -->
+        <div>
+          <label class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Grading Scale</label>
+          <div class="flex p-0.5 bg-slate-100 dark:bg-slate-800 rounded-xl">
+            <button type="button" id="scale4Btn" onclick="setScale('4.0')"
+              class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+              Standard 4.0 Scale
+            </button>
+            <button type="button" id="scale10Btn" onclick="setScale('10.0')"
+              class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+              10.0 Scale (CGPA)
+            </button>
+          </div>
+        </div>
+
+        <!-- Prior Cumulative GPA (Optional) -->
+        <div>
+          <label for="priorGpa" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Prior Cumulative GPA</label>
+          <input type="number" id="priorGpa" value="" placeholder="e.g. 3.50 (optional)" min="0" max="10" step="0.01" oninput="calculateGpa()"
+            class="w-full px-3 py-2 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm">
+        </div>
+
+        <!-- Prior Completed Credits -->
+        <div>
+          <label for="priorCredits" class="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">Prior Credits Earned</label>
+          <input type="number" id="priorCredits" value="" placeholder="e.g. 45 (optional)" min="0" step="1" oninput="calculateGpa()"
+            class="w-full px-3 py-2 font-bold text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none text-xs sm:text-sm">
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Courses Grid (8 cols) -->
+      <div class="lg:col-span-8 space-y-4">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 overflow-x-auto">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>📚</span> Semester Courses
+            </h2>
+            <button type="button" onclick="addCourseRow()"
+              class="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-sm transition">
+              + Add Course
+            </button>
+          </div>
+
+          <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+            <thead class="bg-slate-100 dark:bg-slate-800 uppercase text-[11px] font-bold text-slate-500 rounded-lg">
+              <tr>
+                <th class="p-2 sm:p-3">Course / Subject</th>
+                <th class="p-2 sm:p-3 w-36">Grade</th>
+                <th class="p-2 sm:p-3 w-28">Credits</th>
+                <th class="p-2 sm:p-3 w-12 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="courseTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Honours (4 cols) -->
+      <div class="lg:col-span-4 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Semester GPA</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500" id="resHonoursBadge">
+              Good Standing
+            </span>
+          </div>
+
+          <!-- Big GPA Display -->
+          <div>
+            <div class="text-4xl sm:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resGpa">
+              0.00
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resCumulativeGpa">
+              Cumulative CGPA: 0.00
+            </div>
+          </div>
+
+          <!-- Breakdown Matrix -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Total Semester Credits:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resTotalCredits">0</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Total Quality Points:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resQualityPoints">0.0</span>
+            </div>
+            <div class="flex justify-between py-2 bg-slate-50 dark:bg-slate-800/80 px-3 rounded-xl font-bold">
+              <span class="text-slate-700 dark:text-slate-200">Academic Standing:</span>
+              <span class="text-emerald-500 text-sm" id="resStanding">First Class</span>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyGpaSummary()" id="btnCopyGpa"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy GPA</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppGpa()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let currentScale = '4.0';
+
+    const GRADES_4 = [
+      { name: 'A+ (4.0)', val: 4.0 },
+      { name: 'A (4.0)', val: 4.0 },
+      { name: 'A- (3.7)', val: 3.7 },
+      { name: 'B+ (3.3)', val: 3.3 },
+      { name: 'B (3.0)', val: 3.0 },
+      { name: 'B- (2.7)', val: 2.7 },
+      { name: 'C+ (2.3)', val: 2.3 },
+      { name: 'C (2.0)', val: 2.0 },
+      { name: 'C- (1.7)', val: 1.7 },
+      { name: 'D (1.0)', val: 1.0 },
+      { name: 'F (0.0)', val: 0.0 }
+    ];
+
+    const GRADES_10 = [
+      { name: 'O / Outstanding (10)', val: 10.0 },
+      { name: 'A+ / Excellent (9.0)', val: 9.0 },
+      { name: 'A / Very Good (8.0)', val: 8.0 },
+      { name: 'B+ / Good (7.0)', val: 7.0 },
+      { name: 'B / Above Average (6.0)', val: 6.0 },
+      { name: 'C / Average (5.0)', val: 5.0 },
+      { name: 'P / Pass (4.0)', val: 4.0 },
+      { name: 'F / Fail (0.0)', val: 0.0 }
+    ];
+
+    let courses = [
+      { name: 'Course 1', gradeVal: 4.0, credits: 3 },
+      { name: 'Course 2', gradeVal: 3.7, credits: 4 },
+      { name: 'Course 3', gradeVal: 3.3, credits: 3 },
+      { name: 'Course 4', gradeVal: 4.0, credits: 3 }
+    ];
+
+    function setScale(scale) {
+      currentScale = scale;
+      const b4 = document.getElementById('scale4Btn');
+      const b10 = document.getElementById('scale10Btn');
+
+      if (scale === '4.0') {
+        b4.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        b10.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        courses.forEach(c => { c.gradeVal = Math.min(4.0, (c.gradeVal / 10) * 4); });
+      } else {
+        b10.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+        b4.className = "flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        courses.forEach(c => { c.gradeVal = (c.gradeVal / 4) * 10; });
+      }
+
+      renderCourses();
+      calculateGpa();
+    }
+
+    function renderCourses() {
+      const tbody = document.getElementById('courseTableBody');
+      const gradeList = currentScale === '4.0' ? GRADES_4 : GRADES_10;
+
+      tbody.innerHTML = courses.map((course, idx) => `
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+          <td class="p-2 sm:p-3">
+            <input type="text" value="${course.name}" oninput="courses[${idx}].name = this.value" placeholder="Enter Subject Name"
+              class="w-full px-2.5 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs outline-none focus:ring-1 focus:ring-cyan-500">
+          </td>
+          <td class="p-2 sm:p-3">
+            <select onchange="courses[${idx}].gradeVal = parseFloat(this.value); calculateGpa();"
+              class="w-full px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs outline-none cursor-pointer">
+              ${gradeList.map(g => `<option value="${g.val}" ${Math.abs(g.val - course.gradeVal) < 0.05 ? 'selected' : ''}>${g.name}</option>`).join('')}
+            </select>
+          </td>
+          <td class="p-2 sm:p-3">
+            <input type="number" value="${course.credits}" min="1" max="10" step="1" oninput="courses[${idx}].credits = parseFloat(this.value) || 0; calculateGpa();"
+              class="w-full px-2 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-slate-900 dark:text-white text-xs outline-none text-right">
+          </td>
+          <td class="p-2 sm:p-3 text-center">
+            <button type="button" onclick="removeCourseRow(${idx})" class="text-slate-400 hover:text-red-500 font-bold text-base p-1 transition" title="Delete Course">
+              ✕
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function addCourseRow() {
+      const defaultVal = currentScale === '4.0' ? 4.0 : 10.0;
+      courses.push({ name: `Course ${courses.length + 1}`, gradeVal: defaultVal, credits: 3 });
+      renderCourses();
+      calculateGpa();
+    }
+
+    function removeCourseRow(idx) {
+      if (courses.length > 1) {
+        courses.splice(idx, 1);
+        renderCourses();
+        calculateGpa();
+      }
+    }
+
+    function calculateGpa() {
+      let totalPts = 0;
+      let totalCredits = 0;
+
+      courses.forEach(c => {
+        const cr = c.credits || 0;
+        totalCredits += cr;
+        totalPts += (c.gradeVal * cr);
+      });
+
+      const semGpa = totalCredits > 0 ? (totalPts / totalCredits) : 0;
+
+      // Cumulative calculation if prior entered
+      const priorGpa = parseFloat(document.getElementById('priorGpa').value);
+      const priorCredits = parseFloat(document.getElementById('priorCredits').value);
+
+      let cgpa = semGpa;
+      if (!isNaN(priorGpa) && !isNaN(priorCredits) && (priorCredits + totalCredits) > 0) {
+        const priorPts = priorGpa * priorCredits;
+        cgpa = (priorPts + totalPts) / (priorCredits + totalCredits);
+      }
+
+      document.getElementById('resGpa').innerText = semGpa.toFixed(2);
+      document.getElementById('resCumulativeGpa').innerText = `Cumulative CGPA: ${cgpa.toFixed(2)}`;
+      document.getElementById('resTotalCredits').innerText = totalCredits;
+      document.getElementById('resQualityPoints').innerText = totalPts.toFixed(1);
+
+      // Honours / Standing
+      const badge = document.getElementById('resHonoursBadge');
+      const standing = document.getElementById('resStanding');
+
+      const maxScale = currentScale === '4.0' ? 4.0 : 10.0;
+      const pct = (semGpa / maxScale) * 100;
+
+      if (pct >= 90) {
+        badge.innerText = "★ Summa Cum Laude";
+        standing.innerText = "Dean's List / Distinction";
+      } else if (pct >= 80) {
+        badge.innerText = "★ Magna Cum Laude";
+        standing.innerText = "First Class with Honours";
+      } else if (pct >= 60) {
+        badge.innerText = "Good Standing";
+        standing.innerText = "First Class";
+      } else {
+        badge.innerText = "Passing";
+        standing.innerText = "Average Standing";
+      }
+    }
+
+    function copyGpaSummary() {
+      const gpa = document.getElementById('resGpa').innerText;
+      const cgpa = document.getElementById('resCumulativeGpa').innerText;
+      const text = `CalcHub GPA Result:\n• Semester GPA: ${gpa}\n• ${cgpa}\n\nCalculate your GPA: https://jaydeep0604.github.io/calchub/gpa-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyGpa');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppGpa() {
+      const gpa = document.getElementById('resGpa').innerText;
+      const text = `CalcHub College Grades:\n🎓 My Semester GPA is ${gpa}!\n\nCalculate your GPA at: https://jaydeep0604.github.io/calchub/gpa-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCourses();
+      calculateGpa();
+    });
+  </script>
+</body>
+</html>

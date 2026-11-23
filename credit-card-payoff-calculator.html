@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Card Payoff Calculator - Months to Debt-Free & Interest Saved | CalcHub</title>
+  <meta name="description" content="Calculate how long it takes to pay off credit card debt, total interest paid, and see how extra payments accelerate your debt-free date.">
+  <meta name="keywords" content="credit card payoff calculator, debt payoff, credit card interest, debt avalanche, minimum payment calculator">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-emerald-500 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            💳
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="loan-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Personal Loan</a>
+        <a href="mortgage-payoff-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Mortgage Payoff</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Credit Card Payoff</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Credit Card Payoff Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Debt-Free Planner
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      See how fast you can become credit card debt-free, calculate total interest charges, and uncover how extra monthly payments save thousands.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>💳</span> Card Balance & Terms
+          </h2>
+
+          <div class="space-y-4">
+            <!-- Balance -->
+            <div>
+              <label for="cardBalance" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Current Credit Card Balance
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                <input type="number" id="cardBalance" value="6000" min="50" step="any"
+                  class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+              </div>
+            </div>
+
+            <!-- Interest Rate APR -->
+            <div>
+              <div class="flex justify-between items-center mb-1">
+                <label for="cardApr" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Annual Interest Rate (APR)
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1">
+                  <input type="number" id="cardApr" value="22" min="1" max="45" step="0.5"
+                    class="w-16 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                  <span class="text-slate-400 text-xs font-bold">%</span>
+                </div>
+              </div>
+              <input type="range" id="cardAprSlider" min="5" max="38" step="0.5" value="22"
+                class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+            </div>
+
+            <!-- Payoff Strategy -->
+            <div class="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <label class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block">
+                Payoff Method
+              </label>
+              <div class="grid grid-cols-2 gap-2 p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                <button type="button" id="tabFixedPay" onclick="setPayMethod('fixed')"
+                  class="py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm">
+                  Fixed Monthly Pay
+                </button>
+                <button type="button" id="tabTargetMonths" onclick="setPayMethod('target')"
+                  class="py-2 text-xs font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+                  Target Months
+                </button>
+              </div>
+            </div>
+
+            <!-- Input based on method -->
+            <div id="boxFixedPay">
+              <label for="monthlyPayment" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Your Monthly Payment Budget
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                <span class="text-slate-500 text-xs font-bold" data-currency-symbol>$</span>
+                <input type="number" id="monthlyPayment" value="250" min="20" step="any"
+                  class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+              </div>
+            </div>
+
+            <div id="boxTargetMonths" class="hidden">
+              <label for="targetPayMonths" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                Target Months to Complete Payoff
+              </label>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2">
+                <input type="number" id="targetPayMonths" value="24" min="1" max="120" step="1"
+                  class="w-full text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                <span class="text-slate-400 text-xs font-bold">Months</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Results (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Time to Debt-Free</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Payoff Duration
+            </span>
+          </div>
+
+          <!-- Big Time Display -->
+          <div>
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resDuration">
+              0 Months
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resDurationSub">
+              Debt-free date: Calculating...
+            </div>
+          </div>
+
+          <!-- Breakdown Metrics -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Total Interest Charges:</span>
+              <span class="font-bold text-amber-500" id="resTotalInterest">$0</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Monthly Payment Required:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resMonthlyRequired">$0</span>
+            </div>
+            <div class="flex justify-between py-2 bg-slate-50 dark:bg-slate-800/80 px-3 rounded-xl font-bold">
+              <span class="text-slate-700 dark:text-slate-200">Total Out-of-Pocket:</span>
+              <span class="text-cyan-600 dark:text-cyan-400 text-sm" id="resTotalCost">$0</span>
+            </div>
+          </div>
+
+          <!-- Accelerated Savings Callout -->
+          <div class="p-4 rounded-2xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/40 text-xs space-y-1">
+            <span class="font-bold text-emerald-800 dark:text-emerald-300 block">💡 Power of +$50 Extra / Month</span>
+            <p class="text-slate-600 dark:text-slate-400" id="resExtraSavingsTip">
+              Adding just $50 to your monthly payment saves $0 in interest and gets you debt-free faster.
+            </p>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyCardSummary()" id="btnCopyCard"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Breakdown</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppCard()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let payMethod = 'fixed';
+
+    function getSym() {
+      if (window.currencyManager && typeof window.currencyManager.getSymbol === 'function') {
+        return window.currencyManager.getSymbol();
+      }
+      return '$';
+    }
+
+    function fmt(val) {
+      const sym = getSym();
+      return `${sym}${Number(val).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function setPayMethod(method) {
+      payMethod = method;
+      const tabFixed = document.getElementById('tabFixedPay');
+      const tabTarget = document.getElementById('tabTargetMonths');
+      const boxFixed = document.getElementById('boxFixedPay');
+      const boxTarget = document.getElementById('boxTargetMonths');
+
+      const activeCls = "py-2 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm";
+      const inactiveCls = "py-2 text-xs font-bold rounded-lg transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+
+      if (method === 'fixed') {
+        tabFixed.className = activeCls;
+        tabTarget.className = inactiveCls;
+        boxFixed.classList.remove('hidden');
+        boxTarget.classList.add('hidden');
+      } else {
+        tabTarget.className = activeCls;
+        tabFixed.className = inactiveCls;
+        boxTarget.classList.remove('hidden');
+        boxFixed.classList.add('hidden');
+      }
+      calculatePayoff();
+    }
+
+    const aprNum = document.getElementById('cardApr');
+    const aprRange = document.getElementById('cardAprSlider');
+    aprNum.addEventListener('input', () => { aprRange.value = aprNum.value; calculatePayoff(); });
+    aprRange.addEventListener('input', () => { aprNum.value = aprRange.value; calculatePayoff(); });
+
+    ['cardBalance', 'monthlyPayment', 'targetPayMonths'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculatePayoff);
+    });
+
+    function calculatePayoff() {
+      const balance = parseFloat(document.getElementById('cardBalance').value) || 0;
+      const apr = parseFloat(document.getElementById('cardApr').value) || 0;
+      const monthlyRate = apr / 12 / 100;
+
+      let payment = 0;
+      let months = 0;
+      let totalInterest = 0;
+
+      if (payMethod === 'fixed') {
+        payment = parseFloat(document.getElementById('monthlyPayment').value) || 0;
+        const minInterestFirstMonth = balance * monthlyRate;
+
+        if (payment <= minInterestFirstMonth) {
+          document.getElementById('resDuration').innerText = "Never (Increase Pay)";
+          document.getElementById('resDurationSub').innerText = `Payment is less than monthly interest of ${fmt(minInterestFirstMonth)}`;
+          document.getElementById('resTotalInterest').innerText = "Infinite";
+          document.getElementById('resMonthlyRequired').innerText = fmt(payment);
+          document.getElementById('resTotalCost').innerText = "Infinite";
+          return;
+        }
+
+        // Compute month by month
+        let bal = balance;
+        while (bal > 0.01 && months < 600) {
+          const interestM = bal * monthlyRate;
+          totalInterest += interestM;
+          bal = bal + interestM - payment;
+          months++;
+        }
+      } else {
+        months = parseInt(document.getElementById('targetPayMonths').value) || 24;
+        if (months > 0) {
+          if (monthlyRate > 0) {
+            payment = (balance * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+          } else {
+            payment = balance / months;
+          }
+          totalInterest = Math.max(0, (payment * months) - balance);
+        }
+      }
+
+      const totalCost = balance + totalInterest;
+      const years = (months / 12).toFixed(1);
+
+      document.getElementById('resDuration').innerText = `${months} Months`;
+      document.getElementById('resDurationSub').innerText = `${years} Years to total financial freedom`;
+      document.getElementById('resTotalInterest').innerText = fmt(totalInterest);
+      document.getElementById('resMonthlyRequired').innerText = `${fmt(payment)} / mo`;
+      document.getElementById('resTotalCost').innerText = fmt(totalCost);
+
+      // Accelerated savings calculation (+50 / mo)
+      const extraPay = payment + 50;
+      let bal2 = balance;
+      let m2 = 0;
+      let int2 = 0;
+      while (bal2 > 0.01 && m2 < 600) {
+        const intM = bal2 * monthlyRate;
+        int2 += intM;
+        bal2 = bal2 + intM - extraPay;
+        m2++;
+      }
+      const savedInt = Math.max(0, totalInterest - int2);
+      const savedMonths = Math.max(0, months - m2);
+
+      document.getElementById('resExtraSavingsTip').innerHTML = 
+        `Adding <strong>+${fmt(50)}/mo</strong> pays off your card <strong>${savedMonths} months sooner</strong> and saves <strong>${fmt(savedInt)}</strong> in interest!`;
+    }
+
+    function copyCardSummary() {
+      const dur = document.getElementById('resDuration').innerText;
+      const interest = document.getElementById('resTotalInterest').innerText;
+      const total = document.getElementById('resTotalCost').innerText;
+      const text = `CalcHub Credit Card Payoff:\n• Payoff Duration: ${dur}\n• Total Interest: ${interest}\n• Total Paid: ${total}\n\nCalculate debt-free plan: https://jaydeep0604.github.io/calchub/credit-card-payoff-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyCard');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppCard() {
+      const dur = document.getElementById('resDuration').innerText;
+      const interest = document.getElementById('resTotalInterest').innerText;
+      const text = `CalcHub Debt Freedom Plan:\n💳 Debt-Free in ${dur}!\n💰 Total Interest: ${interest}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/credit-card-payoff-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    window.addEventListener('currencyChanged', calculatePayoff);
+    document.addEventListener('DOMContentLoaded', calculatePayoff);
+  </script>
+</body>
+</html>

@@ -5,16 +5,10 @@
     <priority>1.0</priority>
     <changefreq>daily</changefreq>
   </url>
-  <!-- Flagship Calculators & Converters -->
   <url>
-    <loc>https://jaydeep0604.github.io/calchub/sip-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/auto-loan-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
+    <loc>https://jaydeep0604.github.io/calchub/about.html</loc>
+    <priority>0.4</priority>
+    <changefreq>yearly</changefreq>
   </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/age-calculator.html</loc>
@@ -22,43 +16,8 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://jaydeep0604.github.io/calchub/bmi-calculator.html</loc>
+    <loc>https://jaydeep0604.github.io/calchub/auto-loan-calculator.html</loc>
     <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/concrete-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/timesheet-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/unit-converter.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/meeting-cost-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/tip-bill-split-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/sleep-cycle-calculator.html</loc>
-    <priority>0.9</priority>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/fuel-cost-calculator.html</loc>
-    <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -72,59 +31,143 @@
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://jaydeep0604.github.io/calchub/bmi-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/brick-wall-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://jaydeep0604.github.io/calchub/calorie-tdee-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/compound-interest-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/concrete-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/contact.html</loc>
+    <priority>0.4</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/credit-card-payoff-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/fuel-cost-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/gpa-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/house-affordability-calculator.html</loc>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/loan-calculator.html</loc>
     <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://jaydeep0604.github.io/calchub/compound-interest-calculator.html</loc>
+    <loc>https://jaydeep0604.github.io/calchub/meeting-cost-calculator.html</loc>
     <priority>0.9</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/profit-margin-calculator.html</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/salary-calculator.html</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/mortgage-payoff-calculator.html</loc>
-    <priority>0.8</priority>
-    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/ovulation-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/percentage-calculator.html</loc>
-    <priority>0.7</priority>
-    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
-  <!-- Legal Pages -->
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/pregnancy-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/privacy-policy.html</loc>
-    <priority>0.3</priority>
+    <priority>0.4</priority>
     <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/profit-margin-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/retirement-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/salary-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/sip-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/sleep-cycle-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://jaydeep0604.github.io/calchub/terms.html</loc>
-    <priority>0.3</priority>
-    <changefreq>yearly</changefreq>
-  </url>
-  <url>
-    <loc>https://jaydeep0604.github.io/calchub/about.html</loc>
     <priority>0.4</priority>
     <changefreq>yearly</changefreq>
   </url>
   <url>
-    <loc>https://jaydeep0604.github.io/calchub/contact.html</loc>
-    <priority>0.4</priority>
-    <changefreq>yearly</changefreq>
+    <loc>https://jaydeep0604.github.io/calchub/tile-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/timesheet-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/tip-bill-split-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/unit-converter.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://jaydeep0604.github.io/calchub/water-intake-calculator.html</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
   </url>
 </urlset>

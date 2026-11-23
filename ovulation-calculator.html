@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ovulation Calculator - Fertile Window, Ovulation Day & Period Tracker | CalcHub</title>
+  <meta name="description" content="Calculate your most fertile days, exact ovulation date, and next period start date. View 3-month fertility cycle forecast calendar. 100% free & private.">
+  <meta name="keywords" content="ovulation calculator, fertile window, period tracker, menstrual cycle calculator, conception calculator, next period date">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 group">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
+            🌸
+          </div>
+          <span class="font-black text-lg sm:text-xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-cyan-400">Hub</span></span>
+        </a>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-6 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">All Calculators</a>
+        <a href="pregnancy-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Pregnancy Due Date</a>
+        <a href="age-calculator.html" class="hover:text-cyan-600 dark:hover:text-cyan-400 transition">Age & DOB</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-shrink-0">
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs & Heading -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Ovulation & Period Tracker</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Ovulation & Fertility Window Calculator</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        Natural Family Planning
+      </span>
+    </div>
+    <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
+      Track your peak fertile window (6 days), approximate ovulation date, and future period dates. 100% private and client-side.
+    </p>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pb-12 w-full flex-grow">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+      
+      <!-- Left Column: Inputs (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 space-y-5">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>📅</span> Menstrual Cycle Information
+          </h2>
+
+          <div class="space-y-4">
+            <!-- First day of last period -->
+            <div>
+              <label for="periodDate" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                First Day of Your Last Period
+              </label>
+              <input type="date" id="periodDate"
+                class="w-full px-4 py-2.5 font-black text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-cyan-500 cursor-pointer text-base">
+            </div>
+
+            <!-- Average cycle length -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <label for="cycleLen" class="text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300">
+                  Average Length of Your Cycle
+                </label>
+                <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1">
+                  <input type="number" id="cycleLen" value="28" min="21" max="45" step="1"
+                    class="w-12 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-base">
+                  <span class="text-slate-400 text-xs font-bold">Days</span>
+                </div>
+              </div>
+              <input type="range" id="cycleLenSlider" min="21" max="40" step="1" value="28"
+                class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-500">
+              <div class="flex justify-between text-[11px] text-slate-400">
+                <span>21 Days (Short)</span>
+                <span>28 Days (Standard)</span>
+                <span>40 Days (Long)</span>
+              </div>
+            </div>
+
+            <!-- Luteal Phase (Advanced) -->
+            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+              <div>
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 block">Luteal Phase Length</span>
+                <span class="text-[11px] text-slate-400">14 days is standard for most women</span>
+              </div>
+              <div class="flex items-center gap-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5 py-1">
+                <input type="number" id="lutealPhase" value="14" min="10" max="17" step="1"
+                  class="w-10 text-right font-black text-slate-900 dark:text-white bg-transparent outline-none text-sm">
+                <span class="text-slate-400 text-xs font-bold">d</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3-Month Cycle Projection Table -->
+        <div class="premium-card rounded-2xl p-5 space-y-3">
+          <h3 class="text-sm font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>🗓️</span> Upcoming 3 Cycles Forecast
+          </h3>
+          <div class="overflow-x-auto border border-slate-100 dark:border-slate-800 rounded-xl">
+            <table class="w-full text-left text-xs text-slate-700 dark:text-slate-300">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-[11px] uppercase font-bold text-slate-500">
+                <tr>
+                  <th class="p-2.5">Cycle</th>
+                  <th class="p-2.5">Fertile Window</th>
+                  <th class="p-2.5">Ovulation Day</th>
+                  <th class="p-2.5">Next Period</th>
+                </tr>
+              </thead>
+              <tbody id="forecastTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Results (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="premium-card rounded-2xl sm:rounded-3xl p-5 sm:p-7 space-y-6">
+          
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+            <span class="text-xs uppercase font-black tracking-wider text-slate-400">Estimated Ovulation Date</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-cyan-500/10 text-cyan-500">
+              Peak Day
+            </span>
+          </div>
+
+          <!-- Big Ovulation Date -->
+          <div>
+            <div class="text-2xl sm:text-3xl lg:text-4xl font-black text-cyan-500 dark:text-cyan-400 tracking-tight" id="resOvulation">
+              -
+            </div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1" id="resOvulationSub">
+              Day 14 of your cycle
+            </div>
+          </div>
+
+          <!-- Fertile Window Box -->
+          <div class="p-4 rounded-2xl bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/40 space-y-1">
+            <span class="text-xs font-bold text-cyan-900 dark:text-cyan-200 block">🌸 Prime 6-Day Fertile Window</span>
+            <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white" id="resFertileWindow">-</span>
+            <span class="text-[11px] text-slate-400 block">Highest probability of conception</span>
+          </div>
+
+          <!-- Key Dates Matrix -->
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Next Period Expected:</span>
+              <span class="font-bold text-slate-900 dark:text-white" id="resNextPeriod">-</span>
+            </div>
+            <div class="flex justify-between py-1.5 border-b border-slate-100 dark:border-slate-800">
+              <span class="text-slate-500 dark:text-slate-400">Pregnancy Test Accurate On:</span>
+              <span class="font-bold text-emerald-500" id="resTestDate">-</span>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <button type="button" onclick="copyOvulationSummary()" id="btnCopyOvu"
+              class="w-full py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+              <span>Copy Window</span>
+            </button>
+            <button type="button" onclick="shareWhatsAppOvu()"
+              class="w-full py-2.5 px-3 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span>💬 WhatsApp</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>© 2026 CalcHub. Free, private, client-side calculating tools.</p>
+      <div class="flex items-center gap-4">
+        <a href="privacy-policy.html" class="hover:underline">Privacy Policy</a>
+        <a href="terms.html" class="hover:underline">Terms of Service</a>
+        <a href="contact.html" class="hover:underline">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize with recent date
+    const today = new Date();
+    const defaultStart = new Date(today);
+    defaultStart.setDate(today.getDate() - 10);
+    document.getElementById('periodDate').value = defaultStart.toISOString().split('T')[0];
+
+    const cInput = document.getElementById('cycleLen');
+    const cSlider = document.getElementById('cycleLenSlider');
+    cInput.addEventListener('input', () => { cSlider.value = cInput.value; calculateOvulation(); });
+    cSlider.addEventListener('input', () => { cInput.value = cSlider.value; calculateOvulation(); });
+
+    ['periodDate', 'lutealPhase'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateOvulation);
+      document.getElementById(id).addEventListener('change', calculateOvulation);
+    });
+
+    function calculateOvulation() {
+      const dateVal = document.getElementById('periodDate').value;
+      if (!dateVal) return;
+
+      const startDate = new Date(dateVal + 'T00:00:00');
+      const cycle = parseInt(document.getElementById('cycleLen').value) || 28;
+      const luteal = parseInt(document.getElementById('lutealPhase').value) || 14;
+
+      // Ovulation day = startDate + (cycle - luteal)
+      const daysToOvu = cycle - luteal;
+      const ovuDate = new Date(startDate);
+      ovuDate.setDate(startDate.getDate() + daysToOvu);
+
+      // Fertile window = 5 days prior to ovulation through ovulation day
+      const fertileStart = new Date(ovuDate);
+      fertileStart.setDate(ovuDate.getDate() - 5);
+
+      const nextPeriod = new Date(startDate);
+      nextPeriod.setDate(startDate.getDate() + cycle);
+
+      const testDate = new Date(nextPeriod);
+      testDate.setDate(nextPeriod.getDate() + 1);
+
+      const opts = { month: 'short', day: 'numeric', year: 'numeric' };
+      const dayOpts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+
+      document.getElementById('resOvulation').innerText = ovuDate.toLocaleDateString(undefined, dayOpts);
+      document.getElementById('resOvulationSub').innerText = `Day ${daysToOvu + 1} of your ${cycle}-day cycle`;
+      document.getElementById('resFertileWindow').innerText = `${fertileStart.toLocaleDateString(undefined, opts)} - ${ovuDate.toLocaleDateString(undefined, opts)}`;
+      document.getElementById('resNextPeriod').innerText = nextPeriod.toLocaleDateString(undefined, opts);
+      document.getElementById('resTestDate').innerText = testDate.toLocaleDateString(undefined, opts);
+
+      // Forecast next 3 cycles
+      const tbody = document.getElementById('forecastTableBody');
+      tbody.innerHTML = '';
+
+      for (let i = 1; i <= 3; i++) {
+        const cycleStart = new Date(startDate);
+        cycleStart.setDate(startDate.getDate() + (i - 1) * cycle);
+
+        const cycleOvu = new Date(cycleStart);
+        cycleOvu.setDate(cycleStart.getDate() + daysToOvu);
+
+        const cycleFertileStart = new Date(cycleOvu);
+        cycleFertileStart.setDate(cycleOvu.getDate() - 5);
+
+        const cycleNextPeriod = new Date(cycleStart);
+        cycleNextPeriod.setDate(cycleStart.getDate() + cycle);
+
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-50 dark:hover:bg-slate-800/40";
+        tr.innerHTML = `
+          <td class="p-2.5 font-bold">Month ${i}</td>
+          <td class="p-2.5 text-cyan-600 dark:text-cyan-400 font-bold">${cycleFertileStart.toLocaleDateString(undefined, {month:'short', day:'numeric'})} - ${cycleOvu.toLocaleDateString(undefined, {month:'short', day:'numeric'})}</td>
+          <td class="p-2.5">${cycleOvu.toLocaleDateString(undefined, {month:'short', day:'numeric'})}</td>
+          <td class="p-2.5 font-bold">${cycleNextPeriod.toLocaleDateString(undefined, {month:'short', day:'numeric'})}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function copyOvulationSummary() {
+      const ovu = document.getElementById('resOvulation').innerText;
+      const windowStr = document.getElementById('resFertileWindow').innerText;
+      const nextP = document.getElementById('resNextPeriod').innerText;
+      const text = `CalcHub Fertility Window:\n• Ovulation Date: ${ovu}\n• Prime Fertile Days: ${windowStr}\n• Next Period Expected: ${nextP}\n\nTrack ovulation: https://jaydeep0604.github.io/calchub/ovulation-calculator.html`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('btnCopyOvu');
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span class="text-emerald-500 font-bold">✓ Copied!</span>`;
+        setTimeout(() => btn.innerHTML = orig, 2000);
+      });
+    }
+
+    function shareWhatsAppOvu() {
+      const ovu = document.getElementById('resOvulation').innerText;
+      const windowStr = document.getElementById('resFertileWindow').innerText;
+      const text = `CalcHub Fertility Forecast:\n🌸 Prime Fertile Window: ${windowStr}\n✨ Ovulation Day: ${ovu}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/ovulation-calculator.html`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', calculateOvulation);
+  </script>
+</body>
+</html>
