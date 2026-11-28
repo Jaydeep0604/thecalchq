@@ -386,7 +386,7 @@
       const tiles = document.getElementById('resTilesCount').innerText;
       const area = document.getElementById('resTotalArea').innerText;
       const cost = document.getElementById('resTotalCost').innerText;
-      const text = `CalcHub Flooring Tile Bill:\n• Boxes Needed: ${boxes}\n• ${tiles}\n• Total Area: ${area}\n• Estimated Cost: ${cost}\n\nEstimate tiles: https://jaydeep0604.github.io/calchub/tile-calculator.html`;
+      const text = `TheCalcHQ Flooring Tile Bill:\n• Boxes Needed: ${boxes}\n• ${tiles}\n• Total Area: ${area}\n• Estimated Cost: ${cost}\n\nEstimate tiles: https://thecalchq.com/tile-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyTile');
         const orig = btn.innerHTML;
@@ -399,7 +399,7 @@
       const boxes = document.getElementById('resBoxes').innerText;
       const tiles = document.getElementById('resTilesCount').innerText;
       const area = document.getElementById('resTotalArea').innerText;
-      const text = `CalcHub Tile Order:\n🔲 Boxes: ${boxes}\n🧱 Tiles: ${tiles}\n📐 Area: ${area}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/tile-calculator.html`;
+      const text = `TheCalcHQ Tile Order:\n🔲 Boxes: ${boxes}\n🧱 Tiles: ${tiles}\n📐 Area: ${area}\n\nCalculate yours at: https://thecalchq.com/tile-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

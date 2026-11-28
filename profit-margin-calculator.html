@@ -425,7 +425,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="flex items-center gap-2 text-slate-900 dark:text-white font-bold">
         <span class="w-6 h-6 rounded-md bg-cyan-600 dark:bg-emerald-500 text-white dark:text-slate-950 flex items-center justify-center text-xs font-bold">%</span>
-        CalcHub
+        TheCalcHQ
       </div>
       <div>© 2026 TheCalcHQ. All calculations are for educational purposes.</div>
     </div>
@@ -599,7 +599,7 @@
         window.showToast('Cart is empty!');
         return;
       }
-      let summary = `📦 *Inventory Pricing & Profit Summary (CalcHub)*\n\n`;
+      let summary = `📦 *Inventory Pricing & Profit Summary (TheCalcHQ)*\n\n`;
       cartProducts.forEach((p, i) => {
         summary += `${i + 1}. *${p.name}* (Qty: ${p.qty}) - Cost: ${CalcCurrency.format(p.cost)}, Sell: ${CalcCurrency.format(p.sell)}\n`;
       });
@@ -695,7 +695,7 @@
         `• Net Profit: ${netProfitEl.textContent}\n` +
         `• Profit Margin: ${marginPercentEl.textContent}\n` +
         `• Markup: ${markupPercentEl.textContent}\n` +
-        `Calculated on CalcHub.`;
+        `Calculated on TheCalcHQ.`;
       navigator.clipboard.writeText(summaryText).then(() => {
         window.showToast('Pricing breakdown copied to clipboard!');
       });

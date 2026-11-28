@@ -406,7 +406,7 @@
       const edd = document.getElementById('resDueDate').innerText;
       const age = document.getElementById('resWeeksDays').innerText;
       const tri = document.getElementById('resTrimester').innerText;
-      const text = `CalcHub Pregnancy Status:\n• Estimated Due Date: ${edd}\n• Gestational Age: ${age} (${tri})\n\nCalculate your due date: https://jaydeep0604.github.io/calchub/pregnancy-calculator.html`;
+      const text = `TheCalcHQ Pregnancy Status:\n• Estimated Due Date: ${edd}\n• Gestational Age: ${age} (${tri})\n\nCalculate your due date: https://thecalchq.com/pregnancy-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyPreg');
         const orig = btn.innerHTML;
@@ -418,7 +418,7 @@
     function shareWhatsAppPreg() {
       const edd = document.getElementById('resDueDate').innerText;
       const age = document.getElementById('resWeeksDays').innerText;
-      const text = `CalcHub Baby Due Date:\n👶 Expected Delivery Date: ${edd}!\n🌱 Current Age: ${age}\n\nTrack pregnancy: https://jaydeep0604.github.io/calchub/pregnancy-calculator.html`;
+      const text = `TheCalcHQ Baby Due Date:\n👶 Expected Delivery Date: ${edd}!\n🌱 Current Age: ${age}\n\nTrack pregnancy: https://thecalchq.com/pregnancy-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

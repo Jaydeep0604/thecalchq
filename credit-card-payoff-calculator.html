@@ -416,7 +416,7 @@
       const dur = document.getElementById('resDuration').innerText;
       const interest = document.getElementById('resTotalInterest').innerText;
       const total = document.getElementById('resTotalCost').innerText;
-      const text = `CalcHub Credit Card Payoff:\n• Payoff Duration: ${dur}\n• Total Interest: ${interest}\n• Total Paid: ${total}\n\nCalculate debt-free plan: https://jaydeep0604.github.io/calchub/credit-card-payoff-calculator.html`;
+      const text = `TheCalcHQ Credit Card Payoff:\n• Payoff Duration: ${dur}\n• Total Interest: ${interest}\n• Total Paid: ${total}\n\nCalculate debt-free plan: https://thecalchq.com/credit-card-payoff-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyCard');
         const orig = btn.innerHTML;
@@ -428,7 +428,7 @@
     function shareWhatsAppCard() {
       const dur = document.getElementById('resDuration').innerText;
       const interest = document.getElementById('resTotalInterest').innerText;
-      const text = `CalcHub Debt Freedom Plan:\n💳 Debt-Free in ${dur}!\n💰 Total Interest: ${interest}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/credit-card-payoff-calculator.html`;
+      const text = `TheCalcHQ Debt Freedom Plan:\n💳 Debt-Free in ${dur}!\n💰 Total Interest: ${interest}\n\nCalculate yours at: https://thecalchq.com/credit-card-payoff-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

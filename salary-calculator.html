@@ -793,14 +793,14 @@
         `• Yearly In-Hand: ${yearlyInHand.textContent}\n` +
         `• Monthly Deductions: ${totalMonthlyDeductions.textContent}\n` +
         `• Per Day (${ctcDailyHours.value} hrs): ${dailyEarnings.textContent}\n` +
-        `Calculated via CalcHub.`;
+        `Calculated via TheCalcHQ.`;
       navigator.clipboard.writeText(summaryText).then(() => {
         window.showToast('Salary breakdown copied to clipboard!');
       });
     });
 
     document.getElementById('shareCtcWhatsAppBtn').addEventListener('click', () => {
-      const summaryText = `💼 *My In-Hand Salary Breakdown (CalcHub)*\n\n` +
+      const summaryText = `💼 *My In-Hand Salary Breakdown (TheCalcHQ)*\n\n` +
         `• *Annual CTC:* ${CalcCurrency.format(parseFloat(annualCtcInput.value) || 0, 0)}\n` +
         `• *Monthly In-Hand:* ${monthlyInHand.textContent}\n` +
         `• *Yearly In-Hand:* ${yearlyInHand.textContent}\n` +
@@ -868,7 +868,7 @@
         `• Weekly Pay: ${weeklyPayEl.textContent}\n` +
         `• Monthly Average: ${monthlyPayEl.textContent}\n` +
         `• Annual Total: ${annualSalaryEl.textContent}\n` +
-        `Calculated on CalcHub.`;
+        `Calculated on TheCalcHQ.`;
       navigator.clipboard.writeText(summaryText).then(() => {
         window.showToast('Salary breakdown copied to clipboard!');
       });

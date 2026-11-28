@@ -542,7 +542,7 @@
       const water = document.getElementById('resWaterLiters').innerText;
       const mix = document.getElementById('concreteMixGrade').value;
 
-      const text = `CalcHub Concrete Estimation:\n• Concrete Volume: ${vol}\n• Mix Ratio: ${mix}\n• Cement Bags (50kg): ${bags} Bags\n• Sand: ${sand}\n• Aggregate: ${aggr}\n• Water: ${water}\n\nEstimate concrete at: https://jaydeep0604.github.io/calchub/concrete-calculator.html`;
+      const text = `TheCalcHQ Concrete Estimation:\n• Concrete Volume: ${vol}\n• Mix Ratio: ${mix}\n• Cement Bags (50kg): ${bags} Bags\n• Sand: ${sand}\n• Aggregate: ${aggr}\n• Water: ${water}\n\nEstimate concrete at: https://thecalchq.com/concrete-calculator.html`;
 
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyConc');
@@ -558,7 +558,7 @@
       const sand = document.getElementById('resSandTons').innerText;
       const aggr = document.getElementById('resAggrTons').innerText;
 
-      const text = `CalcHub Concrete Material Bill:\n🏗️ Volume: ${vol}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n🪨 Aggregate: ${aggr}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/concrete-calculator.html`;
+      const text = `TheCalcHQ Concrete Material Bill:\n🏗️ Volume: ${vol}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n🪨 Aggregate: ${aggr}\n\nCalculate yours at: https://thecalchq.com/concrete-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

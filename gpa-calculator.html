@@ -419,7 +419,7 @@
     function copyGpaSummary() {
       const gpa = document.getElementById('resGpa').innerText;
       const cgpa = document.getElementById('resCumulativeGpa').innerText;
-      const text = `CalcHub GPA Result:\n• Semester GPA: ${gpa}\n• ${cgpa}\n\nCalculate your GPA: https://jaydeep0604.github.io/calchub/gpa-calculator.html`;
+      const text = `TheCalcHQ GPA Result:\n• Semester GPA: ${gpa}\n• ${cgpa}\n\nCalculate your GPA: https://thecalchq.com/gpa-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyGpa');
         const orig = btn.innerHTML;
@@ -430,7 +430,7 @@
 
     function shareWhatsAppGpa() {
       const gpa = document.getElementById('resGpa').innerText;
-      const text = `CalcHub College Grades:\n🎓 My Semester GPA is ${gpa}!\n\nCalculate your GPA at: https://jaydeep0604.github.io/calchub/gpa-calculator.html`;
+      const text = `TheCalcHQ College Grades:\n🎓 My Semester GPA is ${gpa}!\n\nCalculate your GPA at: https://thecalchq.com/gpa-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

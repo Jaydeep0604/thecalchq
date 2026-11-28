@@ -583,9 +583,9 @@
         namedPeople.forEach(n => {
           shareMsg += `  - ${n.trim() || 'Guest'}: ${CalcCurrency.format(finalPerPerson)}\n`;
         });
-        shareMsg += `Calculated on CalcHub.`;
+        shareMsg += `Calculated on TheCalcHQ.`;
       } else {
-        shareMsg = `🧾 Dinner Bill Split:\n• Total Bill: ${CalcCurrency.format(finalTotal)} (Food: ${CalcCurrency.format(bill)}, Tip: ${CalcCurrency.format(finalTip)})\n• Split between ${people} people = ${CalcCurrency.format(finalPerPerson)} each!\nCalculated on CalcHub.`;
+        shareMsg = `🧾 Dinner Bill Split:\n• Total Bill: ${CalcCurrency.format(finalTotal)} (Food: ${CalcCurrency.format(bill)}, Tip: ${CalcCurrency.format(finalTip)})\n• Split between ${people} people = ${CalcCurrency.format(finalPerPerson)} each!\nCalculated on TheCalcHQ.`;
       }
 
       sharePreviewEl.textContent = shareMsg;

@@ -429,7 +429,7 @@
       const corpus = document.getElementById('resCorpus').innerText;
       const req = document.getElementById('resRequiredCorpus').innerText;
       const expense = document.getElementById('resFutureExpense').innerText;
-      const text = `CalcHub Retirement Plan:\n• Projected Corpus: ${corpus}\n• Required Corpus: ${req}\n• Future Monthly Expense: ${expense}\n\nPlan your retirement: https://jaydeep0604.github.io/calchub/retirement-calculator.html`;
+      const text = `TheCalcHQ Retirement Plan:\n• Projected Corpus: ${corpus}\n• Required Corpus: ${req}\n• Future Monthly Expense: ${expense}\n\nPlan your retirement: https://thecalchq.com/retirement-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyRet');
         const orig = btn.innerHTML;
@@ -440,7 +440,7 @@
 
     function shareWhatsAppRet() {
       const corpus = document.getElementById('resCorpus').innerText;
-      const text = `CalcHub Retirement & FIRE Forecast:\n🏖️ Projected Wealth: ${corpus} at retirement!\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/retirement-calculator.html`;
+      const text = `TheCalcHQ Retirement & FIRE Forecast:\n🏖️ Projected Wealth: ${corpus} at retirement!\n\nCalculate yours at: https://thecalchq.com/retirement-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

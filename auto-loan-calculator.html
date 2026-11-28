@@ -552,7 +552,7 @@
       const totalCost = document.getElementById('resTotalCost').innerText;
       const months = document.getElementById('loanMonths').value;
 
-      const text = `CalcHub Auto Loan Payment Breakdown:\n• Monthly Car Payment: ${emi}\n• Loan Term: ${months} Months\n• Total Financed Amount: ${loan}\n• Total Loan Interest: ${interest}\n• Total Vehicle Out-of-Pocket: ${totalCost}\n\nCalculate your auto loan at: https://jaydeep0604.github.io/calchub/auto-loan-calculator.html`;
+      const text = `TheCalcHQ Auto Loan Payment Breakdown:\n• Monthly Car Payment: ${emi}\n• Loan Term: ${months} Months\n• Total Financed Amount: ${loan}\n• Total Loan Interest: ${interest}\n• Total Vehicle Out-of-Pocket: ${totalCost}\n\nCalculate your auto loan at: https://thecalchq.com/auto-loan-calculator.html`;
 
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyLoan');
@@ -567,7 +567,7 @@
       const months = document.getElementById('loanMonths').value;
       const totalCost = document.getElementById('resTotalCost').innerText;
 
-      const text = `CalcHub Car Payment Estimate:\n🚗 Monthly Payment: ${emi}/mo for ${months} months.\n💵 Total Vehicle Cost: ${totalCost}.\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/auto-loan-calculator.html`;
+      const text = `TheCalcHQ Car Payment Estimate:\n🚗 Monthly Payment: ${emi}/mo for ${months} months.\n💵 Total Vehicle Cost: ${totalCost}.\n\nCalculate yours at: https://thecalchq.com/auto-loan-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

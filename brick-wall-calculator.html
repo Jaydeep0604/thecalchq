@@ -432,7 +432,7 @@
       const bags = document.getElementById('resCementBags').innerText;
       const sand = document.getElementById('resSandTons').innerText;
       const area = document.getElementById('resNetWallArea').innerText;
-      const text = `CalcHub Brick Wall Bill:\n• ${bricks}\n• ${area}\n• Cement Bags: ${bags} Bags\n• Sand: ${sand}\n\nEstimate bricks: https://jaydeep0604.github.io/calchub/brick-wall-calculator.html`;
+      const text = `TheCalcHQ Brick Wall Bill:\n• ${bricks}\n• ${area}\n• Cement Bags: ${bags} Bags\n• Sand: ${sand}\n\nEstimate bricks: https://thecalchq.com/brick-wall-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyBrick');
         const orig = btn.innerHTML;
@@ -445,7 +445,7 @@
       const bricks = document.getElementById('resBricks').innerText;
       const bags = document.getElementById('resCementBags').innerText;
       const sand = document.getElementById('resSandTons').innerText;
-      const text = `CalcHub Masonry Material Bill:\n🧱 Required: ${bricks}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/brick-wall-calculator.html`;
+      const text = `TheCalcHQ Masonry Material Bill:\n🧱 Required: ${bricks}\n📦 Cement: ${bags} Bags (50kg)\n🏖️ Sand: ${sand}\n\nCalculate yours at: https://thecalchq.com/brick-wall-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

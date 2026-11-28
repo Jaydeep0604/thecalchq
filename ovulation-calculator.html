@@ -367,7 +367,7 @@
       const ovu = document.getElementById('resOvulation').innerText;
       const windowStr = document.getElementById('resFertileWindow').innerText;
       const nextP = document.getElementById('resNextPeriod').innerText;
-      const text = `CalcHub Fertility Window:\n• Ovulation Date: ${ovu}\n• Prime Fertile Days: ${windowStr}\n• Next Period Expected: ${nextP}\n\nTrack ovulation: https://jaydeep0604.github.io/calchub/ovulation-calculator.html`;
+      const text = `TheCalcHQ Fertility Window:\n• Ovulation Date: ${ovu}\n• Prime Fertile Days: ${windowStr}\n• Next Period Expected: ${nextP}\n\nTrack ovulation: https://thecalchq.com/ovulation-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyOvu');
         const orig = btn.innerHTML;
@@ -379,7 +379,7 @@
     function shareWhatsAppOvu() {
       const ovu = document.getElementById('resOvulation').innerText;
       const windowStr = document.getElementById('resFertileWindow').innerText;
-      const text = `CalcHub Fertility Forecast:\n🌸 Prime Fertile Window: ${windowStr}\n✨ Ovulation Day: ${ovu}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/ovulation-calculator.html`;
+      const text = `TheCalcHQ Fertility Forecast:\n🌸 Prime Fertile Window: ${windowStr}\n✨ Ovulation Day: ${ovu}\n\nCalculate yours at: https://thecalchq.com/ovulation-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

@@ -513,7 +513,7 @@
         `• Total Days Lived: ${totalDaysVal.textContent} days\n` +
         `• Next Birthday In: ${cdDays.textContent} days (${nextBdayDayOfWeek.textContent})\n` +
         `• Sun Zodiac: ${statZodiac.textContent}\n` +
-        `Calculated via CalcHub • Free & Instant`;
+        `Calculated via TheCalcHQ • Free & Instant`;
       navigator.clipboard.writeText(summary).then(() => {
         if (window.showToast) window.showToast('Age breakdown copied to clipboard!');
       });
@@ -524,7 +524,7 @@
         `• Age: ${mainAgeYears.textContent}, ${mainAgeMonthsDays.textContent}\n` +
         `• Total Days: ${totalDaysVal.textContent} days\n` +
         `• Next Birthday: in ${cdDays.textContent} days (${nextBdayDayOfWeek.textContent})\n` +
-        `Calculated on https://jaydeep0604.github.io/calchub/age-calculator.html`;
+        `Calculated on https://thecalchq.com/age-calculator.html`;
       window.open(`https://wa.me/?text=${encodeURIComponent(summary)}`, '_blank');
     });
 

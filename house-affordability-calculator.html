@@ -408,7 +408,7 @@
       const maxP = document.getElementById('resMaxHomePrice').innerText;
       const pmt = document.getElementById('resMonthlyHousing').innerText;
       const loan = document.getElementById('resLoanAmount').innerText;
-      const text = `CalcHub Home Affordability:\n• Max Purchase Price: ${maxP}\n• Max Monthly PITI: ${pmt}\n• Loan Amount: ${loan}\n\nCheck how much house you can afford: https://jaydeep0604.github.io/calchub/house-affordability-calculator.html`;
+      const text = `TheCalcHQ Home Affordability:\n• Max Purchase Price: ${maxP}\n• Max Monthly PITI: ${pmt}\n• Loan Amount: ${loan}\n\nCheck how much house you can afford: https://thecalchq.com/house-affordability-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyAfford');
         const orig = btn.innerHTML;
@@ -420,7 +420,7 @@
     function shareWhatsAppAfford() {
       const maxP = document.getElementById('resMaxHomePrice').innerText;
       const pmt = document.getElementById('resMonthlyHousing').innerText;
-      const text = `CalcHub House Budget:\n🏡 Max Home Price: ${maxP}\n💵 Monthly Housing Payment: ${pmt}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/house-affordability-calculator.html`;
+      const text = `TheCalcHQ House Budget:\n🏡 Max Home Price: ${maxP}\n💵 Monthly Housing Payment: ${pmt}\n\nCalculate yours at: https://thecalchq.com/house-affordability-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

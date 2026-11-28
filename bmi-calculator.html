@@ -587,7 +587,7 @@
         `• BMI Score: ${bmiScoreVal.textContent} (${bmiCategoryBadge.textContent.trim()})\n` +
         `• Healthy Target Weight: ${healthyWeightRange.textContent}\n` +
         `• Estimated Body Fat %: ${bodyFatPercentVal.textContent}\n` +
-        `Calculated via CalcHub • Free & Instant`;
+        `Calculated via TheCalcHQ • Free & Instant`;
       navigator.clipboard.writeText(summary).then(() => {
         if (window.showToast) window.showToast('BMI summary copied to clipboard!');
       });
@@ -597,7 +597,7 @@
       const summary = `🏥 *My Body Mass Index (BMI) Score:*\n` +
         `• BMI: ${bmiScoreVal.textContent} (${bmiCategoryBadge.textContent.trim()})\n` +
         `• Healthy Range: ${healthyWeightRange.textContent}\n` +
-        `Check yours on https://jaydeep0604.github.io/calchub/bmi-calculator.html`;
+        `Check yours on https://thecalchq.com/bmi-calculator.html`;
       window.open(`https://wa.me/?text=${encodeURIComponent(summary)}`, '_blank');
     });
 

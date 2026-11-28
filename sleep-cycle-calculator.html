@@ -342,10 +342,10 @@
       const icsContent = [
         'BEGIN:VCALENDAR',
         'VERSION:2.0',
-        'PRODID:-//CalcHub//Sleep Cycle Calculator//EN',
+        'PRODID:-//TheCalcHQ//Sleep Cycle Calculator//EN',
         'BEGIN:VEVENT',
         `SUMMARY:${title}`,
-        `DESCRIPTION:Calculated on CalcHub for optimum REM sleep cycle timing.`,
+        `DESCRIPTION:Calculated on TheCalcHQ for optimum REM sleep cycle timing.`,
         `DTSTART:${startIso}`,
         `DTEND:${endIso}`,
         'BEGIN:VALARM',
@@ -366,7 +366,7 @@
       document.body.removeChild(link);
 
       // 2. Also open Google Calendar tab as convenient cloud fallback
-      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&details=${encodeURIComponent('Calculated on CalcHub for optimum REM sleep cycle timing.')}`;
+      const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startIso}/${endIso}&details=${encodeURIComponent('Calculated on TheCalcHQ for optimum REM sleep cycle timing.')}`;
       setTimeout(() => {
         window.open(gcalUrl, '_blank');
       }, 300);

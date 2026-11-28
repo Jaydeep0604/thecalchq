@@ -553,7 +553,7 @@
         window.showToast('Schedule is empty!');
         return;
       }
-      let summary = `🏗️ *Beam Rebar BBS Summary (CalcHub)*\n\n`;
+      let summary = `🏗️ *Beam Rebar BBS Summary (TheCalcHQ)*\n\n`;
       rebarItems.forEach((item, i) => {
         summary += `${i + 1}. *${item.name}* (${item.type}) - ${item.dia}mm | Cut: ${item.cuttingL.toFixed(2)}m | Qty: ${item.totalQty} | Wt: ${item.totalWt.toFixed(2)}kg\n`;
       });
@@ -578,7 +578,7 @@
       text += `\nTotal Weight: ${totalKgDisplay.textContent}\n` +
         `Total Metric Tons: ${totalMtDisplay.textContent}\n` +
         `Total Length: ${totalLengthDisplay.textContent}\n` +
-        `Calculated on CalcHub.`;
+        `Calculated on TheCalcHQ.`;
       navigator.clipboard.writeText(text).then(() => {
         window.showToast('BBS schedule copied to clipboard!');
       });

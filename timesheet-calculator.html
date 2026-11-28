@@ -439,7 +439,7 @@
       const otHours = document.getElementById('resOtHours').innerText;
       const rate = document.getElementById('hourlyRate').value;
 
-      const text = `CalcHub Weekly Timesheet Summary:\n• Base Rate: $${rate}/hr\n• Total Hours: ${totalHours} (Regular: ${regHours}, OT: ${otHours})\n• Gross Paycheck: ${gross}\n\nTrack your work hours at: https://jaydeep0604.github.io/calchub/timesheet-calculator.html`;
+      const text = `TheCalcHQ Weekly Timesheet Summary:\n• Base Rate: $${rate}/hr\n• Total Hours: ${totalHours} (Regular: ${regHours}, OT: ${otHours})\n• Gross Paycheck: ${gross}\n\nTrack your work hours at: https://thecalchq.com/timesheet-calculator.html`;
 
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyTime');
@@ -453,7 +453,7 @@
       const gross = document.getElementById('resGrossPay').innerText;
       const totalHours = document.getElementById('resTotalHours').innerText;
 
-      const text = `CalcHub Weekly Paycheck:\n⏱️ Total Hours: ${totalHours}\n💵 Gross Pay: ${gross}\n\nCalculate timesheets at: https://jaydeep0604.github.io/calchub/timesheet-calculator.html`;
+      const text = `TheCalcHQ Weekly Paycheck:\n⏱️ Total Hours: ${totalHours}\n💵 Gross Pay: ${gross}\n\nCalculate timesheets at: https://thecalchq.com/timesheet-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

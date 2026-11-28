@@ -372,7 +372,7 @@
     function copyWaterSummary() {
       const liters = document.getElementById('resLiters').innerText;
       const glasses = document.getElementById('resGlasses').innerText;
-      const text = `CalcHub Daily Water Target: ${liters} (${glasses} glasses / day). Track hydration: https://jaydeep0604.github.io/calchub/water-intake-calculator.html`;
+      const text = `TheCalcHQ Daily Water Target: ${liters} (${glasses} glasses / day). Track hydration: https://thecalchq.com/water-intake-calculator.html`;
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopyWater');
         const orig = btn.innerHTML;
@@ -384,7 +384,7 @@
     function shareWhatsAppWater() {
       const liters = document.getElementById('resLiters').innerText;
       const glasses = document.getElementById('resGlasses').innerText;
-      const text = `CalcHub Daily Hydration Target:\n💧 I need to drink ${liters} (${glasses} glasses) of water daily!\n\nCalculate your target at: https://jaydeep0604.github.io/calchub/water-intake-calculator.html`;
+      const text = `TheCalcHQ Daily Hydration Target:\n💧 I need to drink ${liters} (${glasses} glasses) of water daily!\n\nCalculate your target at: https://thecalchq.com/water-intake-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 

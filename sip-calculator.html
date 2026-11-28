@@ -606,7 +606,7 @@
       const years = document.getElementById('timeYears').value;
       const rate = document.getElementById('returnRate').value;
 
-      const text = `CalcHub SIP Wealth Summary:\n• Investment Horizon: ${years} Years\n• Expected Return: ${rate}% p.a.\n• Total Invested: ${invested}\n• Estimated Wealth Gain: ${returns}\n• Total Future Maturity: ${maturity}\n\nCalculate yours at: https://jaydeep0604.github.io/calchub/sip-calculator.html`;
+      const text = `TheCalcHQ SIP Wealth Summary:\n• Investment Horizon: ${years} Years\n• Expected Return: ${rate}% p.a.\n• Total Invested: ${invested}\n• Estimated Wealth Gain: ${returns}\n• Total Future Maturity: ${maturity}\n\nCalculate yours at: https://thecalchq.com/sip-calculator.html`;
 
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('btnCopy');
@@ -622,7 +622,7 @@
       const returns = document.getElementById('resReturns').innerText;
       const years = document.getElementById('timeYears').value;
 
-      const text = `CalcHub SIP Investment Forecast:\n💰 Total Invested: ${invested}\n📈 Wealth Gained: ${returns}\n🏆 Total Future Value: ${maturity} in ${years} years.\n\nPlan your wealth at: https://jaydeep0604.github.io/calchub/sip-calculator.html`;
+      const text = `TheCalcHQ SIP Investment Forecast:\n💰 Total Invested: ${invested}\n📈 Wealth Gained: ${returns}\n🏆 Total Future Value: ${maturity} in ${years} years.\n\nPlan your wealth at: https://thecalchq.com/sip-calculator.html`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
     }
 
