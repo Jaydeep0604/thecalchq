@@ -233,17 +233,21 @@
         </div>
 
         <!-- Bottom Controls: Slabs + Rates -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Number of Slab</label>
             <input type="number" id="noSlabs" value="1" min="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-cyan-600">+18% GST</span></label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton)</label>
             <input type="number" id="steelRate" value="65000" step="100" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600">0% GST</span></label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tax / GST / VAT (%)</label>
+            <input type="number" id="taxRate" value="18" min="0" max="50" step="0.5" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600">0%</span></label>
             <input type="number" id="elecRate" value="2000" step="50" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
           </div>
         </div>
@@ -375,6 +379,7 @@
       distSp: document.getElementById('distSp'),
       noSlabs: document.getElementById('noSlabs'),
       steelRate: document.getElementById('steelRate'),
+      taxRate: document.getElementById('taxRate'),
       elecRate: document.getElementById('elecRate'),
       autoMainQty: document.getElementById('autoMainQty'),
       autoDistQty: document.getElementById('autoDistQty'),
@@ -407,7 +412,9 @@
       return (window.calcCurrency && window.calcCurrency.getSymbol) ? window.calcCurrency.getSymbol() : '₹';
     }
     function fmtMoney(val) {
-      return getSym() + Math.round(val).toLocaleString('en-IN');
+      const sym = getSym();
+      const loc = sym === '₹' ? 'en-IN' : 'en-US';
+      return sym + Math.round(val).toLocaleString(loc);
     }
 
     function syncLabels() {
@@ -457,6 +464,7 @@
       const dSp = parseFloat(els.distSp.value) || 200;
       const slabs = parseInt(els.noSlabs.value, 10) || 1;
       const sRate = parseFloat(els.steelRate.value) || 0;
+      const tRate = (parseFloat(els.taxRate.value) || 0) / 100;
       const eRate = parseFloat(els.elecRate.value) || 0;
 
       const makeRow = (pos, spanLen, cutLen, dia, sp) => {
@@ -466,7 +474,7 @@
         const totWt = totLen * unitWt;
         const tons = totWt / 1000;
         const steelCost = tons * sRate;
-        const gstCost = steelCost * 0.18;
+        const gstCost = steelCost * tRate;
         const elecCost = tons * eRate;
         const totalCost = steelCost + gstCost + elecCost;
         return { id, pos, spanLen, cutLen, dia, sp, qty, slabs, totLen, unitWt, totWt, tons, steelCost, gstCost, elecCost, totalCost };
@@ -577,7 +585,7 @@
 
     els.mainPos.addEventListener('change', () => { syncLabels(); renderLive(); });
     ['input', 'change'].forEach(evt => {
-      [els.barId, els.mainLen, els.mainDia, els.mainSp, els.distLen, els.distDia, els.distSp, els.noSlabs, els.steelRate, els.elecRate].forEach(el => {
+      [els.barId, els.mainLen, els.mainDia, els.mainSp, els.distLen, els.distDia, els.distSp, els.noSlabs, els.steelRate, els.taxRate, els.elecRate].forEach(el => {
         el.addEventListener(evt, renderLive);
       });
     });

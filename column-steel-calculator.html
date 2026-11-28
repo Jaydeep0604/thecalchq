@@ -196,9 +196,9 @@
         </div>
 
         <!-- Row 4: Costing Inputs -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-cyan-600 dark:text-cyan-400">+18% GST</span></label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton)</label>
             <div class="flex">
               <input type="number" id="steelRate" value="65000" min="0" step="100" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm focus:ring-2 focus:ring-cyan-500 outline-none">
               <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center"><span class="curr-sym">₹</span>/Ton</span>
@@ -206,7 +206,15 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600 dark:text-emerald-400">0% GST Exempt</span></label>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Tax / GST / VAT (%)</label>
+            <div class="flex">
+              <input type="number" id="taxRate" value="18" min="0" max="50" step="0.5" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm focus:ring-2 focus:ring-cyan-500 outline-none">
+              <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">%</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity / Labor (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600 dark:text-emerald-400">0% Tax</span></label>
             <div class="flex">
               <input type="number" id="elecRate" value="2000" min="0" step="50" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm focus:ring-2 focus:ring-cyan-500 outline-none">
               <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center"><span class="curr-sym">₹</span>/Ton</span>
@@ -325,8 +333,8 @@
           <div><span class="text-slate-400">Total Lapp Wt:</span> <strong id="sumLappWt" class="font-mono text-cyan-400">0.00 kg</strong></div>
           <div><span class="text-slate-400">Total Rebar Wt:</span> <strong id="sumTotalWt" class="font-mono text-emerald-400">0.00 kg (0.000 Ton)</strong></div>
           <div><span class="text-slate-400">Subtotal:</span> <strong id="sumSteelCost" class="font-mono">₹0</strong></div>
-          <div><span class="text-slate-400">GST (18%):</span> <strong id="sumGst" class="font-mono">₹0</strong></div>
-          <div><span class="text-slate-400">Electricity (0%):</span> <strong id="sumElec" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">Tax/GST:</span> <strong id="sumGst" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">Elec/Labor:</span> <strong id="sumElec" class="font-mono">₹0</strong></div>
           <div class="text-sm sm:text-base"><span class="text-slate-300 font-bold">Final Payable:</span> <strong id="sumFinal" class="font-mono text-emerald-400 text-base sm:text-lg">₹0</strong></div>
         </div>
 
@@ -379,6 +387,7 @@
       colCount: document.getElementById('colCount'),
       cuttingLen: document.getElementById('cuttingLen'),
       steelRate: document.getElementById('steelRate'),
+      taxRate: document.getElementById('taxRate'),
       elecRate: document.getElementById('elecRate'),
       includeLap: document.getElementById('includeLap'),
       lapFactor: document.getElementById('lapFactor'),
@@ -407,7 +416,9 @@
     }
 
     function fmtMoney(val) {
-      return getSym() + Math.round(val).toLocaleString('en-IN');
+      const sym = getSym();
+      const loc = sym === '₹' ? 'en-IN' : 'en-US';
+      return sym + Math.round(val).toLocaleString(loc);
     }
 
     function computeRow() {
@@ -417,6 +428,7 @@
       const cols = parseInt(els.colCount.value, 10) || 1;
       const cutLen = parseFloat(els.cuttingLen.value) || 0;
       const sRate = parseFloat(els.steelRate.value) || 0;
+      const tRate = (parseFloat(els.taxRate.value) || 0) / 100;
       const eRate = parseFloat(els.elecRate.value) || 0;
       const hasLap = els.includeLap.checked;
       const lapFac = parseFloat(els.lapFactor.value) || 50;
@@ -434,7 +446,7 @@
       const tons = totalColWt / 1000;
 
       const steelCost = tons * sRate;
-      const gstCost = steelCost * 0.18;
+      const gstCost = steelCost * tRate;
       const elecCost = tons * eRate;
       const totalCost = steelCost + gstCost + elecCost;
 
@@ -561,7 +573,7 @@
     });
 
     ['input', 'change'].forEach(evt => {
-      [els.colId, els.barDia, els.barQty, els.colCount, els.cuttingLen, els.steelRate, els.elecRate, els.includeLap, els.lapFactor].forEach(el => {
+      [els.colId, els.barDia, els.barQty, els.colCount, els.cuttingLen, els.steelRate, els.taxRate, els.elecRate, els.includeLap, els.lapFactor].forEach(el => {
         el.addEventListener(evt, renderLive);
       });
     });
