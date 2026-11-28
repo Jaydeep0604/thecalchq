@@ -1,0 +1,53 @@
+# TheCalcHQ
+
+> TheCalcHQ (https://thecalchq.com) is a free, ad-free, privacy-first web suite of 38+ high-precision calculators for civil engineering, bar bending schedules (BBS), personal finance, health, and everyday utility. All calculations run 100% client-side inside the user's browser with zero data tracking, dark/light mode, multi-currency support, and 1-click printable PDF reports.
+
+## Civil & Structural Engineering (BBS & Costing)
+
+- [Concrete Volume & Cement Bags Calculator](https://thecalchq.com/concrete-calculator.html): Calculate wet/dry concrete volume, 50kg cement bags, sand, aggregate, and water for slabs, footings, and columns with PDF export.
+- [Staircase Concrete & RMC Batch Calculator](https://thecalchq.com/staircase-calculator.html): Compute concrete volume and M-10 to M-50 RMC plant batch weights for all 5 staircase types (Straight, Dog-Legged, L-Shape, Open-Well, Spiral).
+- [Column Steel Quantity & Costing Calculator](https://thecalchq.com/column-steel-calculator.html): Calculate vertical RCC column rebar weight, 50d lapping length, diameter-wise tonnage, and steel + Tax/GST/VAT + electricity costing.
+- [Column Ring (Stirrups) & Costing Calculator](https://thecalchq.com/column-ring-calculator.html): Compute Master, Square, and Linker column stirrups using zonal spacing (33.33% middle, 66.67% ends), cutting length, and costing.
+- [RCC Slab Steel Quantity & Costing Calculator](https://thecalchq.com/slab-steel-calculator.html): Calculate Main, Bottom Main, Top Main, and Distribution slab rebar quantities with cross-span cutting lengths and full costing.
+- [Beam Steel Rebar BBS Calculator](https://thecalchq.com/beam-steel-calculator.html): Calculate reinforcement steel bar cutting length, unit weight, and total rebar tonnage for RCC beams with PDF report.
+- [Beam Stirrups (Ring) Converter](https://thecalchq.com/beam-stirrups-calculator.html): Compute stirrup cutting length with 135° seismic hooks, rings per beam, and steel weight.
+- [Brick & Mortar Wall Calculator](https://thecalchq.com/brick-wall-calculator.html): Estimate masonry bricks count, cement bags, and sand required for 9-inch or 4.5-inch walls.
+- [Flooring Tile Calculator](https://thecalchq.com/tile-calculator.html): Calculate floor/wall tile boxes, total area, wastage allowance, and estimated cost.
+
+## Finance & Wealth Planning
+
+- [SIP & Step-Up Wealth Planner](https://thecalchq.com/sip-calculator.html): Mutual fund Systematic Investment Plan calculator with annual step-up compounding charts.
+- [Auto Loan & Car EMI Calculator](https://thecalchq.com/auto-loan-calculator.html): Monthly vehicle loan EMI, down payment, and total interest breakdown.
+- [Loan & EMI Calculator](https://thecalchq.com/loan-calculator.html): General personal, business, and education loan amortization and monthly EMI calculator.
+- [Mortgage Early Payoff Calculator](https://thecalchq.com/mortgage-payoff-calculator.html): Calculate interest saved and years shaved off a home mortgage with extra monthly payments.
+- [House Affordability Calculator](https://thecalchq.com/house-affordability-calculator.html): Determine maximum home purchase price and monthly housing budget based on income and debts.
+- [Compound Interest Calculator](https://thecalchq.com/compound-interest-calculator.html): Project wealth growth across daily, monthly, quarterly, and annual compounding frequencies.
+- [Retirement & FIRE Calculator](https://thecalchq.com/retirement-calculator.html): Estimate retirement corpus, safe withdrawal rate, and financial independence timeline.
+- [Credit Card Payoff Calculator](https://thecalchq.com/credit-card-payoff-calculator.html): Calculate debt-free timeline and total interest on credit card balances.
+- [Profit Margin Calculator](https://thecalchq.com/profit-margin-calculator.html): Compute gross margin, markup percentage, and net profit for businesses.
+- [Salary & Take-Home Calculator](https://thecalchq.com/salary-calculator.html): Convert between hourly, daily, weekly, monthly, and annual compensation.
+
+## Health, Work & Everyday Utilities
+
+- [Standard & Scientific Desk Calculator](https://thecalchq.com/): Instant keyboard-friendly arithmetic and scientific desk calculator.
+- [Chronological Age & DOB Calculator](https://thecalchq.com/age-calculator.html): Exact age in years, months, days, and next birthday countdown.
+- [BMI & Body Fat Calculator](https://thecalchq.com/bmi-calculator.html): Visual Body Mass Index gauge and healthy weight range estimator.
+- [Calorie Deficit & TDEE Calculator](https://thecalchq.com/calorie-tdee-calculator.html): Daily energy expenditure and calorie targets for weight loss or muscle gain.
+- [Sleep Cycle & REM Alarm Planner](https://thecalchq.com/sleep-cycle-calculator.html): Calculate optimal wake-up and bedtime windows based on 90-minute REM sleep cycles.
+- [Weekly Timesheet & Payroll Calculator](https://thecalchq.com/timesheet-calculator.html): Track regular and overtime hours with gross pay calculation and PDF timecard export.
+- [Meeting Cost Calculator](https://thecalchq.com/meeting-cost-calculator.html): Live real-time cost counter for team meetings based on attendee hourly rates.
+- [Universal Unit Converter](https://thecalchq.com/unit-converter.html): Convert length, area, volume, weight, temperature, speed, and data units.
+- [GPA & CGPA Calculator](https://thecalchq.com/gpa-calculator.html): Semester grade point average and cumulative GPA calculator for students.
+- [Percentage Calculator](https://thecalchq.com/percentage-calculator.html): Percentage change, increase/decrease, and ratio calculations.
+- [Tip & Bill Split Calculator](https://thecalchq.com/tip-bill-split-calculator.html): Split restaurant bills and calculate tips evenly across groups.
+- [Fuel Cost & Trip Calculator](https://thecalchq.com/fuel-cost-calculator.html): Estimate trip fuel consumption and travel expenses by distance and mileage.
+- [Pregnancy Due Date Calculator](https://thecalchq.com/pregnancy-calculator.html): Estimate delivery date and gestational week milestones.
+- [Ovulation & Fertility Calculator](https://thecalchq.com/ovulation-calculator.html): Predict ovulation day and fertile window.
+- [Daily Water Intake Calculator](https://thecalchq.com/water-intake-calculator.html): Recommended daily hydration in liters and glasses by weight and activity.
+
+## Information & Policies
+
+- [About TheCalcHQ](https://thecalchq.com/about.html)
+- [Privacy Policy](https://thecalchq.com/privacy-policy.html)
+- [Terms of Service](https://thecalchq.com/terms.html)
+- [Contact](https://thecalchq.com/contact.html)
