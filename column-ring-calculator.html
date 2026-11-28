@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVHHLB57M5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QVHHLB57M5');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Column Ring (Stirrups) Steel Quantity &amp; Costing Calculator | TheCalcHQ</title>
+  <meta name="description" content="Calculate RCC column rings and stirrups (Master, Square, Linker) with zonal spacing (33.33% middle, 66.67% ends), cutting length, weight, and complete steel + GST + electricity costing.">
+  <meta name="keywords" content="column ring calculator, column stirrups bbs, master ring square linker, zonal spacing stirrups, steel costing calculator">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+
+  <!-- Canonical & PWA Specifications -->
+  <link rel="canonical" href="https://thecalchq.com/column-ring-calculator.html">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TheCalcHQ">
+
+  <!-- Open Graph / Social Media Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thecalchq.com/column-ring-calculator.html">
+  <meta property="og:title" content="Column Ring (Stirrups) Steel Quantity &amp; Costing | TheCalcHQ">
+  <meta property="og:description" content="Calculate Master, Square &amp; Linker column stirrups with zonal spacing, cutting length, tonnage, and complete costing.">
+  <meta property="og:image" content="https://thecalchq.com/assets/images/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="TheCalcHQ">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://thecalchq.com/column-ring-calculator.html">
+  <meta name="twitter:title" content="Column Ring (Stirrups) Steel Quantity &amp; Costing | TheCalcHQ">
+  <meta name="twitter:description" content="Calculate Master, Square &amp; Linker column stirrups with zonal spacing and complete costing.">
+  <meta name="twitter:image" content="https://thecalchq.com/assets/images/og-card.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Column Ring (Stirrups) Steel Quantity & Costing Calculator",
+    "url": "https://thecalchq.com/column-ring-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "description": "Calculate RCC column stirrups (Master, Square, Linker) with zonal spacing (33.33% middle, 66.67% ends), cutting length, tonnage, and steel + 18% GST + electricity costing.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "380" }
+  }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800 print:hidden">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-emerald-500 dark:to-cyan-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">%</div>
+        <span class="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-emerald-400">HQ</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Calculators</a>
+        <a href="column-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Column Steel</a>
+        <a href="beam-stirrups-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Beam Stirrups</a>
+        <a href="slab-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Slab Steel</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title & Breadcrumbs -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium print:hidden">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Column Ring (Stirrups) Calculator</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Column Ring (Stirrups) &amp; Costing</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        🏗️ Master / Square / Linker
+      </span>
+    </div>
+    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      Calculate RCC column stirrups using zonal spacing (33.33% middle &amp; 66.67% confinement zones), conditional cutting length formulas, and ton-based costing.
+    </p>
+  </div>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 space-y-6 w-full flex-grow">
+
+    <!-- Step 1: Input Parameters -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm print:hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-cyan-600 text-white text-xs flex items-center justify-center font-bold">1</span>
+          Input Parameters
+        </h2>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Active Entry</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Column ID</label>
+          <input type="text" id="colId" value="C1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Ring Type</label>
+          <select id="ringType" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none focus:ring-2 focus:ring-cyan-500">
+            <option value="Master" selected>Master</option>
+            <option value="Square">Square</option>
+            <option value="Linker">Linker</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Column Width (mm)</label>
+          <div class="flex">
+            <input type="number" id="colW" value="230" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Column Length (mm)</label>
+          <div class="flex">
+            <input type="number" id="colL" value="1500" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <!-- Conditional Square / Linker Inputs -->
+        <div id="condWBox" class="hidden">
+          <label id="condWLabel" class="block text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-1.5">Square Ring Width (mm)</label>
+          <div class="flex">
+            <input type="number" id="condW" value="250" class="w-full px-3.5 py-2.5 rounded-l-xl border border-cyan-300 dark:border-cyan-700 bg-cyan-50/30 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div id="condLBox" class="hidden">
+          <label id="condLLabel" class="block text-xs font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400 mb-1.5">Square Ring Length (mm)</label>
+          <div class="flex">
+            <input type="number" id="condL" value="230" class="w-full px-3.5 py-2.5 rounded-l-xl border border-cyan-300 dark:border-cyan-700 bg-cyan-50/30 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Concrete Cover (mm)</label>
+          <div class="flex">
+            <input type="number" id="cover" value="40" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Ring Bar Dia (mm)</label>
+          <div class="flex">
+            <select id="ringDia" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+              <option value="6">6</option>
+              <option value="8" selected>8</option>
+              <option value="10">10</option>
+              <option value="12">12</option>
+            </select>
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Middle Phase Spacing (33.33% Zone)</label>
+          <div class="flex">
+            <input type="number" id="midSpacing" value="100" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Upper &amp; Lower Spacing (66.67% Zone)</label>
+          <div class="flex">
+            <input type="number" id="endSpacing" value="150" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Clear Column Height (mm)</label>
+          <div class="flex">
+            <input type="number" id="colH" value="2615" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">mm</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">No. of Set (per Level)</label>
+          <div class="flex">
+            <input type="number" id="noSet" value="1" min="1" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">set</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">No. of Columns</label>
+          <div class="flex">
+            <input type="number" id="noCols" value="4" min="1" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">nos</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Cutting Length (Auto-Calculated, Editable)</label>
+          <div class="flex">
+            <input type="number" id="cuttingLen" value="3.29" step="0.01" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center">m</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-cyan-600 dark:text-cyan-400">+18% GST</span></label>
+          <div class="flex">
+            <input type="number" id="steelRate" value="65000" step="100" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center"><span class="curr-sym">₹</span>/Ton</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600 dark:text-emerald-400">0% GST Exempt</span></label>
+          <div class="flex">
+            <input type="number" id="elecRate" value="2000" step="50" class="w-full px-3.5 py-2.5 rounded-l-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+            <span class="px-3 py-2.5 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-xl text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center"><span class="curr-sym">₹</span>/Ton</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 text-xs font-mono">
+        <div>Qty (Stirrups per Set): <strong id="autoQtySet" class="text-cyan-600 dark:text-cyan-400 text-sm">22</strong></div>
+        <div>Total Ring per Column: <strong id="autoRingCol" class="text-emerald-600 dark:text-emerald-400 text-sm">22</strong></div>
+      </div>
+
+      <button id="addBtn" class="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-sm shadow-md transition-all">
+        + Add to List &amp; Costing
+      </button>
+    </section>
+
+    <!-- Step 2: Live Item Preview -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">2</span>
+          Live Item Preview (<span id="previewTitle">C1 - Master</span>)
+        </h2>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/50 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">Live Preview</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <th class="py-2 px-2">ID</th>
+              <th class="py-2 px-2">Type</th>
+              <th class="py-2 px-2">Dimensions</th>
+              <th class="py-2 px-2">Cover</th>
+              <th class="py-2 px-2">Spacing</th>
+              <th class="py-2 px-2">Dia</th>
+              <th class="py-2 px-2">Qty/Col</th>
+              <th class="py-2 px-2">Sets</th>
+              <th class="py-2 px-2">Cut Len</th>
+              <th class="py-2 px-2">Unit Wt</th>
+              <th class="py-2 px-2">Total Wt</th>
+              <th class="py-2 px-2">Steel Cost</th>
+              <th class="py-2 px-2">GST (18%)</th>
+              <th class="py-2 px-2">Elec (0%)</th>
+              <th class="py-2 px-2 font-bold text-slate-900 dark:text-white">Total Cost</th>
+            </tr>
+          </thead>
+          <tbody id="livePreviewBody" class="font-mono text-slate-800 dark:text-slate-200"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Step 3: Added Ring List & Cost Summary -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm space-y-5">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white text-xs flex items-center justify-center font-bold">3</span>
+          Added Ring List &amp; Cost Summary
+          <span id="savedBadge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-obsidian-700 text-slate-600 dark:text-slate-300">Saved Items (0)</span>
+        </h2>
+        <button id="clearAllBtn" class="text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline print:hidden">Clear All</button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <th class="py-2 px-2">ID</th>
+              <th class="py-2 px-2">Type</th>
+              <th class="py-2 px-2">Dimensions</th>
+              <th class="py-2 px-2">Dia</th>
+              <th class="py-2 px-2">Qty/Col</th>
+              <th class="py-2 px-2">Sets</th>
+              <th class="py-2 px-2">Cut Len</th>
+              <th class="py-2 px-2">Total Rings</th>
+              <th class="py-2 px-2">Total Wt</th>
+              <th class="py-2 px-2">Steel Cost</th>
+              <th class="py-2 px-2">GST (18%)</th>
+              <th class="py-2 px-2">Elec (0%)</th>
+              <th class="py-2 px-2 font-bold text-slate-900 dark:text-white">Total Cost</th>
+              <th class="py-2 px-2 print:hidden">Action</th>
+            </tr>
+          </thead>
+          <tbody id="savedListBody" class="font-mono text-slate-800 dark:text-slate-200 divide-y divide-slate-100 dark:divide-slate-700/60"></tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Ring Steel Consumption by Diameter</h3>
+        <div id="diaSummaryContainer" class="flex flex-wrap gap-3"></div>
+      </div>
+
+      <div class="bg-slate-900 dark:bg-obsidian-900 text-white rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border border-slate-800">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm">
+          <div><span class="text-slate-400">Items:</span> <strong id="sumItems" class="font-mono">0</strong></div>
+          <div><span class="text-slate-400">Total Wt:</span> <strong id="sumTotalWt" class="font-mono text-emerald-400">0.00 kg</strong></div>
+          <div><span class="text-slate-400">Steel:</span> <strong id="sumSteelCost" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">GST (18%):</span> <strong id="sumGst" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">Electricity:</span> <strong id="sumElec" class="font-mono">₹0</strong></div>
+          <div class="text-sm sm:text-base"><span class="text-slate-300 font-bold">Final Payable:</span> <strong id="sumFinal" class="font-mono text-emerald-400 text-base sm:text-lg">₹0</strong></div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 print:hidden">
+          <button onclick="window.print()" class="px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition">🖨️ PDF Report</button>
+          <button id="copyBtn" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold transition">📋 Copy Summary</button>
+          <button id="waBtn" class="px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">💬 WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 mt-12 py-8 text-xs text-slate-500 dark:text-slate-400 print:hidden">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <strong class="text-slate-900 dark:text-white">TheCalcHQ</strong> — Free Civil &amp; Engineering Calculators</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-cyan-500">All Calculators</a>
+        <a href="privacy-policy.html" class="hover:text-cyan-500">Privacy Policy</a>
+        <a href="about.html" class="hover:text-cyan-500">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      colId: document.getElementById('colId'),
+      ringType: document.getElementById('ringType'),
+      colW: document.getElementById('colW'),
+      colL: document.getElementById('colL'),
+      condWBox: document.getElementById('condWBox'),
+      condLBox: document.getElementById('condLBox'),
+      condWLabel: document.getElementById('condWLabel'),
+      condLLabel: document.getElementById('condLLabel'),
+      condW: document.getElementById('condW'),
+      condL: document.getElementById('condL'),
+      cover: document.getElementById('cover'),
+      ringDia: document.getElementById('ringDia'),
+      midSpacing: document.getElementById('midSpacing'),
+      endSpacing: document.getElementById('endSpacing'),
+      colH: document.getElementById('colH'),
+      noSet: document.getElementById('noSet'),
+      noCols: document.getElementById('noCols'),
+      cuttingLen: document.getElementById('cuttingLen'),
+      steelRate: document.getElementById('steelRate'),
+      elecRate: document.getElementById('elecRate'),
+      autoQtySet: document.getElementById('autoQtySet'),
+      autoRingCol: document.getElementById('autoRingCol'),
+      previewTitle: document.getElementById('previewTitle'),
+      livePreviewBody: document.getElementById('livePreviewBody'),
+      savedListBody: document.getElementById('savedListBody'),
+      savedBadge: document.getElementById('savedBadge'),
+      diaSummaryContainer: document.getElementById('diaSummaryContainer'),
+      sumItems: document.getElementById('sumItems'),
+      sumTotalWt: document.getElementById('sumTotalWt'),
+      sumSteelCost: document.getElementById('sumSteelCost'),
+      sumGst: document.getElementById('sumGst'),
+      sumElec: document.getElementById('sumElec'),
+      sumFinal: document.getElementById('sumFinal'),
+      addBtn: document.getElementById('addBtn'),
+      clearAllBtn: document.getElementById('clearAllBtn'),
+      copyBtn: document.getElementById('copyBtn'),
+      waBtn: document.getElementById('waBtn')
+    };
+
+    function getSym() {
+      return (window.calcCurrency && window.calcCurrency.getSymbol) ? window.calcCurrency.getSymbol() : '₹';
+    }
+    function fmtMoney(val) {
+      return getSym() + Math.round(val).toLocaleString('en-IN');
+    }
+
+    function updateTypeUI(resetCut) {
+      const type = els.ringType.value;
+      if (type === 'Master') {
+        els.condWBox.classList.add('hidden');
+        els.condLBox.classList.add('hidden');
+        if (resetCut) els.noSet.value = 1;
+      } else if (type === 'Square') {
+        els.condWBox.classList.remove('hidden');
+        els.condLBox.classList.remove('hidden');
+        els.condWLabel.textContent = 'Square Ring Width (mm)';
+        els.condLLabel.textContent = 'Square Ring Length (mm)';
+        if (resetCut) { els.condW.value = 250; els.condL.value = 230; els.noSet.value = 1; }
+      } else {
+        els.condWBox.classList.remove('hidden');
+        els.condLBox.classList.remove('hidden');
+        els.condWLabel.textContent = 'Linker Width (mm)';
+        els.condLLabel.textContent = 'Linker Length (mm)';
+        if (resetCut) { els.condW.value = 150; els.condL.value = 150; els.noSet.value = 2; }
+      }
+      recalcCuttingLength();
+    }
+
+    function recalcCuttingLength() {
+      const type = els.ringType.value;
+      const cw = parseFloat(els.colW.value) || 0;
+      const cl = parseFloat(els.colL.value) || 0;
+      const sw = parseFloat(els.condW.value) || 0;
+      const sl = parseFloat(els.condL.value) || 0;
+      const cov = parseFloat(els.cover.value) || 0;
+      let cut = 0;
+      if (type === 'Master') {
+        cut = (2 * (cw + cl) - (8 * cov) + 150) / 1000;
+      } else if (type === 'Square') {
+        cut = (2 * (sw + sl) + 150) / 1000;
+      } else {
+        cut = (sw + sl) / 1000;
+      }
+      els.cuttingLen.value = Math.max(0.05, cut).toFixed(2);
+    }
+
+    function computeRow() {
+      const id = (els.colId.value || 'C1').trim();
+      const type = els.ringType.value;
+      const cw = parseFloat(els.colW.value) || 0;
+      const cl = parseFloat(els.colL.value) || 0;
+      const sw = parseFloat(els.condW.value) || 0;
+      const sl = parseFloat(els.condL.value) || 0;
+      const cov = parseFloat(els.cover.value) || 0;
+      const dia = parseFloat(els.ringDia.value) || 8;
+      const midSp = parseFloat(els.midSpacing.value) || 100;
+      const endSp = parseFloat(els.endSpacing.value) || 150;
+      const colH = parseFloat(els.colH.value) || 0;
+      const noSet = parseInt(els.noSet.value, 10) || 1;
+      const noCols = parseInt(els.noCols.value, 10) || 1;
+      const cutLen = parseFloat(els.cuttingLen.value) || 0;
+      const sRate = parseFloat(els.steelRate.value) || 0;
+      const eRate = parseFloat(els.elecRate.value) || 0;
+
+      const qtyPerSet = Math.ceil((0.3333 * colH) / midSp) + Math.ceil((0.6667 * colH) / endSp) + 1;
+      const ringPerCol = qtyPerSet * noSet;
+      const totalRings = ringPerCol * noCols;
+      const totalLen = cutLen * totalRings;
+      const unitWt = (dia * dia) / 162;
+      const totalWt = totalLen * unitWt;
+      const tons = totalWt / 1000;
+
+      const steelCost = tons * sRate;
+      const gstCost = steelCost * 0.18;
+      const elecCost = tons * eRate;
+      const totalCost = steelCost + gstCost + elecCost;
+
+      const dims = type === 'Master' ? `${cw}×${cl} mm` : `${sw}×${sl} mm`;
+
+      return {
+        id, type, dims, cov, spacing: `${midSp}/${endSp}`, dia, qtyPerSet, noSet,
+        ringPerCol, noCols, totalRings, cutLen, unitWt, totalLen, totalWt, tons,
+        steelCost, gstCost, elecCost, totalCost
+      };
+    }
+
+    let savedRows = [];
+
+    function renderLive() {
+      document.querySelectorAll('.curr-sym').forEach(el => el.textContent = getSym());
+      const r = computeRow();
+      els.autoQtySet.textContent = r.qtyPerSet;
+      els.autoRingCol.textContent = r.ringPerCol;
+      els.previewTitle.textContent = `${r.id} - ${r.type}`;
+
+      els.livePreviewBody.innerHTML = `
+        <tr>
+          <td class="py-2.5 px-2 font-bold">${r.id}</td>
+          <td class="py-2.5 px-2">${r.type}</td>
+          <td class="py-2.5 px-2">${r.dims}</td>
+          <td class="py-2.5 px-2">${r.cov} mm</td>
+          <td class="py-2.5 px-2">${r.spacing}</td>
+          <td class="py-2.5 px-2">${r.dia} mm</td>
+          <td class="py-2.5 px-2">${r.qtyPerSet}</td>
+          <td class="py-2.5 px-2">${r.noSet}</td>
+          <td class="py-2.5 px-2">${r.cutLen.toFixed(2)} m</td>
+          <td class="py-2.5 px-2">${r.unitWt.toFixed(3)} kg/m</td>
+          <td class="py-2.5 px-2 font-bold text-cyan-600 dark:text-cyan-400">${r.totalWt.toFixed(2)} kg</td>
+          <td class="py-2.5 px-2">${fmtMoney(r.steelCost)}</td>
+          <td class="py-2.5 px-2">${fmtMoney(r.gstCost)}</td>
+          <td class="py-2.5 px-2">${fmtMoney(r.elecCost)}</td>
+          <td class="py-2.5 px-2 font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(r.totalCost)}</td>
+        </tr>
+      `;
+    }
+
+    function renderSaved() {
+      els.savedBadge.textContent = `Saved Items (${savedRows.length})`;
+      if (savedRows.length === 0) {
+        els.savedListBody.innerHTML = '<tr><td colspan="14" class="py-4 text-center text-slate-400">No ring entries added yet.</td></tr>';
+      } else {
+        els.savedListBody.innerHTML = savedRows.map((r, idx) => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-obsidian-700/40">
+            <td class="py-2 px-2 font-bold">${r.id}</td>
+            <td class="py-2 px-2">${r.type}</td>
+            <td class="py-2 px-2">${r.dims}</td>
+            <td class="py-2 px-2">${r.dia} mm</td>
+            <td class="py-2 px-2">${r.qtyPerSet}/col</td>
+            <td class="py-2 px-2">${r.noSet}</td>
+            <td class="py-2 px-2">${r.cutLen.toFixed(2)} m</td>
+            <td class="py-2 px-2">${r.totalRings}</td>
+            <td class="py-2 px-2 font-bold">${r.totalWt.toFixed(2)} kg</td>
+            <td class="py-2 px-2">${fmtMoney(r.steelCost)}</td>
+            <td class="py-2 px-2">${fmtMoney(r.gstCost)}</td>
+            <td class="py-2 px-2">${fmtMoney(r.elecCost)}</td>
+            <td class="py-2 px-2 font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(r.totalCost)}</td>
+            <td class="py-2 px-2 print:hidden"><button onclick="removeRow(${idx})" class="text-rose-500 font-bold">🗑️</button></td>
+          </tr>
+        `).join('');
+      }
+
+      const byDia = {};
+      let sumWt = 0, sumSteel = 0, sumGst = 0, sumElec = 0, sumFin = 0;
+      savedRows.forEach(r => {
+        if (!byDia[r.dia]) byDia[r.dia] = { wt: 0, cost: 0 };
+        byDia[r.dia].wt += r.totalWt;
+        byDia[r.dia].cost += r.totalCost;
+        sumWt += r.totalWt;
+        sumSteel += r.steelCost;
+        sumGst += r.gstCost;
+        sumElec += r.elecCost;
+        sumFin += r.totalCost;
+      });
+
+      els.diaSummaryContainer.innerHTML = Object.keys(byDia).sort((a,b)=>a-b).map(d => {
+        const g = byDia[d];
+        return `
+          <div class="px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 text-xs">
+            <span class="font-bold text-cyan-600 dark:text-cyan-400">${d} mm Dia Ring Steel:</span>
+            <span class="font-mono font-bold text-slate-900 dark:text-white ml-1">${g.wt.toFixed(2)} kg (${(g.wt/1000).toFixed(4)} Ton)</span>
+            <span class="text-slate-400 mx-1">•</span>
+            <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(g.cost)}</span>
+          </div>
+        `;
+      }).join('');
+
+      els.sumItems.textContent = savedRows.length;
+      els.sumTotalWt.textContent = `${sumWt.toFixed(2)} kg (${(sumWt/1000).toFixed(4)} Ton)`;
+      els.sumSteelCost.textContent = fmtMoney(sumSteel);
+      els.sumGst.textContent = fmtMoney(sumGst);
+      els.sumElec.textContent = fmtMoney(sumElec);
+      els.sumFinal.textContent = fmtMoney(sumFin);
+    }
+
+    window.removeRow = function(idx) { savedRows.splice(idx, 1); renderSaved(); };
+    els.addBtn.addEventListener('click', () => { savedRows.push(computeRow()); renderSaved(); });
+    els.clearAllBtn.addEventListener('click', () => { savedRows = []; renderSaved(); });
+
+    els.ringType.addEventListener('change', () => { updateTypeUI(true); renderLive(); });
+    [els.colW, els.colL, els.condW, els.condL, els.cover].forEach(el => {
+      el.addEventListener('input', () => { recalcCuttingLength(); renderLive(); });
+    });
+    [els.colId, els.ringDia, els.midSpacing, els.endSpacing, els.colH, els.noSet, els.noCols, els.cuttingLen, els.steelRate, els.elecRate].forEach(el => {
+      el.addEventListener('input', renderLive);
+    });
+
+    function buildShareText() {
+      return `TheCalcHQ Column Ring & Costing Summary:\n• Ring Groups: ${els.sumItems.textContent}\n• Total Ring Weight: ${els.sumTotalWt.textContent}\n• Steel Subtotal: ${els.sumSteelCost.textContent}\n• GST (18%): ${els.sumGst.textContent}\n• Electricity (0% GST): ${els.sumElec.textContent}\n• Final Payable: ${els.sumFinal.textContent}\n\nCalculate yours at: https://thecalchq.com/column-ring-calculator.html`;
+    }
+
+    els.copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(buildShareText());
+      els.copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => els.copyBtn.textContent = '📋 Copy Summary', 2000);
+    });
+    els.waBtn.addEventListener('click', () => {
+      window.open('https://wa.me/?text=' + encodeURIComponent(buildShareText()), '_blank');
+    });
+    window.addEventListener('currencyChanged', () => { renderLive(); renderSaved(); });
+
+    updateTypeUI(false);
+    savedRows.push(computeRow());
+    renderLive();
+    renderSaved();
+  </script>
+</body>
+</html>

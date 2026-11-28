@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVHHLB57M5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QVHHLB57M5');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staircase Concrete &amp; RMC Batch Calculator (All 5 Types) | TheCalcHQ</title>
+  <meta name="description" content="Calculate concrete volume (m³) and RMC Plant batch materials (M-10 to M-50) for all 5 staircase types: Straight, Dog-Legged, L-Shape, Open-Well, and Spiral/Helical.">
+  <meta name="keywords" content="staircase concrete calculator, waist slab volume, dog legged staircase volume, spiral staircase concrete, rmc mix design m25 m20, cement bags staircase">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+
+  <!-- Canonical & PWA Specifications -->
+  <link rel="canonical" href="https://thecalchq.com/staircase-calculator.html">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TheCalcHQ">
+
+  <!-- Open Graph / Social Media Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thecalchq.com/staircase-calculator.html">
+  <meta property="og:title" content="Staircase Concrete &amp; RMC Batch Calculator (All 5 Types) | TheCalcHQ">
+  <meta property="og:description" content="Calculate concrete volume and M-10 to M-50 RMC batch materials for Straight, Dog-Legged, L-Shape, Open-Well, and Spiral staircases.">
+  <meta property="og:image" content="https://thecalchq.com/assets/images/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="TheCalcHQ">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://thecalchq.com/staircase-calculator.html">
+  <meta name="twitter:title" content="Staircase Concrete &amp; RMC Batch Calculator | TheCalcHQ">
+  <meta name="twitter:description" content="Calculate concrete volume and M-10 to M-50 RMC batch materials for all 5 staircase types.">
+  <meta name="twitter:image" content="https://thecalchq.com/assets/images/og-card.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Staircase Concrete & RMC Batch Calculator (All 5 Types)",
+    "url": "https://thecalchq.com/staircase-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "description": "Compute exact concrete volume (m³) and RMC plant mix design batch weights (M-10 to M-50) for Straight, Dog-Legged, L-Shape, Open-Well, and Spiral staircases.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "520" }
+  }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800 print:hidden">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-emerald-500 dark:to-cyan-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">%</div>
+        <span class="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-emerald-400">HQ</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Calculators</a>
+        <a href="concrete-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Concrete Volume</a>
+        <a href="slab-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Slab Steel</a>
+        <a href="column-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Column Steel</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium print:hidden">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">Staircase Concrete &amp; RMC Batch</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">Staircase Concrete &amp; RMC Batch</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        🏗️ All 5 Staircase Types
+      </span>
+    </div>
+    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      Calculate steps, waist slab, landing slabs, staircase beams, and canopy concrete volume (m³) plus M-10 to M-50 RMC plant batch materials in Meters (m).
+    </p>
+  </div>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full flex-grow">
+
+    <!-- Left Panel: Staircase Dimensions & Specs -->
+    <section class="lg:col-span-5 bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 shadow-sm space-y-4 print:hidden">
+      <h2 class="text-base font-extrabold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-2">Staircase Dimensions &amp; Specs (Meters)</h2>
+
+      <div>
+        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1">Staircase Type</label>
+        <select id="stairType" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white text-sm font-bold outline-none focus:ring-2 focus:ring-cyan-500">
+          <option value="straight">Straight Staircase (1 Flight)</option>
+          <option value="dogged" selected>Dog-Legged / U-Shape (2 Flights)</option>
+          <option value="lshape">L-Shape / Quarter-Turn (90°)</option>
+          <option value="openwell">Open-Well / 3-Flight Staircase</option>
+          <option value="spiral">Spiral / Helical Staircase</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Concrete Grade</label>
+          <select id="concGrade" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+            <option value="M10">M-10 (PCC)</option>
+            <option value="M15">M-15 (PCC)</option>
+            <option value="M20">M-20 (RCC)</option>
+            <option value="M25" selected>M-25</option>
+            <option value="M30">M-30</option>
+            <option value="M35">M-35</option>
+            <option value="M40">M-40</option>
+            <option value="M45">M-45</option>
+            <option value="M50">M-50</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Wastage (%)</label>
+          <input type="number" id="wastage" value="3" min="0" max="25" step="0.5" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+        </div>
+      </div>
+
+      <!-- Rectangular Flight Inputs (Types 1-4) -->
+      <div id="rectInputs" class="space-y-3">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Floor Height (m)</label>
+            <input type="number" id="floorH" value="3.0" step="0.05" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Stair Width (m)</label>
+            <input type="number" id="stairW" value="1.05" step="0.05" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Riser R (m)</label>
+            <input type="number" id="riser" value="0.15" step="0.01" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Tread T (m)</label>
+            <input type="number" id="tread" value="0.25" step="0.01" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Waist Thickness (m)</label>
+            <input type="number" id="waistT" value="0.15" step="0.01" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+          <div id="openWellBox" class="hidden">
+            <label class="block text-xs font-bold text-cyan-600 dark:text-cyan-400 mb-1">Open-Well Gap (m)</label>
+            <input type="number" id="openGap" value="0.50" step="0.05" class="w-full px-3 py-2 rounded-lg border border-cyan-300 dark:border-cyan-700 bg-cyan-50/20 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+          </div>
+        </div>
+
+        <!-- Landing Inputs (Types 2,3,4) -->
+        <div id="landingBox" class="grid grid-cols-2 gap-3 p-3 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700">
+          <div>
+            <label id="landingLLabel" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Landing Length (m)</label>
+            <input type="number" id="landL" value="2.10" step="0.05" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-sm font-semibold outline-none">
+          </div>
+          <div>
+            <label id="landingWLabel" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Landing Width (m)</label>
+            <input type="number" id="landW" value="1.05" step="0.05" class="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-sm font-semibold outline-none">
+          </div>
+        </div>
+
+        <!-- Beams & Chajja -->
+        <div class="p-3 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 space-y-2">
+          <div class="text-xs font-bold text-slate-600 dark:text-slate-400">Staircase Beams &amp; Chajja (L × W × D in m)</div>
+          <div class="grid grid-cols-3 gap-2">
+            <input type="number" id="b1L" value="3.29" step="0.05" title="Beam 1 Length" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="b1W" value="0.23" step="0.01" title="Beam 1 Width" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="b1D" value="0.45" step="0.05" title="Beam 1 Depth" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <input type="number" id="b2L" value="3.29" step="0.05" title="Beam 2 Length" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="b2W" value="0.23" step="0.01" title="Beam 2 Width" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="b2D" value="0.10" step="0.01" title="Beam 2 Depth" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <input type="number" id="chL" value="1.50" step="0.05" title="Chajja Length" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="chW" value="0.50" step="0.05" title="Chajja Width" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+            <input type="number" id="chT" value="0.125" step="0.01" title="Chajja Thickness" class="px-2 py-1.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-xs font-mono">
+          </div>
+        </div>
+      </div>
+
+      <!-- Spiral Inputs (Type 5) -->
+      <div id="spiralInputs" class="hidden grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Outer Diameter (m)</label>
+          <input type="number" id="spOutD" value="2.40" step="0.05" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Center Column Dia (m)</label>
+          <input type="number" id="spColD" value="0.30" step="0.05" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Total Height (m)</label>
+          <input type="number" id="spH" value="3.0" step="0.1" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Number of Steps</label>
+          <input type="number" id="spSteps" value="20" min="1" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Step Thickness (m)</label>
+          <input type="number" id="spStepT" value="0.12" step="0.01" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-sm font-semibold outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Top Exit Landing L×W (m)</label>
+          <div class="grid grid-cols-2 gap-1">
+            <input type="number" id="spLandL" value="1.05" step="0.05" class="px-2 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-xs font-semibold">
+            <input type="number" id="spLandW" value="1.00" step="0.05" class="px-2 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-xs font-semibold">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right Panel: Schedule Table & RMC Plant Batch Requirement -->
+    <section class="lg:col-span-7 space-y-6">
+
+      <!-- Schedule Table -->
+      <div class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white">+ Total Combined Volume (m³ / CM)</h2>
+          <span id="typeTag" class="text-xs font-bold text-cyan-600 dark:text-cyan-400">Dog-Legged / U-Shape</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                <th class="py-2 px-2">Part</th>
+                <th class="py-2 px-2">Dimensions (m)</th>
+                <th class="py-2 px-2 text-center">QTY (Editable)</th>
+                <th class="py-2 px-2 text-right">Volume (m³)</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleBody" class="font-mono text-slate-800 dark:text-slate-200 divide-y divide-slate-100 dark:divide-slate-700/60"></tbody>
+            <tfoot>
+              <tr class="border-t-2 border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 font-bold">
+                <td colspan="3" class="py-2.5 px-2 text-slate-900 dark:text-white">TOTAL COMBINED VOLUME (incl. Wastage)</td>
+                <td id="totalVolumeCell" class="py-2.5 px-2 text-right font-mono text-base text-cyan-600 dark:text-cyan-400">0.000 m³</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- RMC Batch Material Requirement -->
+      <div class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-extrabold text-slate-900 dark:text-white">RMC Batch Material Requirement (<span id="gradeBadge">M25</span>)</h2>
+          <span id="totalBatchWt" class="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400">0 kg | 0.00 t</span>
+        </div>
+
+        <div id="batchGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"></div>
+
+        <div class="flex flex-wrap gap-2 pt-2 print:hidden">
+          <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition">🖨️ PDF Report</button>
+          <button id="copyBtn" class="px-4 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold transition">📋 Copy Summary</button>
+          <button id="waBtn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">💬 WhatsApp Share</button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 mt-12 py-8 text-xs text-slate-500 dark:text-slate-400 print:hidden">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <strong class="text-slate-900 dark:text-white">TheCalcHQ</strong> — Free Civil &amp; Engineering Calculators</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-cyan-500">All Calculators</a>
+        <a href="privacy-policy.html" class="hover:text-cyan-500">Privacy Policy</a>
+        <a href="about.html" class="hover:text-cyan-500">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const MIX_DESIGNS = {
+      M10: { cement: 160, flyash: 60, sand: 890, agg10: 455, agg20: 685, admix: 1.32, water: 185 },
+      M15: { cement: 190, flyash: 70, sand: 865, agg10: 450, agg20: 675, admix: 1.56, water: 185 },
+      M20: { cement: 240, flyash: 75, sand: 830, agg10: 445, agg20: 665, admix: 1.89, water: 186 },
+      M25: { cement: 280, flyash: 70, sand: 808, agg10: 439, agg20: 658, admix: 2.10, water: 188 },
+      M30: { cement: 332, flyash: 83, sand: 745, agg10: 439, agg20: 658, admix: 3.11, water: 189 },
+      M35: { cement: 362, flyash: 74, sand: 738, agg10: 435, agg20: 653, admix: 3.49, water: 189 },
+      M40: { cement: 380, flyash: 70, sand: 725, agg10: 435, agg20: 650, admix: 3.80, water: 185 },
+      M45: { cement: 400, flyash: 65, sand: 715, agg10: 430, agg20: 645, admix: 4.10, water: 182 },
+      M50: { cement: 420, flyash: 60, sand: 705, agg10: 430, agg20: 645, admix: 4.40, water: 178 }
+    };
+
+    const els = {
+      stairType: document.getElementById('stairType'),
+      concGrade: document.getElementById('concGrade'),
+      wastage: document.getElementById('wastage'),
+      rectInputs: document.getElementById('rectInputs'),
+      spiralInputs: document.getElementById('spiralInputs'),
+      landingBox: document.getElementById('landingBox'),
+      openWellBox: document.getElementById('openWellBox'),
+      landingLLabel: document.getElementById('landingLLabel'),
+      landingWLabel: document.getElementById('landingWLabel'),
+      floorH: document.getElementById('floorH'),
+      stairW: document.getElementById('stairW'),
+      riser: document.getElementById('riser'),
+      tread: document.getElementById('tread'),
+      waistT: document.getElementById('waistT'),
+      openGap: document.getElementById('openGap'),
+      landL: document.getElementById('landL'),
+      landW: document.getElementById('landW'),
+      b1L: document.getElementById('b1L'), b1W: document.getElementById('b1W'), b1D: document.getElementById('b1D'),
+      b2L: document.getElementById('b2L'), b2W: document.getElementById('b2W'), b2D: document.getElementById('b2D'),
+      chL: document.getElementById('chL'), chW: document.getElementById('chW'), chT: document.getElementById('chT'),
+      spOutD: document.getElementById('spOutD'),
+      spColD: document.getElementById('spColD'),
+      spH: document.getElementById('spH'),
+      spSteps: document.getElementById('spSteps'),
+      spStepT: document.getElementById('spStepT'),
+      spLandL: document.getElementById('spLandL'),
+      spLandW: document.getElementById('spLandW'),
+      scheduleBody: document.getElementById('scheduleBody'),
+      totalVolumeCell: document.getElementById('totalVolumeCell'),
+      gradeBadge: document.getElementById('gradeBadge'),
+      totalBatchWt: document.getElementById('totalBatchWt'),
+      batchGrid: document.getElementById('batchGrid'),
+      typeTag: document.getElementById('typeTag'),
+      copyBtn: document.getElementById('copyBtn'),
+      waBtn: document.getElementById('waBtn')
+    };
+
+    let customQty = {};
+
+    function updateTypeVisibility() {
+      const t = els.stairType.value;
+      customQty = {};
+      els.typeTag.textContent = els.stairType.options[els.stairType.selectedIndex].text;
+
+      if (t === 'spiral') {
+        els.rectInputs.classList.add('hidden');
+        els.spiralInputs.classList.remove('hidden');
+      } else {
+        els.rectInputs.classList.remove('hidden');
+        els.spiralInputs.classList.add('hidden');
+        if (t === 'straight') {
+          els.landingBox.classList.add('hidden');
+          els.openWellBox.classList.add('hidden');
+        } else if (t === 'dogged') {
+          els.landingBox.classList.remove('hidden');
+          els.openWellBox.classList.add('hidden');
+          els.landingLLabel.textContent = 'Mid-Landing Length (m)';
+          els.landingWLabel.textContent = 'Mid-Landing Width (m)';
+        } else if (t === 'lshape') {
+          els.landingBox.classList.remove('hidden');
+          els.openWellBox.classList.add('hidden');
+          els.landingLLabel.textContent = 'Corner Landing L (m)';
+          els.landingWLabel.textContent = 'Corner Landing W (m)';
+        } else if (t === 'openwell') {
+          els.landingBox.classList.remove('hidden');
+          els.openWellBox.classList.remove('hidden');
+          els.landingLLabel.textContent = 'Landing 1 & 2 L (m)';
+          els.landingWLabel.textContent = 'Landing 1 & 2 W (m)';
+        }
+      }
+      calculate();
+    }
+
+    function getRows() {
+      const t = els.stairType.value;
+      if (t === 'spiral') {
+        const outD = parseFloat(els.spOutD.value) || 2.4;
+        const colD = parseFloat(els.spColD.value) || 0.3;
+        const H = parseFloat(els.spH.value) || 3.0;
+        const nSteps = parseInt(els.spSteps.value, 10) || 20;
+        const stT = parseFloat(els.spStepT.value) || 0.12;
+        const lL = parseFloat(els.spLandL.value) || 1.05;
+        const lW = parseFloat(els.spLandW.value) || 1.0;
+
+        const colVol = (Math.PI / 4) * colD * colD * H;
+        const stepWidth = (outD - colD) / 2;
+        const avgArc = Math.PI * ((outD + colD) / 2) / nSteps;
+        const wedgeVolPerStep = stepWidth * avgArc * stT;
+        const landVol = lL * lW * stT;
+
+        return [
+          { key: 'col', name: 'Center RCC Column', dims: `${colD.toFixed(2)}m Dia × ${H.toFixed(2)}m`, defQty: 1, unitVol: colVol },
+          { key: 'wedges', name: 'Helical Wedge Steps', dims: `${stepWidth.toFixed(2)}m W × ${stT.toFixed(2)}m T`, defQty: nSteps, unitVol: wedgeVolPerStep },
+          { key: 'exit', name: 'Top Exit Landing Slab', dims: `${lL.toFixed(2)} × ${lW.toFixed(2)} × ${stT.toFixed(2)} m`, defQty: 1, unitVol: landVol }
+        ];
+      }
+
+      const H = parseFloat(els.floorH.value) || 3.0;
+      const W = parseFloat(els.stairW.value) || 1.05;
+      const R = parseFloat(els.riser.value) || 0.15;
+      const T = parseFloat(els.tread.value) || 0.25;
+      const WT = parseFloat(els.waistT.value) || 0.15;
+      const lL = parseFloat(els.landL.value) || 2.10;
+      const lW = parseFloat(els.landW.value) || 1.05;
+
+      const totalSteps = Math.max(1, Math.round(H / R));
+      const flights = t === 'straight' ? 1 : (t === 'openwell' ? 3 : 2);
+      const flightH = H / flights;
+      const flightSteps = totalSteps / flights;
+      const flightRun = flightSteps * T;
+      const inclinedL = Math.sqrt(flightH * flightH + flightRun * flightRun);
+
+      const stepVolPerUnit = 0.5 * R * T * W;
+      const waistVolPerFlight = inclinedL * W * WT;
+
+      const rows = [
+        { key: 'steps', name: 'Steps (Risers & Treads)', dims: `${R.toFixed(2)} × ${T.toFixed(2)} × ${W.toFixed(2)} m`, defQty: totalSteps, unitVol: stepVolPerUnit },
+        { key: 'waist', name: 'Waist Slab (Inclined)', dims: `${inclinedL.toFixed(2)} × ${W.toFixed(2)} × ${WT.toFixed(2)} m`, defQty: flights, unitVol: waistVolPerFlight }
+      ];
+
+      if (t !== 'straight') {
+        const landQty = t === 'openwell' ? 2 : 1;
+        const landLabel = t === 'dogged' ? 'Mid-Landing Slab' : (t === 'lshape' ? 'Square Corner Landing Slab' : 'Intermediate Landings');
+        rows.push({ key: 'land', name: landLabel, dims: `${lL.toFixed(2)} × ${lW.toFixed(2)} × ${WT.toFixed(2)} m`, defQty: landQty, unitVol: lL * lW * WT });
+      }
+
+      const b1V = (parseFloat(els.b1L.value)||0) * (parseFloat(els.b1W.value)||0) * (parseFloat(els.b1D.value)||0);
+      const b2V = (parseFloat(els.b2L.value)||0) * (parseFloat(els.b2W.value)||0) * (parseFloat(els.b2D.value)||0);
+      const chV = (parseFloat(els.chL.value)||0) * (parseFloat(els.chW.value)||0) * (parseFloat(els.chT.value)||0);
+
+      rows.push(
+        { key: 'b1', name: 'Staircase Beam 1', dims: `${els.b1L.value} × ${els.b1W.value} × ${els.b1D.value} m`, defQty: 1, unitVol: b1V },
+        { key: 'b2', name: 'Staircase Beam 2', dims: `${els.b2L.value} × ${els.b2W.value} × ${els.b2D.value} m`, defQty: 1, unitVol: b2V },
+        { key: 'ch', name: 'Cantilever Chajja / Canopy', dims: `${els.chL.value} × ${els.chW.value} × ${els.chT.value} m`, defQty: 1, unitVol: chV }
+      );
+      return rows;
+    }
+
+    function calculate() {
+      const rows = getRows();
+      const wast = (parseFloat(els.wastage.value) || 0) / 100;
+      let baseVol = 0;
+
+      els.scheduleBody.innerHTML = rows.map(r => {
+        const qty = customQty[r.key] !== undefined ? customQty[r.key] : r.defQty;
+        const rowVol = r.unitVol * qty;
+        baseVol += rowVol;
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-obsidian-700/40">
+            <td class="py-2 px-2 font-sans font-bold text-slate-900 dark:text-white">${r.name}</td>
+            <td class="py-2 px-2 text-slate-500 dark:text-slate-400">${r.dims}</td>
+            <td class="py-2 px-2 text-center">
+              <input type="number" min="0" value="${qty}" onchange="updateQty('${r.key}', this.value)" class="w-16 text-center px-1.5 py-1 rounded border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-xs font-bold outline-none focus:ring-1 focus:ring-cyan-500">
+            </td>
+            <td class="py-2 px-2 text-right font-bold text-cyan-600 dark:text-cyan-400">${rowVol.toFixed(3)} m³</td>
+          </tr>
+        `;
+      }).join('');
+
+      const totalVol = baseVol * (1 + wast);
+      els.totalVolumeCell.textContent = `${totalVol.toFixed(3)} m³`;
+
+      const gKey = els.concGrade.value;
+      els.gradeBadge.textContent = gKey;
+      const mix = MIX_DESIGNS[gKey];
+
+      const cementKg = mix.cement * totalVol;
+      const bags = cementKg / 50;
+      const flyashKg = mix.flyash * totalVol;
+      const sandKg = mix.sand * totalVol;
+      const a10Kg = mix.agg10 * totalVol;
+      const a20Kg = mix.agg20 * totalVol;
+      const admixKg = mix.admix * totalVol;
+      const waterKg = mix.water * totalVol;
+      const totWeight = cementKg + flyashKg + sandKg + a10Kg + a20Kg + admixKg + waterKg;
+
+      els.totalBatchWt.textContent = `~${Math.round(totWeight).toLocaleString()} kg | ~${(totWeight/1000).toFixed(2)} t`;
+
+      const cards = [
+        { label: 'Cement', val: `${Math.round(cementKg)} kg`, sub: `~${bags.toFixed(1)} Bags (50kg)`, cls: 'text-cyan-600 dark:text-cyan-400' },
+        { label: 'Flyash', val: `${Math.round(flyashKg)} kg`, sub: `${(flyashKg/1000).toFixed(2)} t`, cls: 'text-slate-700 dark:text-slate-300' },
+        { label: 'Sand', val: `${Math.round(sandKg)} kg`, sub: `${(sandKg/1000).toFixed(2)} t`, cls: 'text-slate-700 dark:text-slate-300' },
+        { label: '10mm Aggregate', val: `${Math.round(a10Kg)} kg`, sub: `${(a10Kg/1000).toFixed(2)} t`, cls: 'text-slate-700 dark:text-slate-300' },
+        { label: '20mm Aggregate', val: `${Math.round(a20Kg)} kg`, sub: `${(a20Kg/1000).toFixed(2)} t`, cls: 'text-slate-700 dark:text-slate-300' },
+        { label: 'Admixture', val: `${admixKg.toFixed(2)} kg`, sub: `${mix.admix} kg/m³`, cls: 'text-indigo-600 dark:text-indigo-400' },
+        { label: 'Water', val: `${Math.round(waterKg)} L`, sub: `${mix.water} L/m³`, cls: 'text-emerald-600 dark:text-emerald-400' }
+      ];
+
+      els.batchGrid.innerHTML = cards.map(c => `
+        <div class="p-3 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700">
+          <div class="text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px]">${c.label}</div>
+          <div class="font-mono font-black text-sm mt-0.5 ${c.cls}">${c.val}</div>
+          <div class="text-[11px] font-mono text-slate-400">${c.sub}</div>
+        </div>
+      `).join('');
+
+      window._lastBatchText = `TheCalcHQ Staircase Concrete & RMC Batch (${els.typeTag.textContent}, ${gKey}):\n• Total Volume: ${totalVol.toFixed(3)} m³\n• Cement: ${Math.round(cementKg)} kg (~${bags.toFixed(1)} Bags)\n• Flyash: ${Math.round(flyashKg)} kg\n• Sand: ${Math.round(sandKg)} kg\n• 10mm: ${Math.round(a10Kg)} kg | 20mm: ${Math.round(a20Kg)} kg\n• Water: ${Math.round(waterKg)} L\n• Total Batch Weight: ${els.totalBatchWt.textContent}\n\nCalculate at: https://thecalchq.com/staircase-calculator.html`;
+    }
+
+    window.updateQty = function(key, val) {
+      customQty[key] = Math.max(0, parseInt(val, 10) || 0);
+      calculate();
+    };
+
+    els.stairType.addEventListener('change', updateTypeVisibility);
+    document.querySelectorAll('input, select').forEach(el => {
+      if (el.id !== 'stairType') {
+        el.addEventListener('input', calculate);
+        el.addEventListener('change', calculate);
+      }
+    });
+
+    els.copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(window._lastBatchText || '');
+      els.copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => els.copyBtn.textContent = '📋 Copy Summary', 2000);
+    });
+    els.waBtn.addEventListener('click', () => {
+      window.open('https://wa.me/?text=' + encodeURIComponent(window._lastBatchText || ''), '_blank');
+    });
+
+    updateTypeVisibility();
+  </script>
+</body>
+</html>

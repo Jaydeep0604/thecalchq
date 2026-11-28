@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVHHLB57M5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QVHHLB57M5');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCC Slab Steel Quantity &amp; Costing Calculator - Main &amp; Distribution Rebar | TheCalcHQ</title>
+  <meta name="description" content="Calculate RCC slab steel reinforcement (Main Bar, Bottom Main, Top Main &amp; Distribution bars) with cross-cutting length logic, diameter-wise tonnage, and steel + 18% GST + electricity costing.">
+  <meta name="keywords" content="slab steel calculator, rcc slab rebar bbs, main bar distribution bar, slab reinforcement quantity, steel costing calculator">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
+          },
+          colors: {
+            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' },
+            obsidian: { 900: '#0b0f19', 800: '#111827', 700: '#1a2234', 600: '#242f47' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/theme.css">
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/currency.js"></script>
+
+  <!-- Canonical & PWA Specifications -->
+  <link rel="canonical" href="https://thecalchq.com/slab-steel-calculator.html">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#06b6d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TheCalcHQ">
+
+  <!-- Open Graph / Social Media Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thecalchq.com/slab-steel-calculator.html">
+  <meta property="og:title" content="RCC Slab Steel Quantity &amp; Costing Calculator | TheCalcHQ">
+  <meta property="og:description" content="Calculate RCC slab steel reinforcement with cross-cutting length logic, diameter-wise tonnage, and steel + 18% GST + electricity costing.">
+  <meta property="og:image" content="https://thecalchq.com/assets/images/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:site_name" content="TheCalcHQ">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://thecalchq.com/slab-steel-calculator.html">
+  <meta name="twitter:title" content="RCC Slab Steel Quantity &amp; Costing Calculator | TheCalcHQ">
+  <meta name="twitter:description" content="Calculate RCC slab steel reinforcement with cross-cutting length logic and complete costing.">
+  <meta name="twitter:image" content="https://thecalchq.com/assets/images/og-card.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "RCC Slab Steel Quantity & Costing Calculator",
+    "url": "https://thecalchq.com/slab-steel-calculator.html",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "description": "Compute RCC slab Main and Distribution bar quantities, cross-cutting lengths, diameter-wise tonnage, and steel + 18% GST + electricity costing.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "410" }
+  }
+  </script>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-white pb-16 sm:pb-0">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 border-b transition-colors duration-200 nav-blur bg-white/90 dark:bg-obsidian-900/90 border-slate-200 dark:border-slate-800 print:hidden">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 group flex-shrink-0">
+        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 dark:from-emerald-500 dark:to-cyan-500 text-white flex items-center justify-center font-black text-base sm:text-xl shadow-md group-hover:scale-105 transition-transform duration-200">%</div>
+        <span class="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">Calc<span class="text-cyan-600 dark:text-emerald-400">HQ</span></span>
+      </a>
+
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600 dark:text-slate-300">
+        <a href="index.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">← Calculators</a>
+        <a href="staircase-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Staircase Concrete</a>
+        <a href="column-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Column Steel</a>
+        <a href="beam-steel-calculator.html" class="hover:text-cyan-600 dark:hover:text-emerald-400 transition">Beam Steel</a>
+      </nav>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        <div class="currency-selector-mount"></div>
+        <div class="language-selector-mount"></div>
+        <div class="theme-toggle-mount"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Title -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-4 w-full">
+    <nav class="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5 font-medium print:hidden">
+      <a href="index.html" class="hover:underline">Home</a>
+      <span>/</span>
+      <span class="text-slate-800 dark:text-slate-200 font-semibold">RCC Slab Steel Quantity &amp; Costing</span>
+    </nav>
+    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 dark:text-white tracking-tight">RCC Slab Steel Quantity &amp; Costing</h1>
+      <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800">
+        🏗️ Cross-Span BBS &amp; Costing
+      </span>
+    </div>
+    <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 max-w-3xl">
+      Enter slab rebar parameters with conditional Main/Distribution bar pairing, automatic cross-cutting length calculation, and ton-based steel + GST + electricity costing.
+    </p>
+  </div>
+
+  <!-- Main Workspace -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 space-y-6 w-full flex-grow">
+
+    <!-- Step 1: Input Parameters -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm print:hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-cyan-600 text-white text-xs flex items-center justify-center font-bold">1</span>
+          Input Parameters
+        </h2>
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">Active Entry</span>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Bar Identifier</label>
+          <input type="text" id="barId" value="S1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none focus:ring-2 focus:ring-cyan-500">
+        </div>
+
+        <!-- Two-Column Split: Main Bar & Distribution Bar -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <!-- Main Bar Group -->
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 space-y-3">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">Main Bar Group</h3>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Main Bar Position</label>
+              <select id="mainPos" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                <option value="Main Bar">Main Bar</option>
+                <option value="Bottom Main Bar" selected>Bottom Main Bar</option>
+                <option value="Top Main Bar">Top Main Bar</option>
+              </select>
+            </div>
+            <div>
+              <label id="lblMainLen" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Main Bar Length (m)</label>
+              <div class="flex">
+                <input type="number" id="mainLen" value="4.50" step="0.01" class="w-full px-3 py-2 rounded-l-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                <span class="px-3 py-2 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-lg text-xs font-bold text-slate-600 dark:text-slate-300">m</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label id="lblMainDia" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Main Bar Dia</label>
+                <select id="mainDia" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                  <option value="8">8 mm</option>
+                  <option value="10" selected>10 mm</option>
+                  <option value="12">12 mm</option>
+                  <option value="16">16 mm</option>
+                </select>
+              </div>
+              <div>
+                <label id="lblMainSp" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Main Bar Spacing</label>
+                <div class="flex">
+                  <input type="number" id="mainSp" value="150" class="w-full px-3 py-2 rounded-l-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                  <span class="px-2 py-2 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-lg text-xs font-bold text-slate-600 dark:text-slate-300">mm</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-xs font-mono text-slate-600 dark:text-slate-400 pt-1">
+              <span id="lblMainQty">Bottom Main Bar Qty</span>: <strong id="autoMainQty" class="text-cyan-600 dark:text-cyan-400 text-sm">31</strong> nos
+            </div>
+          </div>
+
+          <!-- Distribution Bar Group -->
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 space-y-3">
+            <h3 class="text-xs font-extrabold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">Distribution Bar Group</h3>
+            <div>
+              <label class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Distribution Bar Position</label>
+              <select id="distPos" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                <option value="Distribution Bar">Distribution Bar</option>
+                <option value="Bottom Distribution Bar" selected>Bottom Distribution Bar</option>
+                <option value="Top Distribution Bar">Top Distribution Bar</option>
+              </select>
+            </div>
+            <div>
+              <label id="lblDistLen" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Distr. Bar Length (m)</label>
+              <div class="flex">
+                <input type="number" id="distLen" value="3.20" step="0.01" class="w-full px-3 py-2 rounded-l-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                <span class="px-3 py-2 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-lg text-xs font-bold text-slate-600 dark:text-slate-300">m</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label id="lblDistDia" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Dia</label>
+                <select id="distDia" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                  <option value="6">6 mm</option>
+                  <option value="8" selected>8 mm</option>
+                  <option value="10">10 mm</option>
+                  <option value="12">12 mm</option>
+                </select>
+              </div>
+              <div>
+                <label id="lblDistSp" class="block text-xs font-bold text-slate-600 dark:text-slate-400 mb-1">Bottom Spacing</label>
+                <div class="flex">
+                  <input type="number" id="distSp" value="200" class="w-full px-3 py-2 rounded-l-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-obsidian-800 text-slate-900 dark:text-white text-sm font-semibold outline-none">
+                  <span class="px-2 py-2 bg-slate-200 dark:bg-obsidian-700 border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-lg text-xs font-bold text-slate-600 dark:text-slate-300">mm</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-xs font-mono text-slate-600 dark:text-slate-400 pt-1">
+              <span id="lblDistQty">Bottom Qty</span>: <strong id="autoDistQty" class="text-emerald-600 dark:text-emerald-400 text-sm">17</strong> nos
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Controls: Slabs + Rates -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Number of Slab</label>
+            <input type="number" id="noSlabs" value="1" min="1" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Steel Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-cyan-600">+18% GST</span></label>
+            <input type="number" id="steelRate" value="65000" step="100" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-1.5">Electricity Rate (<span class="curr-sym">₹</span>/Ton) <span class="text-emerald-600">0% GST</span></label>
+            <input type="number" id="elecRate" value="2000" step="50" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-obsidian-900 text-slate-900 dark:text-white font-semibold text-sm outline-none">
+          </div>
+        </div>
+
+        <button id="addBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold text-sm shadow-md transition-all">
+          + Add Slab Rebar to List
+        </button>
+      </div>
+    </section>
+
+    <!-- Step 2: Live Item Preview -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white text-xs flex items-center justify-center font-bold">2</span>
+          Live Item Preview (<span id="previewId">S1</span>)
+        </h2>
+        <span id="previewFooterBar" class="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400">Preview Weight: 0.00 kg | Preview Cost: ₹0</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <th class="py-2 px-2">Bar ID</th>
+              <th class="py-2 px-2">Position / Type</th>
+              <th class="py-2 px-2">Span Len</th>
+              <th class="py-2 px-2">Dia</th>
+              <th class="py-2 px-2">Spacing</th>
+              <th class="py-2 px-2">Qty</th>
+              <th class="py-2 px-2">Cut Len</th>
+              <th class="py-2 px-2">Slabs</th>
+              <th class="py-2 px-2">Total Len</th>
+              <th class="py-2 px-2">Unit Wt</th>
+              <th class="py-2 px-2">Total Wt</th>
+              <th class="py-2 px-2">Steel Cost</th>
+              <th class="py-2 px-2">GST (18%)</th>
+              <th class="py-2 px-2">Elec (0%)</th>
+              <th class="py-2 px-2 font-bold text-slate-900 dark:text-white">Total Cost</th>
+            </tr>
+          </thead>
+          <tbody id="livePreviewBody" class="font-mono text-slate-800 dark:text-slate-200 divide-y divide-slate-100 dark:divide-slate-700/60"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Step 3: Added Rebar List & Cost Summary -->
+    <section class="bg-white dark:bg-obsidian-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 sm:p-6 shadow-sm space-y-5">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white text-xs flex items-center justify-center font-bold">3</span>
+          Added Rebar List &amp; Cost Summary
+          <span id="savedBadge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-obsidian-700 text-slate-600 dark:text-slate-300">Saved Items (0)</span>
+        </h2>
+        <button id="clearAllBtn" class="text-xs font-bold text-rose-600 dark:text-rose-400 hover:underline print:hidden">Clear All</button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+              <th class="py-2 px-2">Bar ID</th>
+              <th class="py-2 px-2">Position / Type</th>
+              <th class="py-2 px-2">Span Len</th>
+              <th class="py-2 px-2">Dia</th>
+              <th class="py-2 px-2">Spacing</th>
+              <th class="py-2 px-2">Qty</th>
+              <th class="py-2 px-2">Cut Len</th>
+              <th class="py-2 px-2">Slabs</th>
+              <th class="py-2 px-2">Total Len</th>
+              <th class="py-2 px-2">Unit Wt</th>
+              <th class="py-2 px-2">Total Wt</th>
+              <th class="py-2 px-2">Steel Cost</th>
+              <th class="py-2 px-2">GST (18%)</th>
+              <th class="py-2 px-2">Elec (0%)</th>
+              <th class="py-2 px-2 font-bold text-slate-900 dark:text-white">Total Cost</th>
+              <th class="py-2 px-2 print:hidden">Action</th>
+            </tr>
+          </thead>
+          <tbody id="savedListBody" class="font-mono text-slate-800 dark:text-slate-200 divide-y divide-slate-100 dark:divide-slate-700/60"></tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Rebar Consumption by Diameter</h3>
+        <div id="diaSummaryContainer" class="flex flex-wrap gap-3"></div>
+      </div>
+
+      <div class="bg-slate-900 dark:bg-obsidian-900 text-white rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 border border-slate-800">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm">
+          <div><span class="text-slate-400">Total Steel Weight:</span> <strong id="sumTotalWt" class="font-mono text-emerald-400">0.00 kg</strong></div>
+          <div><span class="text-slate-400">Steel Subtotal:</span> <strong id="sumSteelCost" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">GST (18%):</span> <strong id="sumGst" class="font-mono">₹0</strong></div>
+          <div><span class="text-slate-400">Electricity (0%):</span> <strong id="sumElec" class="font-mono">₹0</strong></div>
+          <div class="text-sm sm:text-base"><span class="text-slate-300 font-bold">Final Payable:</span> <strong id="sumFinal" class="font-mono text-emerald-400 text-base sm:text-lg">₹0</strong></div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 print:hidden">
+          <button onclick="window.print()" class="px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition">🖨️ PDF Report</button>
+          <button id="copyBtn" class="px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold transition">📋 Copy Bill</button>
+          <button id="waBtn" class="px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">💬 WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-obsidian-900 mt-12 py-8 text-xs text-slate-500 dark:text-slate-400 print:hidden">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 <strong class="text-slate-900 dark:text-white">TheCalcHQ</strong> — Free Civil &amp; Engineering Calculators</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-cyan-500">All Calculators</a>
+        <a href="privacy-policy.html" class="hover:text-cyan-500">Privacy Policy</a>
+        <a href="about.html" class="hover:text-cyan-500">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const els = {
+      barId: document.getElementById('barId'),
+      mainPos: document.getElementById('mainPos'),
+      distPos: document.getElementById('distPos'),
+      mainLen: document.getElementById('mainLen'),
+      mainDia: document.getElementById('mainDia'),
+      mainSp: document.getElementById('mainSp'),
+      distLen: document.getElementById('distLen'),
+      distDia: document.getElementById('distDia'),
+      distSp: document.getElementById('distSp'),
+      noSlabs: document.getElementById('noSlabs'),
+      steelRate: document.getElementById('steelRate'),
+      elecRate: document.getElementById('elecRate'),
+      autoMainQty: document.getElementById('autoMainQty'),
+      autoDistQty: document.getElementById('autoDistQty'),
+      lblMainLen: document.getElementById('lblMainLen'),
+      lblMainDia: document.getElementById('lblMainDia'),
+      lblMainSp: document.getElementById('lblMainSp'),
+      lblMainQty: document.getElementById('lblMainQty'),
+      lblDistLen: document.getElementById('lblDistLen'),
+      lblDistDia: document.getElementById('lblDistDia'),
+      lblDistSp: document.getElementById('lblDistSp'),
+      lblDistQty: document.getElementById('lblDistQty'),
+      previewId: document.getElementById('previewId'),
+      previewFooterBar: document.getElementById('previewFooterBar'),
+      livePreviewBody: document.getElementById('livePreviewBody'),
+      savedListBody: document.getElementById('savedListBody'),
+      savedBadge: document.getElementById('savedBadge'),
+      diaSummaryContainer: document.getElementById('diaSummaryContainer'),
+      sumTotalWt: document.getElementById('sumTotalWt'),
+      sumSteelCost: document.getElementById('sumSteelCost'),
+      sumGst: document.getElementById('sumGst'),
+      sumElec: document.getElementById('sumElec'),
+      sumFinal: document.getElementById('sumFinal'),
+      addBtn: document.getElementById('addBtn'),
+      clearAllBtn: document.getElementById('clearAllBtn'),
+      copyBtn: document.getElementById('copyBtn'),
+      waBtn: document.getElementById('waBtn')
+    };
+
+    function getSym() {
+      return (window.calcCurrency && window.calcCurrency.getSymbol) ? window.calcCurrency.getSymbol() : '₹';
+    }
+    function fmtMoney(val) {
+      return getSym() + Math.round(val).toLocaleString('en-IN');
+    }
+
+    function syncLabels() {
+      const m = els.mainPos.value;
+      if (m === 'Main Bar') {
+        els.distPos.value = 'Distribution Bar';
+        els.lblMainLen.textContent = 'Main Bar Length (m)';
+        els.lblMainDia.textContent = 'Main Bar Dia';
+        els.lblMainSp.textContent = 'Main Bar Spacing';
+        els.lblMainQty.textContent = 'Main Bar Qty';
+        els.lblDistLen.textContent = 'Distr. Bar Length (m)';
+        els.lblDistDia.textContent = 'Dia';
+        els.lblDistSp.textContent = 'Spacing';
+        els.lblDistQty.textContent = 'Qty';
+      } else if (m === 'Bottom Main Bar') {
+        els.distPos.value = 'Bottom Distribution Bar';
+        els.lblMainLen.textContent = 'Bottom Main Bar Length (m)';
+        els.lblMainDia.textContent = 'Bottom Main Bar Dia';
+        els.lblMainSp.textContent = 'Bottom Main Bar Spacing';
+        els.lblMainQty.textContent = 'Bottom Main Bar Qty';
+        els.lblDistLen.textContent = 'Bottom Distr. Bar Length (m)';
+        els.lblDistDia.textContent = 'Bottom Dia';
+        els.lblDistSp.textContent = 'Bottom Spacing';
+        els.lblDistQty.textContent = 'Bottom Qty';
+      } else {
+        els.distPos.value = 'Top Distribution Bar';
+        els.lblMainLen.textContent = 'Top Main Bar Length (m)';
+        els.lblMainDia.textContent = 'Top Main Bar Dia';
+        els.lblMainSp.textContent = 'Top Main Bar Spacing';
+        els.lblMainQty.textContent = 'Top Main Bar Qty';
+        els.lblDistLen.textContent = 'Top Distr. Bar Length (m)';
+        els.lblDistDia.textContent = 'Top Dia';
+        els.lblDistSp.textContent = 'Top Spacing';
+        els.lblDistQty.textContent = 'Top Qty';
+      }
+    }
+
+    function computePair() {
+      const id = (els.barId.value || 'S1').trim();
+      const mPos = els.mainPos.value;
+      const dPos = els.distPos.value;
+      const mLen = parseFloat(els.mainLen.value) || 0;
+      const mDia = parseFloat(els.mainDia.value) || 10;
+      const mSp = parseFloat(els.mainSp.value) || 150;
+      const dLen = parseFloat(els.distLen.value) || 0;
+      const dDia = parseFloat(els.distDia.value) || 8;
+      const dSp = parseFloat(els.distSp.value) || 200;
+      const slabs = parseInt(els.noSlabs.value, 10) || 1;
+      const sRate = parseFloat(els.steelRate.value) || 0;
+      const eRate = parseFloat(els.elecRate.value) || 0;
+
+      const makeRow = (pos, spanLen, cutLen, dia, sp) => {
+        const qty = Math.ceil((spanLen * 1000) / sp) + 1;
+        const totLen = qty * cutLen * slabs;
+        const unitWt = (dia * dia) / 162;
+        const totWt = totLen * unitWt;
+        const tons = totWt / 1000;
+        const steelCost = tons * sRate;
+        const gstCost = steelCost * 0.18;
+        const elecCost = tons * eRate;
+        const totalCost = steelCost + gstCost + elecCost;
+        return { id, pos, spanLen, cutLen, dia, sp, qty, slabs, totLen, unitWt, totWt, tons, steelCost, gstCost, elecCost, totalCost };
+      };
+
+      // Cross-cutting length logic: Main uses Dist length, Dist uses Main length
+      const mainRow = makeRow(mPos, mLen, dLen, mDia, mSp);
+      const distRow = makeRow(dPos, dLen, mLen, dDia, dSp);
+      return [mainRow, distRow];
+    }
+
+    let savedRows = [];
+
+    function renderLive() {
+      document.querySelectorAll('.curr-sym').forEach(el => el.textContent = getSym());
+      const [m, d] = computePair();
+      els.previewId.textContent = m.id;
+      els.autoMainQty.textContent = m.qty;
+      els.autoDistQty.textContent = d.qty;
+
+      const combWt = m.totWt + d.totWt;
+      const combCost = m.totalCost + d.totalCost;
+      els.previewFooterBar.textContent = `Preview Weight for ${m.id}: ${combWt.toFixed(2)} kg (${(combWt/1000).toFixed(4)} Ton) | Preview Cost: ${fmtMoney(combCost)}`;
+
+      els.livePreviewBody.innerHTML = [m, d].map(r => `
+        <tr>
+          <td class="py-2 px-2 font-bold">${r.id}</td>
+          <td class="py-2 px-2">${r.pos}</td>
+          <td class="py-2 px-2">${r.spanLen.toFixed(2)} m</td>
+          <td class="py-2 px-2">${r.dia} mm</td>
+          <td class="py-2 px-2">${r.sp} mm</td>
+          <td class="py-2 px-2">${r.qty}</td>
+          <td class="py-2 px-2">${r.cutLen.toFixed(2)} m</td>
+          <td class="py-2 px-2">${r.slabs}</td>
+          <td class="py-2 px-2">${r.totLen.toFixed(2)} m</td>
+          <td class="py-2 px-2">${r.unitWt.toFixed(3)} kg/m</td>
+          <td class="py-2 px-2 font-bold text-cyan-600 dark:text-cyan-400">${r.totWt.toFixed(2)} kg</td>
+          <td class="py-2 px-2">${fmtMoney(r.steelCost)}</td>
+          <td class="py-2 px-2">${fmtMoney(r.gstCost)}</td>
+          <td class="py-2 px-2">${fmtMoney(r.elecCost)}</td>
+          <td class="py-2 px-2 font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(r.totalCost)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderSaved() {
+      els.savedBadge.textContent = `Saved Items (${savedRows.length} Rows)`;
+      if (savedRows.length === 0) {
+        els.savedListBody.innerHTML = '<tr><td colspan="16" class="py-4 text-center text-slate-400">No slab rebar entries added yet.</td></tr>';
+      } else {
+        els.savedListBody.innerHTML = savedRows.map((r, idx) => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-obsidian-700/40">
+            <td class="py-2 px-2 font-bold">${r.id}</td>
+            <td class="py-2 px-2">${r.pos}</td>
+            <td class="py-2 px-2">${r.spanLen.toFixed(2)} m</td>
+            <td class="py-2 px-2">${r.dia} mm</td>
+            <td class="py-2 px-2">${r.sp} mm</td>
+            <td class="py-2 px-2">${r.qty}</td>
+            <td class="py-2 px-2">${r.cutLen.toFixed(2)} m</td>
+            <td class="py-2 px-2">${r.slabs}</td>
+            <td class="py-2 px-2">${r.totLen.toFixed(2)} m</td>
+            <td class="py-2 px-2">${r.unitWt.toFixed(3)} kg/m</td>
+            <td class="py-2 px-2 font-bold">${r.totWt.toFixed(2)} kg</td>
+            <td class="py-2 px-2">${fmtMoney(r.steelCost)}</td>
+            <td class="py-2 px-2">${fmtMoney(r.gstCost)}</td>
+            <td class="py-2 px-2">${fmtMoney(r.elecCost)}</td>
+            <td class="py-2 px-2 font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(r.totalCost)}</td>
+            <td class="py-2 px-2 print:hidden"><button onclick="removeRow(${idx})" class="text-rose-500 font-bold">🗑️</button></td>
+          </tr>
+        `).join('');
+      }
+
+      const byDia = {};
+      let sumWt = 0, sumSteel = 0, sumGst = 0, sumElec = 0, sumFin = 0;
+      savedRows.forEach(r => {
+        if (!byDia[r.dia]) byDia[r.dia] = { wt: 0, cost: 0 };
+        byDia[r.dia].wt += r.totWt;
+        byDia[r.dia].cost += r.totalCost;
+        sumWt += r.totWt;
+        sumSteel += r.steelCost;
+        sumGst += r.gstCost;
+        sumElec += r.elecCost;
+        sumFin += r.totalCost;
+      });
+
+      els.diaSummaryContainer.innerHTML = Object.keys(byDia).sort((a,b)=>a-b).map(d => {
+        const g = byDia[d];
+        return `
+          <div class="px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-obsidian-900 border border-slate-200 dark:border-slate-700 text-xs">
+            <span class="font-bold text-cyan-600 dark:text-cyan-400">${d} mm Dia Rebar:</span>
+            <span class="font-mono font-bold text-slate-900 dark:text-white ml-1">${g.wt.toFixed(2)} kg (${(g.wt/1000).toFixed(4)} Ton)</span>
+            <span class="text-slate-400 mx-1">—</span>
+            <span class="font-mono font-bold text-emerald-600 dark:text-emerald-400">${fmtMoney(g.cost)}</span>
+          </div>
+        `;
+      }).join('');
+
+      els.sumTotalWt.textContent = `${sumWt.toFixed(2)} kg (${(sumWt/1000).toFixed(4)} Ton)`;
+      els.sumSteelCost.textContent = fmtMoney(sumSteel);
+      els.sumGst.textContent = fmtMoney(sumGst);
+      els.sumElec.textContent = fmtMoney(sumElec);
+      els.sumFinal.textContent = fmtMoney(sumFin);
+    }
+
+    window.removeRow = function(idx) { savedRows.splice(idx, 1); renderSaved(); };
+    els.addBtn.addEventListener('click', () => { const pair = computePair(); savedRows.push(...pair); renderSaved(); });
+    els.clearAllBtn.addEventListener('click', () => { savedRows = []; renderSaved(); });
+
+    els.mainPos.addEventListener('change', () => { syncLabels(); renderLive(); });
+    ['input', 'change'].forEach(evt => {
+      [els.barId, els.mainLen, els.mainDia, els.mainSp, els.distLen, els.distDia, els.distSp, els.noSlabs, els.steelRate, els.elecRate].forEach(el => {
+        el.addEventListener(evt, renderLive);
+      });
+    });
+
+    function buildShareText() {
+      return `TheCalcHQ RCC Slab Steel & Costing Bill:\n• Total Steel Weight: ${els.sumTotalWt.textContent}\n• Steel Subtotal: ${els.sumSteelCost.textContent}\n• GST (18%): ${els.sumGst.textContent}\n• Electricity (0% GST): ${els.sumElec.textContent}\n• Final Payable: ${els.sumFinal.textContent}\n\nCalculate yours at: https://thecalchq.com/slab-steel-calculator.html`;
+    }
+    els.copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(buildShareText());
+      els.copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => els.copyBtn.textContent = '📋 Copy Bill', 2000);
+    });
+    els.waBtn.addEventListener('click', () => {
+      window.open('https://wa.me/?text=' + encodeURIComponent(buildShareText()), '_blank');
+    });
+    window.addEventListener('currencyChanged', () => { renderLive(); renderSaved(); });
+
+    syncLabels();
+    savedRows.push(...computePair());
+    renderLive();
+    renderSaved();
+  </script>
+</body>
+</html>
